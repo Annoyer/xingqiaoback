@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.OrgintroMapper" >
+  <resultMap id="BaseResultMap" type="model.Orgintro" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="org_id" property="orgId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="model.OrgintroWithBLOBs" extends="BaseResultMap" >
+    <result column="abstract" property="abstract" jdbcType="LONGVARCHAR" />
+    <result column="course" property="course" jdbcType="LONGVARCHAR" />
+    <result column="service" property="service" jdbcType="LONGVARCHAR" />
+    <result column="hardware" property="hardware" jdbcType="LONGVARCHAR" />
+    <result column="team" property="team" jdbcType="LONGVARCHAR" />
+    <result column="phone" property="phone" jdbcType="LONGVARCHAR" />
+    <result column="address" property="address" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, org_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    abstract, course, service, hardware, team, phone, address
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="model.OrgintroExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from orgintro
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="model.OrgintroExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from orgintro
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from orgintro
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from orgintro
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="model.OrgintroExample" >
+    delete from orgintro
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="model.OrgintroWithBLOBs" >
+    insert into orgintro (id, org_id, abstract, 
+      course, service, hardware, 
+      team, phone, address
+      )
+    values (#{id,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, #{abstract,jdbcType=LONGVARCHAR}, 
+      #{course,jdbcType=LONGVARCHAR}, #{service,jdbcType=LONGVARCHAR}, #{hardware,jdbcType=LONGVARCHAR}, 
+      #{team,jdbcType=LONGVARCHAR}, #{phone,jdbcType=LONGVARCHAR}, #{address,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="model.OrgintroWithBLOBs" >
+    insert into orgintro
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orgId != null" >
+        org_id,
+      </if>
+      <if test="abstract != null" >
+        abstract,
+      </if>
+      <if test="course != null" >
+        course,
+      </if>
+      <if test="service != null" >
+        service,
+      </if>
+      <if test="hardware != null" >
+        hardware,
+      </if>
+      <if test="team != null" >
+        team,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="abstract != null" >
+        #{abstract,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="course != null" >
+        #{course,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="service != null" >
+        #{service,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="hardware != null" >
+        #{hardware,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="team != null" >
+        #{team,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="model.OrgintroExample" resultType="java.lang.Integer" >
+    select count(*) from orgintro
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update orgintro
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orgId != null" >
+        org_id = #{record.orgId,jdbcType=INTEGER},
+      </if>
+      <if test="record.abstract != null" >
+        abstract = #{record.abstract,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.course != null" >
+        course = #{record.course,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.service != null" >
+        service = #{record.service,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.hardware != null" >
+        hardware = #{record.hardware,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.team != null" >
+        team = #{record.team,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update orgintro
+    set id = #{record.id,jdbcType=INTEGER},
+      org_id = #{record.orgId,jdbcType=INTEGER},
+      abstract = #{record.abstract,jdbcType=LONGVARCHAR},
+      course = #{record.course,jdbcType=LONGVARCHAR},
+      service = #{record.service,jdbcType=LONGVARCHAR},
+      hardware = #{record.hardware,jdbcType=LONGVARCHAR},
+      team = #{record.team,jdbcType=LONGVARCHAR},
+      phone = #{record.phone,jdbcType=LONGVARCHAR},
+      address = #{record.address,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update orgintro
+    set id = #{record.id,jdbcType=INTEGER},
+      org_id = #{record.orgId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="model.OrgintroWithBLOBs" >
+    update orgintro
+    <set >
+      <if test="orgId != null" >
+        org_id = #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="abstract != null" >
+        abstract = #{abstract,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="course != null" >
+        course = #{course,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="service != null" >
+        service = #{service,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="hardware != null" >
+        hardware = #{hardware,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="team != null" >
+        team = #{team,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="model.OrgintroWithBLOBs" >
+    update orgintro
+    set org_id = #{orgId,jdbcType=INTEGER},
+      abstract = #{abstract,jdbcType=LONGVARCHAR},
+      course = #{course,jdbcType=LONGVARCHAR},
+      service = #{service,jdbcType=LONGVARCHAR},
+      hardware = #{hardware,jdbcType=LONGVARCHAR},
+      team = #{team,jdbcType=LONGVARCHAR},
+      phone = #{phone,jdbcType=LONGVARCHAR},
+      address = #{address,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="model.Orgintro" >
+    update orgintro
+    set org_id = #{orgId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

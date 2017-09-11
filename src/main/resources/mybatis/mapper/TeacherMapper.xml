@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.TeacherMapper" >
+  <resultMap id="BaseResultMap" type="model.Teacher" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="abstractTeacher" property="abstractteacher" jdbcType="VARCHAR" />
+    <result column="price_t" property="priceT" jdbcType="INTEGER" />
+    <result column="price_s" property="priceS" jdbcType="INTEGER" />
+    <result column="price_o" property="priceO" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="experience_age" property="experienceAge" jdbcType="INTEGER" />
+    <result column="price_min" property="priceMin" jdbcType="INTEGER" />
+    <result column="price_max" property="priceMax" jdbcType="INTEGER" />
+    <result column="price_mid" property="priceMid" jdbcType="INTEGER" />
+    <result column="is_pass" property="isPass" jdbcType="INTEGER" />
+    <result column="pid_url_front" property="pidUrlFront" jdbcType="VARCHAR" />
+    <result column="pid_url_back" property="pidUrlBack" jdbcType="VARCHAR" />
+    <result column="detailAddress" property="detailaddress" jdbcType="VARCHAR" />
+    <result column="people_pid_url" property="peoplePidUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="model.TeacherWithBLOBs" extends="BaseResultMap" >
+    <result column="address" property="address" jdbcType="LONGVARCHAR" />
+    <result column="unit" property="unit" jdbcType="LONGVARCHAR" />
+    <result column="available_time" property="availableTime" jdbcType="LONGVARCHAR" />
+    <result column="s_ground" property="sGround" jdbcType="LONGVARCHAR" />
+    <result column="t_ground" property="tGround" jdbcType="LONGVARCHAR" />
+    <result column="domain" property="domain" jdbcType="LONGVARCHAR" />
+    <result column="question" property="question" jdbcType="LONGVARCHAR" />
+    <result column="object" property="object" jdbcType="LONGVARCHAR" />
+    <result column="project" property="project" jdbcType="LONGVARCHAR" />
+    <result column="way" property="way" jdbcType="LONGVARCHAR" />
+    <result column="school" property="school" jdbcType="LONGVARCHAR" />
+    <result column="award" property="award" jdbcType="LONGVARCHAR" />
+    <result column="certificate" property="certificate" jdbcType="LONGVARCHAR" />
+    <result column="recovery_his" property="recoveryHis" jdbcType="LONGVARCHAR" />
+    <result column="success_case" property="successCase" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, name, pid, abstractTeacher, price_t, price_s, price_o, level, experience_age, 
+    price_min, price_max, price_mid, is_pass, pid_url_front, pid_url_back, detailAddress, 
+    people_pid_url
+  </sql>
+  <sql id="Blob_Column_List" >
+    address, unit, available_time, s_ground, t_ground, domain, question, object, project, 
+    way, school, award, certificate, recovery_his, success_case
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="model.TeacherExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="model.TeacherExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from teacher
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from teacher
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="model.TeacherExample" >
+    delete from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="model.TeacherWithBLOBs" >
+    insert into teacher (id, user_id, name, 
+      pid, abstractTeacher, price_t, 
+      price_s, price_o, level, 
+      experience_age, price_min, price_max, 
+      price_mid, is_pass, pid_url_front, 
+      pid_url_back, detailAddress, people_pid_url, 
+      address, unit, available_time, 
+      s_ground, t_ground, domain, 
+      question, object, project, 
+      way, school, award, 
+      certificate, recovery_his, success_case
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{pid,jdbcType=VARCHAR}, #{abstractteacher,jdbcType=VARCHAR}, #{priceT,jdbcType=INTEGER}, 
+      #{priceS,jdbcType=INTEGER}, #{priceO,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
+      #{experienceAge,jdbcType=INTEGER}, #{priceMin,jdbcType=INTEGER}, #{priceMax,jdbcType=INTEGER}, 
+      #{priceMid,jdbcType=INTEGER}, #{isPass,jdbcType=INTEGER}, #{pidUrlFront,jdbcType=VARCHAR}, 
+      #{pidUrlBack,jdbcType=VARCHAR}, #{detailaddress,jdbcType=VARCHAR}, #{peoplePidUrl,jdbcType=VARCHAR}, 
+      #{address,jdbcType=LONGVARCHAR}, #{unit,jdbcType=LONGVARCHAR}, #{availableTime,jdbcType=LONGVARCHAR}, 
+      #{sGround,jdbcType=LONGVARCHAR}, #{tGround,jdbcType=LONGVARCHAR}, #{domain,jdbcType=LONGVARCHAR}, 
+      #{question,jdbcType=LONGVARCHAR}, #{object,jdbcType=LONGVARCHAR}, #{project,jdbcType=LONGVARCHAR}, 
+      #{way,jdbcType=LONGVARCHAR}, #{school,jdbcType=LONGVARCHAR}, #{award,jdbcType=LONGVARCHAR}, 
+      #{certificate,jdbcType=LONGVARCHAR}, #{recoveryHis,jdbcType=LONGVARCHAR}, #{successCase,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="model.TeacherWithBLOBs" >
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="abstractteacher != null" >
+        abstractTeacher,
+      </if>
+      <if test="priceT != null" >
+        price_t,
+      </if>
+      <if test="priceS != null" >
+        price_s,
+      </if>
+      <if test="priceO != null" >
+        price_o,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="experienceAge != null" >
+        experience_age,
+      </if>
+      <if test="priceMin != null" >
+        price_min,
+      </if>
+      <if test="priceMax != null" >
+        price_max,
+      </if>
+      <if test="priceMid != null" >
+        price_mid,
+      </if>
+      <if test="isPass != null" >
+        is_pass,
+      </if>
+      <if test="pidUrlFront != null" >
+        pid_url_front,
+      </if>
+      <if test="pidUrlBack != null" >
+        pid_url_back,
+      </if>
+      <if test="detailaddress != null" >
+        detailAddress,
+      </if>
+      <if test="peoplePidUrl != null" >
+        people_pid_url,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="availableTime != null" >
+        available_time,
+      </if>
+      <if test="sGround != null" >
+        s_ground,
+      </if>
+      <if test="tGround != null" >
+        t_ground,
+      </if>
+      <if test="domain != null" >
+        domain,
+      </if>
+      <if test="question != null" >
+        question,
+      </if>
+      <if test="object != null" >
+        object,
+      </if>
+      <if test="project != null" >
+        project,
+      </if>
+      <if test="way != null" >
+        way,
+      </if>
+      <if test="school != null" >
+        school,
+      </if>
+      <if test="award != null" >
+        award,
+      </if>
+      <if test="certificate != null" >
+        certificate,
+      </if>
+      <if test="recoveryHis != null" >
+        recovery_his,
+      </if>
+      <if test="successCase != null" >
+        success_case,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="abstractteacher != null" >
+        #{abstractteacher,jdbcType=VARCHAR},
+      </if>
+      <if test="priceT != null" >
+        #{priceT,jdbcType=INTEGER},
+      </if>
+      <if test="priceS != null" >
+        #{priceS,jdbcType=INTEGER},
+      </if>
+      <if test="priceO != null" >
+        #{priceO,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="experienceAge != null" >
+        #{experienceAge,jdbcType=INTEGER},
+      </if>
+      <if test="priceMin != null" >
+        #{priceMin,jdbcType=INTEGER},
+      </if>
+      <if test="priceMax != null" >
+        #{priceMax,jdbcType=INTEGER},
+      </if>
+      <if test="priceMid != null" >
+        #{priceMid,jdbcType=INTEGER},
+      </if>
+      <if test="isPass != null" >
+        #{isPass,jdbcType=INTEGER},
+      </if>
+      <if test="pidUrlFront != null" >
+        #{pidUrlFront,jdbcType=VARCHAR},
+      </if>
+      <if test="pidUrlBack != null" >
+        #{pidUrlBack,jdbcType=VARCHAR},
+      </if>
+      <if test="detailaddress != null" >
+        #{detailaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="peoplePidUrl != null" >
+        #{peoplePidUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="availableTime != null" >
+        #{availableTime,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="sGround != null" >
+        #{sGround,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="tGround != null" >
+        #{tGround,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="domain != null" >
+        #{domain,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="question != null" >
+        #{question,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="object != null" >
+        #{object,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="project != null" >
+        #{project,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="way != null" >
+        #{way,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="award != null" >
+        #{award,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="certificate != null" >
+        #{certificate,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="recoveryHis != null" >
+        #{recoveryHis,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="successCase != null" >
+        #{successCase,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="model.TeacherExample" resultType="java.lang.Integer" >
+    select count(*) from teacher
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update teacher
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.abstractteacher != null" >
+        abstractTeacher = #{record.abstractteacher,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priceT != null" >
+        price_t = #{record.priceT,jdbcType=INTEGER},
+      </if>
+      <if test="record.priceS != null" >
+        price_s = #{record.priceS,jdbcType=INTEGER},
+      </if>
+      <if test="record.priceO != null" >
+        price_o = #{record.priceO,jdbcType=INTEGER},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.experienceAge != null" >
+        experience_age = #{record.experienceAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.priceMin != null" >
+        price_min = #{record.priceMin,jdbcType=INTEGER},
+      </if>
+      <if test="record.priceMax != null" >
+        price_max = #{record.priceMax,jdbcType=INTEGER},
+      </if>
+      <if test="record.priceMid != null" >
+        price_mid = #{record.priceMid,jdbcType=INTEGER},
+      </if>
+      <if test="record.isPass != null" >
+        is_pass = #{record.isPass,jdbcType=INTEGER},
+      </if>
+      <if test="record.pidUrlFront != null" >
+        pid_url_front = #{record.pidUrlFront,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pidUrlBack != null" >
+        pid_url_back = #{record.pidUrlBack,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailaddress != null" >
+        detailAddress = #{record.detailaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.peoplePidUrl != null" >
+        people_pid_url = #{record.peoplePidUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.unit != null" >
+        unit = #{record.unit,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.availableTime != null" >
+        available_time = #{record.availableTime,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.sGround != null" >
+        s_ground = #{record.sGround,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.tGround != null" >
+        t_ground = #{record.tGround,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.domain != null" >
+        domain = #{record.domain,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.question != null" >
+        question = #{record.question,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.object != null" >
+        object = #{record.object,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.project != null" >
+        project = #{record.project,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.way != null" >
+        way = #{record.way,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.school != null" >
+        school = #{record.school,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.award != null" >
+        award = #{record.award,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.certificate != null" >
+        certificate = #{record.certificate,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.recoveryHis != null" >
+        recovery_his = #{record.recoveryHis,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.successCase != null" >
+        success_case = #{record.successCase,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update teacher
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      pid = #{record.pid,jdbcType=VARCHAR},
+      abstractTeacher = #{record.abstractteacher,jdbcType=VARCHAR},
+      price_t = #{record.priceT,jdbcType=INTEGER},
+      price_s = #{record.priceS,jdbcType=INTEGER},
+      price_o = #{record.priceO,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=INTEGER},
+      experience_age = #{record.experienceAge,jdbcType=INTEGER},
+      price_min = #{record.priceMin,jdbcType=INTEGER},
+      price_max = #{record.priceMax,jdbcType=INTEGER},
+      price_mid = #{record.priceMid,jdbcType=INTEGER},
+      is_pass = #{record.isPass,jdbcType=INTEGER},
+      pid_url_front = #{record.pidUrlFront,jdbcType=VARCHAR},
+      pid_url_back = #{record.pidUrlBack,jdbcType=VARCHAR},
+      detailAddress = #{record.detailaddress,jdbcType=VARCHAR},
+      people_pid_url = #{record.peoplePidUrl,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=LONGVARCHAR},
+      unit = #{record.unit,jdbcType=LONGVARCHAR},
+      available_time = #{record.availableTime,jdbcType=LONGVARCHAR},
+      s_ground = #{record.sGround,jdbcType=LONGVARCHAR},
+      t_ground = #{record.tGround,jdbcType=LONGVARCHAR},
+      domain = #{record.domain,jdbcType=LONGVARCHAR},
+      question = #{record.question,jdbcType=LONGVARCHAR},
+      object = #{record.object,jdbcType=LONGVARCHAR},
+      project = #{record.project,jdbcType=LONGVARCHAR},
+      way = #{record.way,jdbcType=LONGVARCHAR},
+      school = #{record.school,jdbcType=LONGVARCHAR},
+      award = #{record.award,jdbcType=LONGVARCHAR},
+      certificate = #{record.certificate,jdbcType=LONGVARCHAR},
+      recovery_his = #{record.recoveryHis,jdbcType=LONGVARCHAR},
+      success_case = #{record.successCase,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update teacher
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      pid = #{record.pid,jdbcType=VARCHAR},
+      abstractTeacher = #{record.abstractteacher,jdbcType=VARCHAR},
+      price_t = #{record.priceT,jdbcType=INTEGER},
+      price_s = #{record.priceS,jdbcType=INTEGER},
+      price_o = #{record.priceO,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=INTEGER},
+      experience_age = #{record.experienceAge,jdbcType=INTEGER},
+      price_min = #{record.priceMin,jdbcType=INTEGER},
+      price_max = #{record.priceMax,jdbcType=INTEGER},
+      price_mid = #{record.priceMid,jdbcType=INTEGER},
+      is_pass = #{record.isPass,jdbcType=INTEGER},
+      pid_url_front = #{record.pidUrlFront,jdbcType=VARCHAR},
+      pid_url_back = #{record.pidUrlBack,jdbcType=VARCHAR},
+      detailAddress = #{record.detailaddress,jdbcType=VARCHAR},
+      people_pid_url = #{record.peoplePidUrl,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="model.TeacherWithBLOBs" >
+    update teacher
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="abstractteacher != null" >
+        abstractTeacher = #{abstractteacher,jdbcType=VARCHAR},
+      </if>
+      <if test="priceT != null" >
+        price_t = #{priceT,jdbcType=INTEGER},
+      </if>
+      <if test="priceS != null" >
+        price_s = #{priceS,jdbcType=INTEGER},
+      </if>
+      <if test="priceO != null" >
+        price_o = #{priceO,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="experienceAge != null" >
+        experience_age = #{experienceAge,jdbcType=INTEGER},
+      </if>
+      <if test="priceMin != null" >
+        price_min = #{priceMin,jdbcType=INTEGER},
+      </if>
+      <if test="priceMax != null" >
+        price_max = #{priceMax,jdbcType=INTEGER},
+      </if>
+      <if test="priceMid != null" >
+        price_mid = #{priceMid,jdbcType=INTEGER},
+      </if>
+      <if test="isPass != null" >
+        is_pass = #{isPass,jdbcType=INTEGER},
+      </if>
+      <if test="pidUrlFront != null" >
+        pid_url_front = #{pidUrlFront,jdbcType=VARCHAR},
+      </if>
+      <if test="pidUrlBack != null" >
+        pid_url_back = #{pidUrlBack,jdbcType=VARCHAR},
+      </if>
+      <if test="detailaddress != null" >
+        detailAddress = #{detailaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="peoplePidUrl != null" >
+        people_pid_url = #{peoplePidUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="availableTime != null" >
+        available_time = #{availableTime,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="sGround != null" >
+        s_ground = #{sGround,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="tGround != null" >
+        t_ground = #{tGround,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="domain != null" >
+        domain = #{domain,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="question != null" >
+        question = #{question,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="object != null" >
+        object = #{object,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="project != null" >
+        project = #{project,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="way != null" >
+        way = #{way,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="school != null" >
+        school = #{school,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="award != null" >
+        award = #{award,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="certificate != null" >
+        certificate = #{certificate,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="recoveryHis != null" >
+        recovery_his = #{recoveryHis,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="successCase != null" >
+        success_case = #{successCase,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="model.TeacherWithBLOBs" >
+    update teacher
+    set user_id = #{userId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=VARCHAR},
+      abstractTeacher = #{abstractteacher,jdbcType=VARCHAR},
+      price_t = #{priceT,jdbcType=INTEGER},
+      price_s = #{priceS,jdbcType=INTEGER},
+      price_o = #{priceO,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      experience_age = #{experienceAge,jdbcType=INTEGER},
+      price_min = #{priceMin,jdbcType=INTEGER},
+      price_max = #{priceMax,jdbcType=INTEGER},
+      price_mid = #{priceMid,jdbcType=INTEGER},
+      is_pass = #{isPass,jdbcType=INTEGER},
+      pid_url_front = #{pidUrlFront,jdbcType=VARCHAR},
+      pid_url_back = #{pidUrlBack,jdbcType=VARCHAR},
+      detailAddress = #{detailaddress,jdbcType=VARCHAR},
+      people_pid_url = #{peoplePidUrl,jdbcType=VARCHAR},
+      address = #{address,jdbcType=LONGVARCHAR},
+      unit = #{unit,jdbcType=LONGVARCHAR},
+      available_time = #{availableTime,jdbcType=LONGVARCHAR},
+      s_ground = #{sGround,jdbcType=LONGVARCHAR},
+      t_ground = #{tGround,jdbcType=LONGVARCHAR},
+      domain = #{domain,jdbcType=LONGVARCHAR},
+      question = #{question,jdbcType=LONGVARCHAR},
+      object = #{object,jdbcType=LONGVARCHAR},
+      project = #{project,jdbcType=LONGVARCHAR},
+      way = #{way,jdbcType=LONGVARCHAR},
+      school = #{school,jdbcType=LONGVARCHAR},
+      award = #{award,jdbcType=LONGVARCHAR},
+      certificate = #{certificate,jdbcType=LONGVARCHAR},
+      recovery_his = #{recoveryHis,jdbcType=LONGVARCHAR},
+      success_case = #{successCase,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="model.Teacher" >
+    update teacher
+    set user_id = #{userId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=VARCHAR},
+      abstractTeacher = #{abstractteacher,jdbcType=VARCHAR},
+      price_t = #{priceT,jdbcType=INTEGER},
+      price_s = #{priceS,jdbcType=INTEGER},
+      price_o = #{priceO,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      experience_age = #{experienceAge,jdbcType=INTEGER},
+      price_min = #{priceMin,jdbcType=INTEGER},
+      price_max = #{priceMax,jdbcType=INTEGER},
+      price_mid = #{priceMid,jdbcType=INTEGER},
+      is_pass = #{isPass,jdbcType=INTEGER},
+      pid_url_front = #{pidUrlFront,jdbcType=VARCHAR},
+      pid_url_back = #{pidUrlBack,jdbcType=VARCHAR},
+      detailAddress = #{detailaddress,jdbcType=VARCHAR},
+      people_pid_url = #{peoplePidUrl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
