@@ -1,7 +1,7 @@
 package model;
 
 public class OrgintroWithBLOBs extends Orgintro {
-    private String organization_abstract;
+    private String orgintroAbstract;
 
     private String course;
 
@@ -16,11 +16,11 @@ public class OrgintroWithBLOBs extends Orgintro {
     private String address;
 
     public String getAbstract() {
-        return organization_abstract;
+        return orgintroAbstract;
     }
 
-    public void setAbstract(String organization_abstract) {
-        this.organization_abstract = organization_abstract == null ? null : organization_abstract.trim();
+    public void setAbstract(String orgintroAbstract) {
+        this.orgintroAbstract = orgintroAbstract == null ? null : orgintroAbstract.trim();
     }
 
     public String getCourse() {

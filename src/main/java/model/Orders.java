@@ -45,6 +45,8 @@ public class Orders {
 
     private String payWay;
 
+    private String trace;
+
     public String getId() {
         return id;
     }
@@ -219,5 +221,13 @@ public class Orders {
 
     public void setPayWay(String payWay) {
         this.payWay = payWay == null ? null : payWay.trim();
+    }
+
+    public String getTrace() {
+        return trace;
+    }
+
+    public void setTrace(String trace) {
+        this.trace = trace == null ? null : trace.trim();
     }
 }

@@ -7,9 +7,9 @@ public class Message {
 
     private Integer userId;
 
-    private Integer isRead;
-
     private String time;
+
+    private Integer isRead;
 
     public Integer getId() {
         return id;
@@ -35,19 +35,19 @@ public class Message {
         this.userId = userId;
     }
 
-    public Integer getIsRead() {
-        return isRead;
-    }
-
-    public void setIsRead(Integer isRead) {
-        this.isRead = isRead;
-    }
-
     public String getTime() {
         return time;
     }
 
     public void setTime(String time) {
         this.time = time == null ? null : time.trim();
+    }
+
+    public Integer getIsRead() {
+        return isRead;
+    }
+
+    public void setIsRead(Integer isRead) {
+        this.isRead = isRead;
     }
 }

@@ -24,6 +24,7 @@
     <result column="pay" property="pay" jdbcType="INTEGER" />
     <result column="trade_no" property="tradeNo" jdbcType="VARCHAR" />
     <result column="pay_way" property="payWay" jdbcType="VARCHAR" />
+    <result column="trace" property="trace" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="model.OrdersWithBLOBs" extends="BaseResultMap" >
     <result column="initialevaluated" property="initialevaluated" jdbcType="LONGVARCHAR" />
@@ -92,7 +93,7 @@
   <sql id="Base_Column_List" >
     id, teacher_id, parent_id, demand_id, recover_ob, reason, status_p, status_t, s_time, 
     e_time, isdeleted, amount, preferential, integral, realpay, cid, way, totalpay, complete, 
-    pay, trade_no, pay_way
+    pay, trade_no, pay_way, trace
   </sql>
   <sql id="Blob_Column_List" >
     initialevaluated, effectevaluated, remark, server_time
@@ -153,8 +154,9 @@
       preferential, integral, realpay, 
       cid, way, totalpay, 
       complete, pay, trade_no, 
-      pay_way, initialevaluated, effectevaluated, 
-      remark, server_time)
+      pay_way, trace, initialevaluated, 
+      effectevaluated, remark, server_time
+      )
     values (#{id,jdbcType=VARCHAR}, #{teacherId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, 
       #{demandId,jdbcType=INTEGER}, #{recoverOb,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, 
       #{statusP,jdbcType=INTEGER}, #{statusT,jdbcType=INTEGER}, #{sTime,jdbcType=VARCHAR}, 
@@ -162,8 +164,9 @@
       #{preferential,jdbcType=INTEGER}, #{integral,jdbcType=INTEGER}, #{realpay,jdbcType=DOUBLE}, 
       #{cid,jdbcType=INTEGER}, #{way,jdbcType=VARCHAR}, #{totalpay,jdbcType=DOUBLE}, 
       #{complete,jdbcType=INTEGER}, #{pay,jdbcType=INTEGER}, #{tradeNo,jdbcType=VARCHAR}, 
-      #{payWay,jdbcType=VARCHAR}, #{initialevaluated,jdbcType=LONGVARCHAR}, #{effectevaluated,jdbcType=LONGVARCHAR}, 
-      #{remark,jdbcType=LONGVARCHAR}, #{serverTime,jdbcType=LONGVARCHAR})
+      #{payWay,jdbcType=VARCHAR}, #{trace,jdbcType=VARCHAR}, #{initialevaluated,jdbcType=LONGVARCHAR}, 
+      #{effectevaluated,jdbcType=LONGVARCHAR}, #{remark,jdbcType=LONGVARCHAR}, #{serverTime,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="model.OrdersWithBLOBs" >
     insert into orders
@@ -233,6 +236,9 @@
       </if>
       <if test="payWay != null" >
         pay_way,
+      </if>
+      <if test="trace != null" >
+        trace,
       </if>
       <if test="initialevaluated != null" >
         initialevaluated,
@@ -313,6 +319,9 @@
       </if>
       <if test="payWay != null" >
         #{payWay,jdbcType=VARCHAR},
+      </if>
+      <if test="trace != null" >
+        #{trace,jdbcType=VARCHAR},
       </if>
       <if test="initialevaluated != null" >
         #{initialevaluated,jdbcType=LONGVARCHAR},
@@ -403,6 +412,9 @@
       <if test="record.payWay != null" >
         pay_way = #{record.payWay,jdbcType=VARCHAR},
       </if>
+      <if test="record.trace != null" >
+        trace = #{record.trace,jdbcType=VARCHAR},
+      </if>
       <if test="record.initialevaluated != null" >
         initialevaluated = #{record.initialevaluated,jdbcType=LONGVARCHAR},
       </if>
@@ -444,6 +456,7 @@
       pay = #{record.pay,jdbcType=INTEGER},
       trade_no = #{record.tradeNo,jdbcType=VARCHAR},
       pay_way = #{record.payWay,jdbcType=VARCHAR},
+      trace = #{record.trace,jdbcType=VARCHAR},
       initialevaluated = #{record.initialevaluated,jdbcType=LONGVARCHAR},
       effectevaluated = #{record.effectevaluated,jdbcType=LONGVARCHAR},
       remark = #{record.remark,jdbcType=LONGVARCHAR},
@@ -475,7 +488,8 @@
       complete = #{record.complete,jdbcType=INTEGER},
       pay = #{record.pay,jdbcType=INTEGER},
       trade_no = #{record.tradeNo,jdbcType=VARCHAR},
-      pay_way = #{record.payWay,jdbcType=VARCHAR}
+      pay_way = #{record.payWay,jdbcType=VARCHAR},
+      trace = #{record.trace,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -546,6 +560,9 @@
       <if test="payWay != null" >
         pay_way = #{payWay,jdbcType=VARCHAR},
       </if>
+      <if test="trace != null" >
+        trace = #{trace,jdbcType=VARCHAR},
+      </if>
       <if test="initialevaluated != null" >
         initialevaluated = #{initialevaluated,jdbcType=LONGVARCHAR},
       </if>
@@ -584,6 +601,7 @@
       pay = #{pay,jdbcType=INTEGER},
       trade_no = #{tradeNo,jdbcType=VARCHAR},
       pay_way = #{payWay,jdbcType=VARCHAR},
+      trace = #{trace,jdbcType=VARCHAR},
       initialevaluated = #{initialevaluated,jdbcType=LONGVARCHAR},
       effectevaluated = #{effectevaluated,jdbcType=LONGVARCHAR},
       remark = #{remark,jdbcType=LONGVARCHAR},
@@ -612,7 +630,8 @@
       complete = #{complete,jdbcType=INTEGER},
       pay = #{pay,jdbcType=INTEGER},
       trade_no = #{tradeNo,jdbcType=VARCHAR},
-      pay_way = #{payWay,jdbcType=VARCHAR}
+      pay_way = #{payWay,jdbcType=VARCHAR},
+      trace = #{trace,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

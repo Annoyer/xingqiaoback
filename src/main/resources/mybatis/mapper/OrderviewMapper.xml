@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.OrderviewMapper" >
+  <resultMap id="BaseResultMap" type="model.Orderview" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="teacher_id" property="teacherId" jdbcType="INTEGER" />
+    <result column="teacher_name" property="teacherName" jdbcType="VARCHAR" />
+    <result column="demand_id" property="demandId" jdbcType="INTEGER" />
+    <result column="demand_name" property="demandName" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="parent_name" property="parentName" jdbcType="VARCHAR" />
+    <result column="complete" property="complete" jdbcType="INTEGER" />
+    <result column="isdeleted" property="isdeleted" jdbcType="BIT" />
+    <result column="s_time" property="sTime" jdbcType="VARCHAR" />
+    <result column="recover_ob" property="recoverOb" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, teacher_id, teacher_name, demand_id, demand_name, parent_id, parent_name, complete, 
+    isdeleted, s_time, recover_ob
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="model.OrderviewExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from orderview
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="model.OrderviewExample" >
+    delete from orderview
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="model.Orderview" >
+    insert into orderview (id, teacher_id, teacher_name, 
+      demand_id, demand_name, parent_id, 
+      parent_name, complete, isdeleted, 
+      s_time, recover_ob)
+    values (#{id,jdbcType=VARCHAR}, #{teacherId,jdbcType=INTEGER}, #{teacherName,jdbcType=VARCHAR}, 
+      #{demandId,jdbcType=INTEGER}, #{demandName,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+      #{parentName,jdbcType=VARCHAR}, #{complete,jdbcType=INTEGER}, #{isdeleted,jdbcType=BIT}, 
+      #{sTime,jdbcType=VARCHAR}, #{recoverOb,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="model.Orderview" >
+    insert into orderview
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="teacherId != null" >
+        teacher_id,
+      </if>
+      <if test="teacherName != null" >
+        teacher_name,
+      </if>
+      <if test="demandId != null" >
+        demand_id,
+      </if>
+      <if test="demandName != null" >
+        demand_name,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="parentName != null" >
+        parent_name,
+      </if>
+      <if test="complete != null" >
+        complete,
+      </if>
+      <if test="isdeleted != null" >
+        isdeleted,
+      </if>
+      <if test="sTime != null" >
+        s_time,
+      </if>
+      <if test="recoverOb != null" >
+        recover_ob,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherName != null" >
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="demandId != null" >
+        #{demandId,jdbcType=INTEGER},
+      </if>
+      <if test="demandName != null" >
+        #{demandName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="parentName != null" >
+        #{parentName,jdbcType=VARCHAR},
+      </if>
+      <if test="complete != null" >
+        #{complete,jdbcType=INTEGER},
+      </if>
+      <if test="isdeleted != null" >
+        #{isdeleted,jdbcType=BIT},
+      </if>
+      <if test="sTime != null" >
+        #{sTime,jdbcType=VARCHAR},
+      </if>
+      <if test="recoverOb != null" >
+        #{recoverOb,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="model.OrderviewExample" resultType="java.lang.Integer" >
+    select count(*) from orderview
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT * FROM orderview
+  </select>
+    <update id="updateByExampleSelective" parameterType="map" >
+    update orderview
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherId != null" >
+        teacher_id = #{record.teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="record.teacherName != null" >
+        teacher_name = #{record.teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.demandId != null" >
+        demand_id = #{record.demandId,jdbcType=INTEGER},
+      </if>
+      <if test="record.demandName != null" >
+        demand_name = #{record.demandName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentName != null" >
+        parent_name = #{record.parentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.complete != null" >
+        complete = #{record.complete,jdbcType=INTEGER},
+      </if>
+      <if test="record.isdeleted != null" >
+        isdeleted = #{record.isdeleted,jdbcType=BIT},
+      </if>
+      <if test="record.sTime != null" >
+        s_time = #{record.sTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recoverOb != null" >
+        recover_ob = #{record.recoverOb,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update orderview
+    set id = #{record.id,jdbcType=VARCHAR},
+      teacher_id = #{record.teacherId,jdbcType=INTEGER},
+      teacher_name = #{record.teacherName,jdbcType=VARCHAR},
+      demand_id = #{record.demandId,jdbcType=INTEGER},
+      demand_name = #{record.demandName,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      parent_name = #{record.parentName,jdbcType=VARCHAR},
+      complete = #{record.complete,jdbcType=INTEGER},
+      isdeleted = #{record.isdeleted,jdbcType=BIT},
+      s_time = #{record.sTime,jdbcType=VARCHAR},
+      recover_ob = #{record.recoverOb,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

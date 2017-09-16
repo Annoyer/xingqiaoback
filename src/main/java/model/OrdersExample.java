@@ -1503,6 +1503,76 @@ public class OrdersExample {
             addCriterion("pay_way not between", value1, value2, "payWay");
             return (Criteria) this;
         }
+
+        public Criteria andTraceIsNull() {
+            addCriterion("trace is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTraceIsNotNull() {
+            addCriterion("trace is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTraceEqualTo(String value) {
+            addCriterion("trace =", value, "trace");
+            return (Criteria) this;
+        }
+
+        public Criteria andTraceNotEqualTo(String value) {
+            addCriterion("trace <>", value, "trace");
+            return (Criteria) this;
+        }
+
+        public Criteria andTraceGreaterThan(String value) {
+            addCriterion("trace >", value, "trace");
+            return (Criteria) this;
+        }
+
+        public Criteria andTraceGreaterThanOrEqualTo(String value) {
+            addCriterion("trace >=", value, "trace");
+            return (Criteria) this;
+        }
+
+        public Criteria andTraceLessThan(String value) {
+            addCriterion("trace <", value, "trace");
+            return (Criteria) this;
+        }
+
+        public Criteria andTraceLessThanOrEqualTo(String value) {
+            addCriterion("trace <=", value, "trace");
+            return (Criteria) this;
+        }
+
+        public Criteria andTraceLike(String value) {
+            addCriterion("trace like", value, "trace");
+            return (Criteria) this;
+        }
+
+        public Criteria andTraceNotLike(String value) {
+            addCriterion("trace not like", value, "trace");
+            return (Criteria) this;
+        }
+
+        public Criteria andTraceIn(List<String> values) {
+            addCriterion("trace in", values, "trace");
+            return (Criteria) this;
+        }
+
+        public Criteria andTraceNotIn(List<String> values) {
+            addCriterion("trace not in", values, "trace");
+            return (Criteria) this;
+        }
+
+        public Criteria andTraceBetween(String value1, String value2) {
+            addCriterion("trace between", value1, value2, "trace");
+            return (Criteria) this;
+        }
+
+        public Criteria andTraceNotBetween(String value1, String value2) {
+            addCriterion("trace not between", value1, value2, "trace");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

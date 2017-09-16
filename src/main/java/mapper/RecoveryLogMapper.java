@@ -20,6 +20,8 @@ public interface RecoveryLogMapper {
 
     List<RecoveryLog> selectByExample(RecoveryLogExample example);
 
+    List<RecoveryLog> selectByOrderId(String orderId);
+
     RecoveryLog selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") RecoveryLog record, @Param("example") RecoveryLogExample example);

@@ -6,7 +6,7 @@
     <result column="org_id" property="orgId" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="model.OrgintroWithBLOBs" extends="BaseResultMap" >
-    <result column="abstract" property="abstract" jdbcType="LONGVARCHAR" />
+    <result column="abstract" property="orgintroAbstract" jdbcType="LONGVARCHAR" />
     <result column="course" property="course" jdbcType="LONGVARCHAR" />
     <result column="service" property="service" jdbcType="LONGVARCHAR" />
     <result column="hardware" property="hardware" jdbcType="LONGVARCHAR" />

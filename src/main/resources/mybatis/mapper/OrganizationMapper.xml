@@ -10,7 +10,7 @@
     <result column="district" property="district" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="model.OrganizationWithBLOBs" extends="BaseResultMap" >
-    <result column="abstract" property="organization_abstract" jdbcType="LONGVARCHAR" />
+    <result column="abstract" property="organizationAbstract" jdbcType="LONGVARCHAR" />
     <result column="introduce" property="introduce" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >

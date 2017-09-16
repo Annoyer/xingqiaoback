@@ -16,19 +16,7 @@ import java.util.Map;
  * Created by joy12 on 2017/9/11.
  */
 @Controller
-public class TestController {
-    @Resource
-    protected IOrderService orderService;
-
-    @RequestMapping(value = "/jsp/test/getOrderByOrderId", method = RequestMethod.POST)
-    @ResponseBody
-    public Map getOrderById(@RequestParam("orderId") String orderId) {
-        Orders order = orderService.getOrderById("10999");
-        Map result = new HashMap();
-        result.put("order",order);
-        return result;
-    }
-
+public class MainController {
     @RequestMapping(value = "/jsp/main")
     public String toRegister() {
         return "main";

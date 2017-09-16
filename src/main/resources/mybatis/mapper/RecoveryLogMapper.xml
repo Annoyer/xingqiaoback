@@ -187,7 +187,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+    <select id="selectByOrderId" resultMap="BaseResultMap">
+      select * from recovery_log where order_id=#{orderId,jdbcType=VARCHAR}
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
     update recovery_log
     <set >
       <if test="record.id != null" >

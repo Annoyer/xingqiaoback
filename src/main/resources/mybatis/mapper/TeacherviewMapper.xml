@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.TeacherviewMapper" >
+  <resultMap id="BaseResultMap" type="model.Teacherview" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="abstractTeacher" property="abstractteacher" jdbcType="VARCHAR" />
+    <result column="experience_age" property="experienceAge" jdbcType="INTEGER" />
+    <result column="price_s" property="priceS" jdbcType="INTEGER" />
+    <result column="price_t" property="priceT" jdbcType="INTEGER" />
+    <result column="price_o" property="priceO" jdbcType="INTEGER" />
+    <result column="detailAddress" property="detailaddress" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="model.TeacherviewWithBLOBs" extends="BaseResultMap" >
+    <result column="school" property="school" jdbcType="LONGVARCHAR" />
+    <result column="unit" property="unit" jdbcType="LONGVARCHAR" />
+    <result column="certificate" property="certificate" jdbcType="LONGVARCHAR" />
+    <result column="award" property="award" jdbcType="LONGVARCHAR" />
+    <result column="recovery_his" property="recoveryHis" jdbcType="LONGVARCHAR" />
+    <result column="success_case" property="successCase" jdbcType="LONGVARCHAR" />
+    <result column="domain" property="domain" jdbcType="LONGVARCHAR" />
+    <result column="object" property="object" jdbcType="LONGVARCHAR" />
+    <result column="way" property="way" jdbcType="LONGVARCHAR" />
+    <result column="available_time" property="availableTime" jdbcType="LONGVARCHAR" />
+    <result column="s_ground" property="sGround" jdbcType="LONGVARCHAR" />
+    <result column="t_ground" property="tGround" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, name, level, abstractTeacher, experience_age, price_s, price_t, price_o, 
+    detailAddress, gender, phone, email, username
+  </sql>
+  <sql id="Blob_Column_List" >
+    school, unit, certificate, award, recovery_his, success_case, domain, object, way, 
+    available_time, s_ground, t_ground
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="model.TeacherviewExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from teacherview
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="model.TeacherviewExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from teacherview
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="model.TeacherviewExample" >
+    delete from teacherview
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="model.TeacherviewWithBLOBs" >
+    insert into teacherview (id, user_id, name, 
+      level, abstractTeacher, experience_age, 
+      price_s, price_t, price_o, 
+      detailAddress, gender, phone, 
+      email, username, school, 
+      unit, certificate, award, 
+      recovery_his, success_case, domain, 
+      object, way, available_time, 
+      s_ground, t_ground)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{level,jdbcType=INTEGER}, #{abstractteacher,jdbcType=VARCHAR}, #{experienceAge,jdbcType=INTEGER}, 
+      #{priceS,jdbcType=INTEGER}, #{priceT,jdbcType=INTEGER}, #{priceO,jdbcType=INTEGER}, 
+      #{detailaddress,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{school,jdbcType=LONGVARCHAR}, 
+      #{unit,jdbcType=LONGVARCHAR}, #{certificate,jdbcType=LONGVARCHAR}, #{award,jdbcType=LONGVARCHAR}, 
+      #{recoveryHis,jdbcType=LONGVARCHAR}, #{successCase,jdbcType=LONGVARCHAR}, #{domain,jdbcType=LONGVARCHAR}, 
+      #{object,jdbcType=LONGVARCHAR}, #{way,jdbcType=LONGVARCHAR}, #{availableTime,jdbcType=LONGVARCHAR}, 
+      #{sGround,jdbcType=LONGVARCHAR}, #{tGround,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="model.TeacherviewWithBLOBs" >
+    insert into teacherview
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="abstractteacher != null" >
+        abstractTeacher,
+      </if>
+      <if test="experienceAge != null" >
+        experience_age,
+      </if>
+      <if test="priceS != null" >
+        price_s,
+      </if>
+      <if test="priceT != null" >
+        price_t,
+      </if>
+      <if test="priceO != null" >
+        price_o,
+      </if>
+      <if test="detailaddress != null" >
+        detailAddress,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="school != null" >
+        school,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="certificate != null" >
+        certificate,
+      </if>
+      <if test="award != null" >
+        award,
+      </if>
+      <if test="recoveryHis != null" >
+        recovery_his,
+      </if>
+      <if test="successCase != null" >
+        success_case,
+      </if>
+      <if test="domain != null" >
+        domain,
+      </if>
+      <if test="object != null" >
+        object,
+      </if>
+      <if test="way != null" >
+        way,
+      </if>
+      <if test="availableTime != null" >
+        available_time,
+      </if>
+      <if test="sGround != null" >
+        s_ground,
+      </if>
+      <if test="tGround != null" >
+        t_ground,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="abstractteacher != null" >
+        #{abstractteacher,jdbcType=VARCHAR},
+      </if>
+      <if test="experienceAge != null" >
+        #{experienceAge,jdbcType=INTEGER},
+      </if>
+      <if test="priceS != null" >
+        #{priceS,jdbcType=INTEGER},
+      </if>
+      <if test="priceT != null" >
+        #{priceT,jdbcType=INTEGER},
+      </if>
+      <if test="priceO != null" >
+        #{priceO,jdbcType=INTEGER},
+      </if>
+      <if test="detailaddress != null" >
+        #{detailaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="certificate != null" >
+        #{certificate,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="award != null" >
+        #{award,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="recoveryHis != null" >
+        #{recoveryHis,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="successCase != null" >
+        #{successCase,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="domain != null" >
+        #{domain,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="object != null" >
+        #{object,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="way != null" >
+        #{way,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="availableTime != null" >
+        #{availableTime,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="sGround != null" >
+        #{sGround,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="tGround != null" >
+        #{tGround,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="model.TeacherviewExample" resultType="java.lang.Integer" >
+    select count(*) from teacherview
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+    <select id="selectByTeacherId" resultMap="ResultMapWithBLOBs">
+      SELECT * FROM teacherview WHERE id=#{teacherId,jdbcType=INTEGER}
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
+    update teacherview
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.abstractteacher != null" >
+        abstractTeacher = #{record.abstractteacher,jdbcType=VARCHAR},
+      </if>
+      <if test="record.experienceAge != null" >
+        experience_age = #{record.experienceAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.priceS != null" >
+        price_s = #{record.priceS,jdbcType=INTEGER},
+      </if>
+      <if test="record.priceT != null" >
+        price_t = #{record.priceT,jdbcType=INTEGER},
+      </if>
+      <if test="record.priceO != null" >
+        price_o = #{record.priceO,jdbcType=INTEGER},
+      </if>
+      <if test="record.detailaddress != null" >
+        detailAddress = #{record.detailaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null" >
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.school != null" >
+        school = #{record.school,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.unit != null" >
+        unit = #{record.unit,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.certificate != null" >
+        certificate = #{record.certificate,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.award != null" >
+        award = #{record.award,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.recoveryHis != null" >
+        recovery_his = #{record.recoveryHis,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.successCase != null" >
+        success_case = #{record.successCase,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.domain != null" >
+        domain = #{record.domain,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.object != null" >
+        object = #{record.object,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.way != null" >
+        way = #{record.way,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.availableTime != null" >
+        available_time = #{record.availableTime,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.sGround != null" >
+        s_ground = #{record.sGround,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.tGround != null" >
+        t_ground = #{record.tGround,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update teacherview
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=INTEGER},
+      abstractTeacher = #{record.abstractteacher,jdbcType=VARCHAR},
+      experience_age = #{record.experienceAge,jdbcType=INTEGER},
+      price_s = #{record.priceS,jdbcType=INTEGER},
+      price_t = #{record.priceT,jdbcType=INTEGER},
+      price_o = #{record.priceO,jdbcType=INTEGER},
+      detailAddress = #{record.detailaddress,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      school = #{record.school,jdbcType=LONGVARCHAR},
+      unit = #{record.unit,jdbcType=LONGVARCHAR},
+      certificate = #{record.certificate,jdbcType=LONGVARCHAR},
+      award = #{record.award,jdbcType=LONGVARCHAR},
+      recovery_his = #{record.recoveryHis,jdbcType=LONGVARCHAR},
+      success_case = #{record.successCase,jdbcType=LONGVARCHAR},
+      domain = #{record.domain,jdbcType=LONGVARCHAR},
+      object = #{record.object,jdbcType=LONGVARCHAR},
+      way = #{record.way,jdbcType=LONGVARCHAR},
+      available_time = #{record.availableTime,jdbcType=LONGVARCHAR},
+      s_ground = #{record.sGround,jdbcType=LONGVARCHAR},
+      t_ground = #{record.tGround,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update teacherview
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=INTEGER},
+      abstractTeacher = #{record.abstractteacher,jdbcType=VARCHAR},
+      experience_age = #{record.experienceAge,jdbcType=INTEGER},
+      price_s = #{record.priceS,jdbcType=INTEGER},
+      price_t = #{record.priceT,jdbcType=INTEGER},
+      price_o = #{record.priceO,jdbcType=INTEGER},
+      detailAddress = #{record.detailaddress,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
