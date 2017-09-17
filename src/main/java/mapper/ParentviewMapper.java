@@ -16,6 +16,8 @@ public interface ParentviewMapper {
 
     List<Parentview> selectByExample(ParentviewExample example);
 
+    List<Parentview> selectAll();
+
     Parentview selectByParentId(Integer parentId);
 
     int updateByExampleSelective(@Param("record") Parentview record, @Param("example") ParentviewExample example);

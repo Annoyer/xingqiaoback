@@ -21,4 +21,6 @@ public interface OrderviewMapper {
     int updateByExampleSelective(@Param("record") Orderview record, @Param("example") OrderviewExample example);
 
     int updateByExample(@Param("record") Orderview record, @Param("example") OrderviewExample example);
+
+    List<Integer> selectTeacherIdByParentId(int parentId);
 }

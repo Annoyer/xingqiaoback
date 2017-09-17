@@ -170,6 +170,9 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT * FROM parentview
+  </select>
     <select id="selectByParentId" resultMap="BaseResultMap">
       SELECT * FROM parentview WHERE id=#{parentId,jdbcType=INTEGER}
     </select>

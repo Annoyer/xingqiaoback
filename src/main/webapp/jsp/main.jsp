@@ -59,13 +59,10 @@
                             <a class="J_menuItem" href="teacher.html" data-index="0">治疗师管理</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="parent.html">家长管理</a>
+                            <a class="J_menuItem" href="parents">家长管理</a>
                         </li>
                     </ul>
 
-                </li>
-                <li>
-                    <a class="J_menuItem" href="demand.html"><i class="fa fa-tasks"></i> <span class="nav-label">病历管理</span></a>
                 </li>
                 <!--订单管理-->
                 <li>

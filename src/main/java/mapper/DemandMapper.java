@@ -34,4 +34,6 @@ public interface DemandMapper {
     int updateByPrimaryKeyWithBLOBs(DemandWithBLOBs record);
 
     int updateByPrimaryKey(Demand record);
+
+    List<Demand> selectByUserId(int userId);
 }
