@@ -126,12 +126,15 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="model.OrgintroWithBLOBs" >
+    <delete id="deleteByOrgId">
+      delete from orgintro WHERE org_id=#{orgId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="model.OrgintroWithBLOBs" >
     insert into orgintro (id, org_id, abstract, 
       course, service, hardware, 
       team, phone, address
       )
-    values (#{id,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, #{abstract,jdbcType=LONGVARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{orgId,jdbcType=INTEGER}, #{orgintroAbstract,jdbcType=LONGVARCHAR},
       #{course,jdbcType=LONGVARCHAR}, #{service,jdbcType=LONGVARCHAR}, #{hardware,jdbcType=LONGVARCHAR}, 
       #{team,jdbcType=LONGVARCHAR}, #{phone,jdbcType=LONGVARCHAR}, #{address,jdbcType=LONGVARCHAR}
       )
@@ -175,7 +178,7 @@
         #{orgId,jdbcType=INTEGER},
       </if>
       <if test="abstract != null" >
-        #{abstract,jdbcType=LONGVARCHAR},
+        #{orgintroAbstract,jdbcType=LONGVARCHAR},
       </if>
       <if test="course != null" >
         #{course,jdbcType=LONGVARCHAR},
@@ -203,7 +206,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+    <select id="selectByOrgId" resultMap="ResultMapWithBLOBs">
+      select * from orgintro where org_id=#{id,jdbcType=INTEGER}
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
     update orgintro
     <set >
       <if test="record.id != null" >
@@ -213,7 +219,7 @@
         org_id = #{record.orgId,jdbcType=INTEGER},
       </if>
       <if test="record.abstract != null" >
-        abstract = #{record.abstract,jdbcType=LONGVARCHAR},
+        abstract = #{record.orgintroAbstract,jdbcType=LONGVARCHAR},
       </if>
       <if test="record.course != null" >
         course = #{record.course,jdbcType=LONGVARCHAR},
@@ -242,7 +248,7 @@
     update orgintro
     set id = #{record.id,jdbcType=INTEGER},
       org_id = #{record.orgId,jdbcType=INTEGER},
-      abstract = #{record.abstract,jdbcType=LONGVARCHAR},
+      abstract = #{record.orgintroAbstract,jdbcType=LONGVARCHAR},
       course = #{record.course,jdbcType=LONGVARCHAR},
       service = #{record.service,jdbcType=LONGVARCHAR},
       hardware = #{record.hardware,jdbcType=LONGVARCHAR},
@@ -268,7 +274,7 @@
         org_id = #{orgId,jdbcType=INTEGER},
       </if>
       <if test="abstract != null" >
-        abstract = #{abstract,jdbcType=LONGVARCHAR},
+        abstract = #{orgintroAbstract,jdbcType=LONGVARCHAR},
       </if>
       <if test="course != null" >
         course = #{course,jdbcType=LONGVARCHAR},
@@ -294,7 +300,7 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="model.OrgintroWithBLOBs" >
     update orgintro
     set org_id = #{orgId,jdbcType=INTEGER},
-      abstract = #{abstract,jdbcType=LONGVARCHAR},
+      abstract = #{orgintroAbstract,jdbcType=LONGVARCHAR},
       course = #{course,jdbcType=LONGVARCHAR},
       service = #{service,jdbcType=LONGVARCHAR},
       hardware = #{hardware,jdbcType=LONGVARCHAR},

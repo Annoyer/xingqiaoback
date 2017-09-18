@@ -17,6 +17,8 @@ public interface OrganizationMapper {
 
     int insertSelective(OrganizationWithBLOBs record);
 
+    int insertSelectiveRet(OrganizationWithBLOBs record);
+
     List<OrganizationWithBLOBs> selectByExampleWithBLOBs(OrganizationExample example);
 
     List<Organization> selectByExample(OrganizationExample example);

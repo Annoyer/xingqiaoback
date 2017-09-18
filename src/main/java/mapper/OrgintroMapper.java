@@ -11,6 +11,8 @@ public interface OrgintroMapper {
 
     int deleteByExample(OrgintroExample example);
 
+    int deleteByOrgId(Integer orgId);
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(OrgintroWithBLOBs record);
@@ -22,6 +24,8 @@ public interface OrgintroMapper {
     List<Orgintro> selectByExample(OrgintroExample example);
 
     OrgintroWithBLOBs selectByPrimaryKey(Integer id);
+
+    OrgintroWithBLOBs selectByOrgId(Integer id);
 
     int updateByExampleSelective(@Param("record") OrgintroWithBLOBs record, @Param("example") OrgintroExample example);
 
