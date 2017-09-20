@@ -28,7 +28,7 @@ public class OrganizationController {
     IOrganizationService organizationService;
 
     @RequestMapping(value = "/jsp/organizations")
-    public ModelAndView toOrders() {
+    public ModelAndView toOrganization() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("organizations");
         mv.addObject("organizations", organizationService.getAllOrganizationsFromView());
@@ -39,66 +39,38 @@ public class OrganizationController {
     @ResponseBody
     public Map<String,Object> getSingleOrg(@RequestParam("organizationId") Integer orgId) {
         Map<String,Object> result = new HashMap<>();
-//        result.put("orgbrief",organizationService.getOrganizationById(orgId));
-        result.put("result","success");
         result.put("orgintro",organizationService.getOrgintroById(orgId));
         return result;
     }
 
     @RequestMapping(value = "/jsp/addOrg", method = RequestMethod.POST)
-    public ModelAndView addOrg(HttpServletRequest request) throws UnsupportedEncodingException {
-        request.setCharacterEncoding("UTF-8");
-        OrganizationWithBLOBs organization = new OrganizationWithBLOBs();
-        System.out.println("abs::" + request.getParameter("abstract"));
-        organization.setName(request.getParameter("name"));
-        organization.setNumpeople(Integer.parseInt(request.getParameter("numPeople")));
-        organization.setProvince(request.getParameter("province"));
-        organization.setCity(request.getParameter("city"));
-        organization.setDistrict(request.getParameter("district"));
-        organization.setAbstract("xxx");
-        organization.setIntroduce("xxx");
-        OrgintroWithBLOBs orgintro = new OrgintroWithBLOBs();
-        orgintro.setAbstract(request.getParameter("abstract"));
-        orgintro.setAddress(request.getParameter("address"));
-        orgintro.setCourse(request.getParameter("course"));
-        orgintro.setHardware(request.getParameter("hardware"));
-        orgintro.setPhone(request.getParameter("phone"));
-        orgintro.setService(request.getParameter("service"));
-        orgintro.setTeam(request.getParameter("team"));
+    public ModelAndView addOrg(OrganizationWithBLOBs org, OrgintroWithBLOBs orgintro, HttpServletRequest request) throws UnsupportedEncodingException {
+        if (org != null && orgintro != null){
+            org.setAbstract(request.getParameter("abstract"));
+            org.setAbstract("xxx");
+            org.setIntroduce("xxx");
+            orgintro.setAbstract(request.getParameter("abstract"));
+            organizationService.addOrganization(org,orgintro);
+        }
 
-        organizationService.addOrganization(organization,orgintro);
-
-        ModelAndView result = new ModelAndView("organizations");
-        return result;
+        return toOrganization();
     }
 
     @RequestMapping(value = "/jsp/modifyOrg", method = RequestMethod.POST)
-    public ModelAndView modifyOrg(HttpServletRequest request) throws UnsupportedEncodingException {
-        request.setCharacterEncoding("UTF-8");
-        Integer id = Integer.parseInt(request.getParameter("id"));
-        OrganizationWithBLOBs organization = new OrganizationWithBLOBs();
-        organization.setId(id);
-        organization.setName(request.getParameter("name"));
-        organization.setNumpeople(Integer.parseInt(request.getParameter("numPeople")));
-        organization.setProvince(request.getParameter("province"));
-        organization.setCity(request.getParameter("city"));
-        organization.setDistrict(request.getParameter("district"));
-        organization.setAbstract("xxx");
-        organization.setIntroduce("xxx");
-        OrgintroWithBLOBs orgintro = new OrgintroWithBLOBs();
-        orgintro.setOrgId(id);
-        orgintro.setAbstract(request.getParameter("abstract"));
-        orgintro.setAddress(request.getParameter("address"));
-        orgintro.setCourse(request.getParameter("course"));
-        orgintro.setHardware(request.getParameter("hardware"));
-        orgintro.setPhone(request.getParameter("phone"));
-        orgintro.setService(request.getParameter("service"));
-        orgintro.setTeam(request.getParameter("team"));
+    @ResponseBody
+    public Map modifyOrg(OrganizationWithBLOBs org, OrgintroWithBLOBs orgintro, HttpServletRequest request) throws UnsupportedEncodingException {
+        Integer id = Integer.parseInt(request.getParameter("organizationId"));
+        if (org != null && orgintro != null){
+            org.setId(id);
+            org.setAbstract(request.getParameter("abstract"));
+            org.setAbstract("xxx");
+            org.setIntroduce("xxx");
+            orgintro.setOrgId(id);
+            orgintro.setAbstract(request.getParameter("abstract"));
+            organizationService.modifyOrganization(org,orgintro);
+        }
 
-        organizationService.modifyOrganization(organization,orgintro);
-
-        ModelAndView result = new ModelAndView("organizations");
-        return result;
+        return null;
     }
 
     @RequestMapping(value = "/jsp/deleteOrg", method = RequestMethod.POST)

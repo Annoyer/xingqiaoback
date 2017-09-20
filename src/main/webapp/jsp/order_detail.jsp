@@ -175,6 +175,7 @@
                     <div id="tab-recoverylog" class="tab-pane">
                         <div class="panel-body">
                             <div class="ibox-content timeline">
+                                <c:choose>
                                 <c:when test='${empty trace}'>
                                     暂无信息
                                 </c:when>
@@ -213,6 +214,7 @@
                                         </c:if>
                                     </c:forEach>
                                 </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </div>

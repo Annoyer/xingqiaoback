@@ -7,7 +7,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
 <html>
 
 <head>
@@ -120,7 +119,7 @@
 
                                 </div>
                                 <div class="modal-body">
-                                    <form id="addOrgForm" role="form" method="post" action="addOrg">
+                                    <form id="addOrgForm" role="form" method="post" action="addOrg" target="iframe0">
                                         <div class="form-group">
                                             <label for="name">机构名称</label>
                                             <input type="text" class="form-control" id="name" name="name">
@@ -147,7 +146,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="numPeople">规模人数</label>
-                                            <input type="number" class="form-control" id="numPeople" name="numPeople">
+                                            <input type="number" class="form-control" id="numPeople" name="numpeople">
                                         </div>
                                         <div class="form-group">
                                             <label for="abstract">机构简介</label>
@@ -187,10 +186,10 @@
 
                                 </div>
                                 <div class="modal-body">
-                                    <form id="modifyOrgForm" role="form" method="post" action="modifyOrg">
+                                    <form id="modifyOrgForm" role="form" method="post" action="modifyOrg" target="iframe0" onsubmit="submitModify()">
                                         <div class="form-group">
                                             <label for="idModify">机构编号</label>
-                                            <input type="text" readonly unselectable="on" class="form-control" id="idModify" name="id">
+                                            <input type="text" readonly unselectable="on" class="form-control" id="idModify" name="organizationId">
                                         </div>
                                         <div class="form-group">
                                             <label for="nameModify">机构名称</label>
@@ -218,7 +217,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="numPeopleModify">规模人数</label>
-                                            <input type="number" class="form-control" id="numPeopleModify" name="numPeople">
+                                            <input type="number" class="form-control" id="numPeopleModify" name="numpeople">
                                         </div>
                                         <div class="form-group">
                                             <label for="abstractModify">机构简介</label>
@@ -292,7 +291,7 @@
             },
             error : function() {
                 // view("异常！");
-                alert("获取数据异常");
+                swal("连接错误", "获取数据异常", "error");
             }
         })
     }
@@ -313,7 +312,9 @@
     }
 
     function submitAdd() {
-        $('#addOrgForm').submit();
+        $('#addOrgForm').ajaxSubmit(function(message) {
+            window.location.reload();
+        });
     }
 
     function deleteOrganization(obj){
@@ -348,7 +349,10 @@
     }
 
     function submitModify(){
-        $('#modifyOrgForm').submit();
+        $('#modifyOrgForm').ajaxSubmit(function(message) {
+            window.location.reload();
+        });
+
     }
 
     function modifyOrganization(obj){
@@ -393,7 +397,7 @@
 
 </script>
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
-
+<script type="text/javascript" src="js/jquery.form.js"></script>
 
 </body>
 

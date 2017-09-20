@@ -41,6 +41,7 @@ public class OrderController {
                                       @RequestParam("demandId") Integer demandId) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("order_detail");
+
         OrdersWithBLOBs orders = orderService.getOrderById(orderId);
         mv.addObject("order",orders);
         mv.addObject("recoveryLog",orderService.getRecoveryLogById(orderId));
@@ -116,12 +117,18 @@ public class OrderController {
         return mv;
     }
 
-    @RequestMapping(value = "/jsp/test/getOrderByOrderId", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/jsp/deleteOrder", method = RequestMethod.POST)
     @ResponseBody
     public Map getOrderById(@RequestParam("orderId") String orderId) {
-        Orders order = orderService.getOrderById("10999");
         Map result = new HashMap();
-        result.put("order",order);
+        if (orderService.deleteOrder(orderId)){
+            result.put("retCode", 0);
+            result.put("retMsg","删除成功");
+        } else {
+            result.put("retCode", 1);
+            result.put("retMsg","该条数据不存在！");
+        }
         return result;
     }
 

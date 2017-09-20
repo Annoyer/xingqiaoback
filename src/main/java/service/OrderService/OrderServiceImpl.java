@@ -69,4 +69,15 @@ public class OrderServiceImpl implements IOrderService {
         }
         return result;
     }
+
+    @Override
+    public boolean deleteOrder(String orderId) {
+        if (ordersMapper.selectByPrimaryKey(orderId) != null){
+            ordersMapper.deleteByPrimaryKey(orderId);
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 }

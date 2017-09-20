@@ -15,4 +15,5 @@ public interface IOrderService {
     public DemandWithBLOBs getDemandById(Integer demandId);
     public List<RecoveryLog> getRecoveryLogById(String orderId);
     public List<Orderview> getAllOrderFromView();
+    public boolean deleteOrder(String orderId);
 }
