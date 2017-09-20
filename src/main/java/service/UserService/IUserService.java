@@ -1,9 +1,6 @@
 package service.UserService;
 
-import model.Demand;
-import model.Parentview;
-import model.Teacher;
-import model.Teacherview;
+import model.*;
 
 import java.util.List;
 
@@ -14,4 +11,8 @@ public interface IUserService {
     List<Parentview> getAllParentFromView();
     List<Teacherview> getAllTeachersByParentId(int parentId);
     List<Demand> getAllDemandsByUserId(int userId);
+    List<TeacherviewWithBLOBs> getAllTeachersFromView();
+    TeacherviewWithBLOBs getTeacherById(int id);
+    Parent getParentById(int parentId);
+    void modifyParentInfo(int parentId,String name,String ground,String address);
 }

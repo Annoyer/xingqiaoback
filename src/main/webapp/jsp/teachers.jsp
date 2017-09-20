@@ -12,7 +12,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>家长管理</title>
+    <title>治疗师管理</title>
 
     <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
     <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
@@ -31,39 +31,49 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>家长管理</h5>
+                    <h5>治疗师管理</h5>
                 </div>
                 <div class="ibox-content">
                     <table class="table table-striped table-bordered table-hover " id="editable">
                         <thead>
                         <tr>
-                            <th>家长ID</th>
+                            <th>治疗师ID</th>
                             <th>用户ID</th>
                             <th>姓名</th>
+                            <th>等级</th>
                             <th>住址</th>
-                            <th>范围</th>
+                            <th>所属机构</th>
+                            <th>从业年限</th>
+                            <th>简介</th>
+                            <th>领域</th>
+                            <th>治疗对象</th>
+                            <th>性别</th>
                             <th>手机</th>
-                            <th>Email</th>
+                            <th>email</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${parents}" var="p">
-                        <tr class="gradeX" id="trId">
-                            <td>${p.id}</td>
-                            <td>${p.userid}</td>
-                            <td>${p.realname}</td>
-                            <td>${p.address}</td>
-                            <td>${p.ground}</td>
-                            <td>${p.phone}</td>
-                            <td>${p.email}</td>
-
-                            <td>
-                                <a target="_self" href="parent_detail?parentId=${p.id}">账户管理</a>
-                                <a target="_self" href="parent_demands?userId=${p.userid}">需求简历</a>
-                                <a target="_self" href="parent_teachers?parentId=${p.id}">我的治疗师</a>
-                            </td>
-                        </tr>
+                        <c:forEach items="${teachers}" var="t">
+                            <tr class="gradeX" id="trId">
+                                <td>${t.id}</td>
+                                <td>${t.userId}</td>
+                                <td>${t.name}</td>
+                                <td>${t.level}</td>
+                                <td>${t.detailaddress}</td>
+                                <td>${t.unit}</td>
+                                <td>${t.experienceAge}</td>
+                                <td>${t.abstractteacher}</td>
+                                <td>${t.domain}</td>
+                                <td>${t.object}</td>
+                                <td>${t.gender}</td>
+                                <td>${t.phone}</td>
+                                <td>${t.email}</td>
+                                <td>
+                                    <a target="_self" href="teacher_detail?id=${t.id}">账户管理</a>
+                                    <a target="_self" href="parent_demands?userId=${p.userid}">治疗师订单</a>
+                                </td>
+                            </tr>
                         </c:forEach>
                         </tbody>
                     </table>

@@ -56,7 +56,7 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="teacher.html" data-index="0">治疗师管理</a>
+                            <a class="J_menuItem" href="teachers" data-index="0">治疗师管理</a>
                         </li>
                         <li>
                             <a class="J_menuItem" href="parents">家长管理</a>

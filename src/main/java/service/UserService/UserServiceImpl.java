@@ -1,12 +1,7 @@
 package service.UserService;
 
-import mapper.DemandMapper;
-import mapper.OrderviewMapper;
-import mapper.ParentviewMapper;
-import mapper.TeacherviewMapper;
-import model.Demand;
-import model.Parentview;
-import model.Teacherview;
+import mapper.*;
+import model.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,6 +21,8 @@ public class UserServiceImpl implements IUserService{
     private OrderviewMapper orderviewMapper;
     @Resource
     private DemandMapper demandMapper;
+    @Resource
+    private ParentMapper parentMapper;
 
     @Override
     public List<Parentview> getAllParentFromView(){
@@ -36,6 +33,17 @@ public class UserServiceImpl implements IUserService{
         }
         return result;
     }
+
+    @Override
+    public List<TeacherviewWithBLOBs> getAllTeachersFromView(){
+        List<TeacherviewWithBLOBs> result = new ArrayList<>();
+        List<TeacherviewWithBLOBs> tmp = teacherviewMapper.selectAll();
+        if (tmp != null){
+            result.addAll(tmp);
+        }
+        return result;
+    }
+
     @Override
     public List<Teacherview> getAllTeachersByParentId(int parentId){
         List<Teacherview> result=new ArrayList<>();
@@ -54,5 +62,25 @@ public class UserServiceImpl implements IUserService{
             result.addAll(tmp);
         }
         return result;
+    }
+
+    @Override
+    public TeacherviewWithBLOBs getTeacherById(int id){
+        TeacherviewWithBLOBs result=teacherviewMapper.selectByTeacherId(id);
+        return result;
+    }
+
+    @Override
+    public Parent getParentById(int parentId) {
+        return parentMapper.selectByPrimaryKey(parentId);
+    }
+
+    @Override
+    public void modifyParentInfo(int parentId,String name,String ground,String address){
+        Parent parent=new Parent();
+        parent.setId(parentId);
+        parent.setRealname(name);
+
+        parentMapper.updateByPrimaryKeySelective(parent);
     }
 }
