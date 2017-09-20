@@ -84,7 +84,7 @@
 
                 <!--机构管理-->
                 <li>
-                    <a class="J_menuItem" href="organization.html"><i class="fa fa-building"></i> <span class="nav-label">机构管理</span></a>
+                    <a class="J_menuItem" href="organizations"><i class="fa fa-building"></i> <span class="nav-label">机构管理</span></a>
                 </li>
 
             </ul>

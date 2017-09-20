@@ -58,7 +58,10 @@
                                     <td>${o.demandName}</td>
                                     <td>${o.recoverOb}</td>
                                     <td>${o.sTime}</td>
-                                    <td><a target="_self" href="order_detail?orderId=${o.id}&teacherId=${o.teacherId}&parentId=${o.parentId}&demandId=${o.demandId}">订单详情</a></td>
+                                    <td>
+                                        <a target="_self" href="order_detail?orderId=${o.id}&teacherId=${o.teacherId}&parentId=${o.parentId}&demandId=${o.demandId}">订单详情</a>
+                                        <a onclick="deleteOrder(${o.id})">删除订单</a>
+                                    </td>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -80,52 +83,42 @@
     $(document).ready(function(){
         $(".dataTables-example").dataTable();
         var oTable=$("#editable").dataTable();
-
-//        oTable.$("td").editable("../example_ajax.php", {
-//            "callback":function(sValue,y){
-//                var aPos=oTable.fnGetPosition(this);
-//                oTable.fnUpdate(sValue,aPos[0],aPos[1])
-//            },"submitdata":function(value,settings){
-//                return{
-//                    "row_id":this.parentNode.getAttribute("id"),
-//                    "column":oTable.fnGetPosition(this)[2]
-//                }
-//            },"width":"90%","height":"100%"
-//        })
-
-        <%--var tbody = $("#tableBody");--%>
-        <%--orders = "${orders}";--%>
-        <%--for (var i=0; i<orders.length; i++){--%>
-            <%--var row = '<tr class="gradeX" data-index="' + i--%>
-                <%--+ '"> <td>' + orders[i].id--%>
-                <%--+ '</td><td>' + orders[i].teacherName--%>
-                <%--+ '</td><td>' + orders[i].parentName--%>
-                <%--+ '</td><td>' + orders[i].demandName--%>
-                <%--+ '</td><td>' + orders[i].recoverOb--%>
-                <%--+ '</td><td>' + orders[i].sTime--%>
-                <%--+ '</td>';--%>
-            <%--if (orders[i].isdeleted == true){--%>
-                <%--row += '<td>已取消</td>';--%>
-            <%--} else if (orders[i].complete == 1) {//???--%>
-                <%--row += '<td>已完成</td>';--%>
-            <%--} else {--%>
-                <%--row += '<td>进行中</td>';--%>
-            <%--}--%>
-
-            <%--row += '<td class="center"><a href="javascript:void(0)" onclick="toOrderDetail('--%>
-                <%--+ i +')">查看详情</a></td></tr>';--%>
-
-            <%--tbody.append(row);--%>
-        <%--}--%>
     });
 
-    function toOrderDetail(index){
-        window.location.href="order_detail?orderId=" + orders[index].id
-            + "&teacherId=" + orders[index].teacherId
-            + "&parentId=" + orders[index].parentId
-            + "&demandId=" + orders[index].demandId;
-        //从后台获取单个康复日志
-    };
+    function deleteOrder(obj){
+        alert(obj);
+        swal({
+            title: "您确定要删除这条信息吗",
+            text: "删除后将无法恢复，请谨慎操作！",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "删除",
+            closeOnConfirm: false
+        }, function () {
+            $.ajax({
+                url:'deleteOrder',// 跳转到 action
+                data:{
+                    orderId : obj
+                },
+                type:'post',
+                dataType:'json',
+                success:function(data) {
+                    if (data.retCode == 0){
+                        swal("删除成功！", "您已经永久删除了这条信息", "success");
+                    } else {
+                        swal("删除失败！", data.retMsg, "error");
+                    }
+                    window.location.reload();
+                },
+                error : function() {
+                    //  view("删除失败！");
+                    swal("连接错误", "请稍后重试", "error");
+                }
+            })
+
+        });
+    }
 </script>
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 

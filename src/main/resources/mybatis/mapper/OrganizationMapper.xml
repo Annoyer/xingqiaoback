@@ -131,7 +131,7 @@
       abstract, introduce)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{numpeople,jdbcType=INTEGER}, 
       #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, 
-      #{abstract,jdbcType=LONGVARCHAR}, #{introduce,jdbcType=LONGVARCHAR})
+      #{organizationAbstract,jdbcType=LONGVARCHAR}, #{introduce,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="model.OrganizationWithBLOBs" >
     insert into organization
@@ -181,7 +181,62 @@
         #{district,jdbcType=VARCHAR},
       </if>
       <if test="abstract != null" >
-        #{abstract,jdbcType=LONGVARCHAR},
+        #{organizationAbstract,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="introduce != null" >
+        #{introduce,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertSelectiveRet" parameterType="model.OrganizationWithBLOBs" useGeneratedKeys="true" keyProperty="id">
+    insert into organization
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="numpeople != null" >
+        NumPeople,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="district != null" >
+        district,
+      </if>
+      <if test="abstract != null" >
+        abstract,
+      </if>
+      <if test="introduce != null" >
+        introduce,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="numpeople != null" >
+        #{numpeople,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="abstract != null" >
+        #{organizationAbstract,jdbcType=LONGVARCHAR},
       </if>
       <if test="introduce != null" >
         #{introduce,jdbcType=LONGVARCHAR},
@@ -194,7 +249,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+    <update id="updateByExampleSelective" parameterType="map" >
     update organization
     <set >
       <if test="record.id != null" >
@@ -216,7 +271,7 @@
         district = #{record.district,jdbcType=VARCHAR},
       </if>
       <if test="record.abstract != null" >
-        abstract = #{record.abstract,jdbcType=LONGVARCHAR},
+        abstract = #{record.organizationAbstract,jdbcType=LONGVARCHAR},
       </if>
       <if test="record.introduce != null" >
         introduce = #{record.introduce,jdbcType=LONGVARCHAR},
@@ -234,7 +289,7 @@
       province = #{record.province,jdbcType=VARCHAR},
       city = #{record.city,jdbcType=VARCHAR},
       district = #{record.district,jdbcType=VARCHAR},
-      abstract = #{record.abstract,jdbcType=LONGVARCHAR},
+      abstract = #{record.organizationAbstract,jdbcType=LONGVARCHAR},
       introduce = #{record.introduce,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -271,7 +326,7 @@
         district = #{district,jdbcType=VARCHAR},
       </if>
       <if test="abstract != null" >
-        abstract = #{abstract,jdbcType=LONGVARCHAR},
+        abstract = #{organizationAbstract,jdbcType=LONGVARCHAR},
       </if>
       <if test="introduce != null" >
         introduce = #{introduce,jdbcType=LONGVARCHAR},
@@ -286,7 +341,7 @@
       province = #{province,jdbcType=VARCHAR},
       city = #{city,jdbcType=VARCHAR},
       district = #{district,jdbcType=VARCHAR},
-      abstract = #{abstract,jdbcType=LONGVARCHAR},
+      abstract = #{organizationAbstract,jdbcType=LONGVARCHAR},
       introduce = #{introduce,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

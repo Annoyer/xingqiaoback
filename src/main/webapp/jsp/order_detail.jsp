@@ -175,39 +175,46 @@
                     <div id="tab-recoverylog" class="tab-pane">
                         <div class="panel-body">
                             <div class="ibox-content timeline">
-                                <c:forEach items="${recoveryLog}" var="l">
-                                    <c:if test="${l.isError == false}">
-                                        <div class="timeline-item">
-                                            <div class="row">
-                                                <div class="col-xs-3 date">
-                                                    <i class="fa fa-bookmark"></i> ${l.time}
-                                                </div>
-                                                <div class="col-xs-7 content no-top-border">
-                                                    <div class="row">
-                                                        <div class="col-xs-7">
-                                                            <p class="m-b-xs"><strong>诊疗记录</strong></p>
-                                                            <p>${l.content}</p>
-                                                            <p class="m-b-xs"><strong>状态</strong></p>
-                                                            <c:when test="${l.confirmStatus == 1}">
-                                                                <p>已确认</p>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <p>未确认</p>
-                                                            </c:otherwise>
-                                                            <c:if test="${l.confirmTime != null}">
-                                                                <p>于 ${l.confirmTime}</p>
-                                                            </c:if>
-                                                        </div>
-                                                        <div class="col-xs-3">
-                                                            <button class="btn btn-info btn-sm" type="button">改变确认状态</button>
-                                                            <button class="btn btn-info btn-sm" type="button" style="margin-top: 10px">删除记录</button>
+                                <c:choose>
+                                <c:when test='${empty trace}'>
+                                    暂无信息
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forEach items="${recoveryLog}" var="l">
+                                        <c:if test="${l.isError == false}">
+                                            <div class="timeline-item">
+                                                <div class="row">
+                                                    <div class="col-xs-3 date">
+                                                        <i class="fa fa-bookmark"></i> ${l.time}
+                                                    </div>
+                                                    <div class="col-xs-7 content no-top-border">
+                                                        <div class="row">
+                                                            <div class="col-xs-7">
+                                                                <p class="m-b-xs"><strong>诊疗记录</strong></p>
+                                                                <p>${l.content}</p>
+                                                                <p class="m-b-xs"><strong>状态</strong></p>
+                                                                <c:when test="${l.confirmStatus == 1}">
+                                                                    <p>已确认</p>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <p>未确认</p>
+                                                                </c:otherwise>
+                                                                <c:if test="${l.confirmTime != null}">
+                                                                    <p>于 ${l.confirmTime}</p>
+                                                                </c:if>
+                                                            </div>
+                                                            <div class="col-xs-3">
+                                                                <button class="btn btn-info btn-sm" type="button">改变确认状态</button>
+                                                                <button class="btn btn-info btn-sm" type="button" style="margin-top: 10px">删除记录</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </c:if>
-                                </c:forEach>
+                                        </c:if>
+                                    </c:forEach>
+                                </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </div>
