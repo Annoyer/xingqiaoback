@@ -31,9 +31,71 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>家长管理</h5>
+                    <div class="col-sm-11">
+                        <h5>家长管理</h5>
+                    </div>
+                    <div class="col-sm-1">
+                        <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addParentModal">添加家长</a>
+                    </div>
                 </div>
                 <div class="ibox-content">
+                    <div class="modal inmodal" id="addParentModal" tabindex="-1" role="dialog"  aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content animated fadeIn">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">添加家长</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="modifyUserForm" role="form" method="post" target="iframe0">
+                                        <div class="form-group">
+                                            <label for="usernameAdd">用户名</label>
+                                            <input type="text" class="form-control" id="usernameAdd" name="username">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="passwordAdd">密码</label>
+                                            <input type="text" class="form-control" id="passwordAdd" name="password">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="nameAdd">姓名</label>
+                                            <input type="text" class="form-control" id="nameAdd" name="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pidAdd">身份证号</label>
+                                            <input type="text" class="form-control" id="pidAdd" name="pid">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="genderAdd">性别</label>
+                                            <input type="text" class="form-control" id="genderAdd" name="gender">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="groundAdd">区域</label>
+                                            <input type="text" class="form-control" id="groundAdd" name="ground">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="addressAdd">地址</label>
+                                            <input type="text" class="form-control" id="addressAdd" name="address">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phoneAdd">手机</label>
+                                            <input type="text" class="form-control" id="phoneAdd" name="phone">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="emailAdd">邮箱</label>
+                                            <input type="text" class="form-control" id="emailAdd" name="email">
+                                        </div>
+
+
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                                    <button type="button" class="btn btn-primary" onclick="submitParentsAdd()">保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <table class="table table-striped table-bordered table-hover " id="editable">
                         <thead>
                         <tr>
@@ -86,6 +148,51 @@
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 
 <script type="text/javascript">
+
+
+    function submitParentsAdd(){
+        var username=$("#usernameAdd").val();
+        var password=$("#passwordAdd").val();
+        var name=$("#nameAdd").val();
+        var pid=$("#pidAdd").val();
+        var gender=$("#genderAdd").val();
+        var ground=$("#groundAdd").val();
+        var address=$("#addressAdd").val();
+        var phone=$("#phoneAdd").val();
+        var email=$("#emailAdd").val();
+
+
+        $.ajax({
+            type: "post",
+            url: "addParent",
+            timeout: 80000,
+            dataType: "json",
+            data: {
+                "username":username,
+                "password":password,
+                "name":name,
+                "pid":pid,
+                "gender":gender,
+                "ground":ground,
+                "address": address,
+                "phone":phone,
+                "email": email,
+
+            },
+            //请求成功后的回调函数 data为json格式
+            success: function (data) {
+                if (data.retcode == 0)
+                    sweetAlert("添加成功！");
+                window.location.reload();
+            },
+            //请求出错的处理
+            error: function () {
+                alert("请求出错");
+            }
+        });
+    }
+
+
     $(document).ready(function(){
         $("#modifyBtn").click(function(){
             tr=$(this).parent().parent();

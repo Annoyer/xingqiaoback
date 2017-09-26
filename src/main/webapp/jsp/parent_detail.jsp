@@ -28,24 +28,111 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>家长信息</h5>
-
                 </div>
                 <div class="ibox-content">
                     <form method="get" class="form-horizontal">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">ID</label>
                             <div class="col-sm-10">
-                                <h6 id="#id">${parent.id}</h6>
+                                <p class="form-control-static">${parent.id}</p>
                             </div>
                         </div>
                         <div class="form-group">
                         <label class="col-sm-2 control-label">用户ID</label>
                         <div class="col-sm-10">
-                            <h6>${parent.userid}</h6>
+                            <p class="form-control-static">${parent.userid}</p>
                         </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">用户名</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">${parent.username}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">手机</label>
+                            <div class="col-sm-5">
+                                <p class="form-control-static">${parent.phone}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">邮箱</label>
+                            <div class="col-sm-5">
+                                <p class="form-control-static">${parent.email}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <a class="btn btn-primary" onclick="modifyUser()">修改账户信息</a>
+                                <a class="btn btn-warning" onclick="modifyPwFunc()">修改密码</a>
+                                <a class="btn btn-danger" id="deleteBtn">删除账户</a>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal inmodal" id="modifyModal" tabindex="-1" role="dialog"  aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content animated fadeIn">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">修改账户信息</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="modifyUserForm" role="form" method="post" target="iframe0" onsubmit="submitUserModify()">
+                                        <div class="form-group">
+                                            <label for="idModify">用户Id</label>
+                                            <input type="text" readonly unselectable="on" class="form-control" id="idModify" name="userId">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phoneModify">手机</label>
+                                            <input type="text" class="form-control" id="phoneModify" name="phone">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="emailModify">邮箱</label>
+                                            <input type="text" class="form-control" id="emailModify" name="email">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                                    <button type="button" class="btn btn-primary" onclick="submitUserModify()">保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal inmodal" id="modifyPwModal" tabindex="-1" role="dialog"  aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content animated fadeIn">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">修改密码</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="modifyPwForm" role="form" method="post" target="iframe0" onsubmit="submitPwModify()">
+                                        <div class="form-group">
+                                            <label for="pwOld">旧密码</label>
+                                            <input type="text" readonly unselectable="on" class="form-control" id="pwOld" name="pwOld">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pwModify">新密码</label>
+                                            <input type="text" class="form-control" id="pwModify" name="pw">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                                    <button type="button" class="btn btn-primary" onclick="submitPwModify()">保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                        <div class="hr-line-dashed"></div>
+                </div>
+            </div>
+
+            <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>家长信息</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <form method="get" class="form-horizontal">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">姓名</label>
                             <div class="col-sm-10">
@@ -64,42 +151,12 @@
                                 <input type="text" class="form-control" id="address" value="${parent.address}">
                             </div>
                         </div>
-
+                        <div class="form-group">
                             <div class="col-sm-4 col-sm-offset-2">
                                 <a class="btn btn-primary" onclick="saveFunc()">保存内容</a>
-                                <button class="btn btn-white" type="submit">取消</button>
-                            </div>
-
-
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">手机</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">邮箱</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control">
                             </div>
                         </div>
 
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">密码</label>
-
-                            <div class="col-sm-10">
-                                <input type="password" class="form-control" name="password">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-4 col-sm-offset-2">
-                                <button class="btn btn-primary" type="submit">保存内容</button>
-                                <button class="btn btn-white" type="submit">取消</button>
-                            </div>
-                        </div>
                     </form>
                 </div>
             </div>
@@ -124,9 +181,8 @@
         var name = $("#name").val();
         var ground = $("#ground").val();
         var address = $("#address").val();
-        alert("开始保存！");
-        if (name == null || ground ==null ||address==null) {
-            alert("请填写完整信息~");
+        if (name == "") {
+            sweetAlert("姓名不能为空哦~");
         }
         else{
                 $.ajax({
@@ -142,9 +198,8 @@
                     },
                     //请求成功后的回调函数 data为json格式
                     success: function (data) {
-                        alert(data.msg);
                         if (data.retcode == 0)
-                            alert("保存成功！");
+                            sweetAlert("保存成功！");
                     },
                     //请求出错的处理
                     error: function () {
@@ -154,28 +209,106 @@
         }
 
     }
+
+    function submitUserModify(){
+        var phone=$("#phoneModify").val();
+        var email=$("#emailModify").val();
+        var userId=${parent.userid};
+
+        $.ajax({
+            type: "post",
+            url: "modifyUser",
+            timeout: 80000,
+            dataType: "json",
+            data: {
+                "userId":userId,
+                "phone": phone,
+                "email":email
+            },
+            //请求成功后的回调函数 data为json格式
+            success: function (data) {
+                if (data.retcode == 0) {
+                    sweetAlert("修改成功！");
+                    window.location.reload();
+                }
+            },
+            //请求出错的处理
+            error: function () {
+                alert("请求出错");
+            }
+        });
+
+    }
+    function modifyUser(){
+        var userId=${parent.userid};
+        $.ajax({
+            url:'getSysuserInfo',
+            data:{
+                "userId" : userId
+            },
+            type:'post',
+            dataType:'json',
+            success:function(data) {
+                $('#idModify').val(userId);
+                $('#phoneModify').val(data.user.phone);
+                $('#emailModify').val(data.user.email);
+
+                $('#modifyModal').modal();
+            },
+            error : function() {
+                // view("异常！");
+                alert("获取数据异常");
+            }
+        })
+    }
+    function modifyPwFunc(){
+        var userId=${parent.userid};
+        $.ajax({
+            type: "post",
+            url: "getSysuserInfo",
+            timeout: 80000,
+            dataType: "json",
+            data: {
+                "userId":userId,
+            },
+            //请求成功后的回调函数 data为json格式
+            success: function (data) {
+                $('#pwOld').val(data.user.password);
+                $('#modifyPwModal').modal();
+            },
+            //请求出错的处理
+            error: function () {
+                alert("请求出错");
+            }
+        });
+    }
+    function submitPwModify(){
+        var pw=$("#pwModify").val();
+        $.ajax({
+            type: "post",
+            url: "modifyPw",
+            timeout: 80000,
+            dataType: "json",
+            data: {
+                "userId":${parent.userid},
+                "pw":pw
+            },
+            success: function (data) {
+                if (data.retcode == 0)
+                    sweetAlert("修改成功！");
+                window.location.reload();
+            },
+            //请求出错的处理
+            error: function () {
+                alert("请求出错");
+            }
+        });
+    }
+
     $(document).ready(function(){
-        $("#modifyBtn").click(function(){
-            tr=$(this).parent().parent();
-            var arr=tr.children();
-            $('#userId').val(arr[0].innerText);
-            $('#name').val(arr[1].innerText);
-            $('#pid').val(arr[2].innerText);
-            $('#address').val(arr[3].innerText);
-            $('#phone').val(arr[4].innerText);
-            $('#email').val(arr[5].innerText);
-        });
-        $("#insertBtn").click(function(){
-            $('#userId').val("");
-            $('#name').val("");
-            $('#pid').val("");
-            $('#address').val("");
-            $('#phone').val("");
-            $('#email').val("");
-        });
         $("#deleteBtn").click(function(){
             swal({
-                title: "您确定要删除这条信息吗",
+                title: "您确定要删除该账户吗",
                 text: "删除后将无法恢复，请谨慎操作！",
                 type: "warning",
                 showCancelButton: true,
@@ -183,12 +316,28 @@
                 confirmButtonText: "删除",
                 closeOnConfirm: false
             }, function () {
-                //后台数据库操作……
-                swal("删除成功！", "您已经永久删除了这条信息。", "success");
+                $.ajax({
+                    type: "post",//请求方式
+                    url: "deleteParent",
+                    timeout: 80000,//超时时间：8秒
+                    dataType: "json",//设置返回数据的格式
+                    data: {
+                        "parentId":${parent.id},
+                        "userId":${parent.userid}
+                    },
+                    //请求成功后的回调函数 data为json格式
+                    success: function (data) {
+                        if (data.retcode == 0)
+                            swal("删除成功！", "您已经永久删除了这条信息。", "success");
+                    },
+                    //请求出错的处理
+                    error: function () {
+                        alert("请求出错");
+                    }
+                });
             });
         });
     });
-
 
 
 </script>

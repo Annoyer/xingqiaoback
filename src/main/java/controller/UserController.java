@@ -1,5 +1,7 @@
 package controller;
 
+import com.sun.org.apache.regexp.internal.RE;
+import model.Sysuser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,6 +12,7 @@ import service.UserService.IUserService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -76,11 +79,128 @@ public class UserController {
                               @RequestParam("name") String name,
                               @RequestParam("ground") String ground,
                               @RequestParam("address") String address){
-        System.out.println("saveParentInfo");
-        System.out.println(name+' '+ground+" "+address);
         Map result=new HashMap();
         userService.modifyParentInfo(parentId,name,ground,address);
         result.put("retcode",0);
         return result;
     }
+
+    @RequestMapping(value="/jsp/deleteParent")
+    @ResponseBody
+    public Map deleteParent(@RequestParam("parentId") Integer parentId,
+                             @RequestParam("userId") Integer userId){
+        System.out.println("delete parentid="+parentId);
+        Map result=new HashMap();
+        userService.deleteParent(parentId,userId);
+        result.put("retcode",0);
+        return result;
+    }
+
+    @RequestMapping(value = "/jsp/saveTeacherInfo",method = RequestMethod.POST)
+    @ResponseBody
+    public Map saveTeacherInfo(@RequestParam("teacherId") Integer teacherId,
+                               @RequestParam("name") String name,
+                               @RequestParam("abstractT") String abstractT,
+                               @RequestParam("experienceAge") Integer experienceAge,
+                               @RequestParam("school") String school,
+                               @RequestParam("unit") String unit,
+                               @RequestParam("domain") String domain,
+                               @RequestParam("object") String object,
+                               @RequestParam("way") String way){
+        Map result=new HashMap();
+        userService.modifyTeacherWithBLOB(teacherId,name,abstractT,experienceAge,school,unit,domain,object,way);
+        result.put("retcode",0);
+        return result;
+    }
+
+    @RequestMapping(value="/jsp/deleteTeacher")
+    @ResponseBody
+    public Map deleteTeacher(@RequestParam("teacherId") Integer teacherId,
+                          @RequestParam("userId") Integer userId){
+        System.out.println("delete teacherid="+teacherId);
+        Map result=new HashMap();
+        userService.deleteTeacher(teacherId,userId);
+        result.put("retcode",0);
+        return result;
+    }
+
+    @RequestMapping(value = "/jsp/getSysuserInfo")
+    @ResponseBody
+    public Map getSysuserInfo(@RequestParam("userId") Integer userId){
+        System.out.println("getSysuserInfo!");
+        Map result =new HashMap();
+        result.put("user",userService.getSysuserById(userId));
+        return result;
+
+    }
+
+    @RequestMapping(value = "/jsp/modifyUser", method = RequestMethod.POST)
+    @ResponseBody
+    public Map modifyUser(@RequestParam("userId") Integer userId,
+                            @RequestParam("phone") String phone,
+                            @RequestParam("email") String email) throws UnsupportedEncodingException {
+        System.out.println("modify user!");
+       Map result=new HashMap();
+       userService.modifySysuserInfo(userId,phone,email);
+       result.put("retcode",0);
+       return result;
+    }
+
+    @RequestMapping(value = "/jsp/modifyPw", method = RequestMethod.POST)
+    @ResponseBody
+    public Map modifyUser(@RequestParam("userId") Integer userId,
+                          @RequestParam("pw") String pw) {
+        System.out.println("modify password!");
+        Map result=new HashMap();
+        userService.modifySysuserPw(userId,pw);
+        result.put("retcode",0);
+        return result;
+    }
+
+    @RequestMapping(value = "/jsp/addTeacher",method = RequestMethod.POST)
+    @ResponseBody
+    public Map addTeacher(@RequestParam("username") String  username,
+                          @RequestParam("password") String  password,
+                          @RequestParam("name") String name,
+                          @RequestParam("pid") String pid,
+                          @RequestParam("gender") String  gender,
+                          @RequestParam("address") String address,
+                          @RequestParam("phone") String phone,
+                          @RequestParam("email") String email,
+                          @RequestParam("school") String school,
+                          @RequestParam("unit") String unit,
+                          @RequestParam("tGround") String tGround,
+                          @RequestParam("sGround") String sGround,
+                          @RequestParam("domain") String  domain,
+                          @RequestParam("question") String question,
+                          @RequestParam("object") String object,
+                          @RequestParam("way") String way,
+                          @RequestParam("priceS") Integer priceS,
+                          @RequestParam("priceMax") Integer priceMax,
+                          @RequestParam("priceMid") Integer priceMid,
+                          @RequestParam("priceMin") Integer priceMin){
+        Map result=new HashMap();
+        userService.addTeacher(username,password,name,pid, gender,address, phone, email, school,
+                unit, tGround, sGround, domain, question, object,way, priceS,priceMax,priceMid,priceMin);
+        result.put("retcode",0);
+        return result;
+    }
+
+    @RequestMapping(value = "/jsp/addParent",method = RequestMethod.POST)
+    @ResponseBody
+    public Map addTeacher(@RequestParam("username") String  username,
+                          @RequestParam("password") String  password,
+                          @RequestParam("name") String name,
+                          @RequestParam("pid") String pid,
+                          @RequestParam("gender") String  gender,
+                          @RequestParam("ground") String ground,
+                          @RequestParam("address") String address,
+                          @RequestParam("phone") String phone,
+                          @RequestParam("email") String email){
+        Map result=new HashMap();
+        userService.addParent(username,password,name,pid, gender,ground,address, phone, email);
+        result.put("retcode",0);
+        return result;
+    }
+
 }

@@ -31,9 +31,115 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
+                    <div class="col-sm-11">
                     <h5>治疗师管理</h5>
+                    </div>
+                    <div class="col-sm-1">
+                        <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTeacherModal">添加治疗师</a>
+                    </div>
                 </div>
+
                 <div class="ibox-content">
+                    <div class="modal inmodal" id="addTeacherModal" tabindex="-1" role="dialog"  aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content animated fadeIn">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">添加治疗师</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="modifyUserForm" role="form" method="post" target="iframe0">
+                                        <div class="form-group">
+                                            <label for="usernameAdd">用户名</label>
+                                            <input type="text" class="form-control" id="usernameAdd" name="username">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="passwordAdd">密码</label>
+                                            <input type="text" class="form-control" id="passwordAdd" name="password">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="nameAdd">姓名</label>
+                                            <input type="text" class="form-control" id="nameAdd" name="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="pidAdd">身份证号</label>
+                                            <input type="text" class="form-control" id="pidAdd" name="pid">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="genderAdd">性别</label>
+                                            <input type="text" class="form-control" id="genderAdd" name="gender">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="addressAdd">地址</label>
+                                            <input type="text" class="form-control" id="addressAdd" name="address">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phoneAdd">手机</label>
+                                            <input type="text" class="form-control" id="phoneAdd" name="phone">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="emailAdd">邮箱</label>
+                                            <input type="text" class="form-control" id="emailAdd" name="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="schoolAdd">毕业院校</label>
+                                            <input type="text" class="form-control" id="schoolAdd" name="school">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="unitAdd">所属机构</label>
+                                            <input type="text" class="form-control" id="unitAdd" name="unit">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="tGroundAdd">治疗师地址</label>
+                                            <input type="text" class="form-control" id="tGroundAdd" name="tGround">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sGroundAdd">治疗师上门地址</label>
+                                            <input type="text" class="form-control" id="sGroundAdd" name="sGround">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="domainAdd">康复领域</label>
+                                            <input type="text" class="form-control" id="domainAdd" name="domain">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="questionAdd">问题类型</label>
+                                            <input type="text" class="form-control" id="questionAdd" name="question">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="objectAdd">康复对象</label>
+                                            <input type="text" class="form-control" id="objectAdd" name="object">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="wayAdd">上门方式</label>
+                                            <input type="text" class="form-control" id="wayAdd" name="way">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="priceSAdd">price_s</label>
+                                            <input type="text" class="form-control" id="priceSAdd" name="priceS">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="priceMaxAdd">price_max</label>
+                                            <input type="text" class="form-control" id="priceMaxAdd" name="priceMax">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="priceMidAdd">price_mid</label>
+                                            <input type="text" class="form-control" id="priceMidAdd" name="priceMid">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="priceMinAdd">price_max</label>
+                                            <input type="text" class="form-control" id="priceMinAdd" name="priceMin">
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                                    <button type="button" class="btn btn-primary" onclick="submitTeachersAdd()">保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <table class="table table-striped table-bordered table-hover " id="editable">
                         <thead>
                         <tr>
@@ -47,9 +153,6 @@
                             <th>简介</th>
                             <th>领域</th>
                             <th>治疗对象</th>
-                            <th>性别</th>
-                            <th>手机</th>
-                            <th>email</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -66,12 +169,8 @@
                                 <td>${t.abstractteacher}</td>
                                 <td>${t.domain}</td>
                                 <td>${t.object}</td>
-                                <td>${t.gender}</td>
-                                <td>${t.phone}</td>
-                                <td>${t.email}</td>
                                 <td>
                                     <a target="_self" href="teacher_detail?id=${t.id}">账户管理</a>
-                                    <a target="_self" href="parent_demands?userId=${p.userid}">治疗师订单</a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -96,42 +195,68 @@
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 
 <script type="text/javascript">
-    $(document).ready(function(){
-        $("#modifyBtn").click(function(){
-            tr=$(this).parent().parent();
-            var arr=tr.children();
-            $('#userId').val(arr[0].innerText);
-            $('#name').val(arr[1].innerText);
-            $('#pid').val(arr[2].innerText);
-            $('#address').val(arr[3].innerText);
-            $('#phone').val(arr[4].innerText);
-            $('#email').val(arr[5].innerText);
-        });
-        $("#insertBtn").click(function(){
-            $('#userId').val("");
-            $('#name').val("");
-            $('#pid').val("");
-            $('#address').val("");
-            $('#phone').val("");
-            $('#email').val("");
-        });
-        $("#deleteBtn").click(function(){
-            swal({
-                title: "您确定要删除这条信息吗",
-                text: "删除后将无法恢复，请谨慎操作！",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "删除",
-                closeOnConfirm: false
-            }, function () {
-                //后台数据库操作……
-                swal("删除成功！", "您已经永久删除了这条信息。", "success");
-            });
-        });
-    });
+    function submitTeachersAdd(){
+        var username=$("#usernameAdd").val();
+        var password=$("#passwordAdd").val();
+        var name=$("#nameAdd").val();
+        var pid=$("#pidAdd").val();
+        var gender=$("#genderAdd").val();
+        var address=$("#addressAdd").val();
+        var phone=$("#phoneAdd").val();
+        var email=$("#emailAdd").val();
+        var school=$("#schoolAdd").val();
+        var unit=$("#unitAdd").val();
+        var tGround=$("#tGroundAdd").val();
+        var sGround=$("#sGroundAdd").val();
+        var domain=$("#domainAdd").val();
+        var question=$("#questionAdd").val();
+        var object=$("#objectAdd").val();
+        var way=$("#wayAdd").val();
+        var priceS=$("#priceSAdd").val();
+        var priceMax=$("#priceMaxAdd").val();
+        var priceMid=$("#priceMidAdd").val();
+        var priceMin=$("#priceMinAdd").val();
 
+        $.ajax({
+            type: "post",
+            url: "addTeacher",
+            timeout: 80000,
+            dataType: "json",
+            data: {
+                "username":username,
+                "password":password,
+                "name":name,
+                "pid":pid,
+                "gender":gender,
+                "address": address,
+                "phone":phone,
+                "email": email,
+                "school": school,
+                "unit":unit,
+                "tGround":tGround,
+                "sGround":sGround,
+                "domain": domain,
+                "question":question,
+                "object":object,
+                "way":way,
+                "priceS":priceS,
+                "priceMax":priceMax,
+                "priceMid":priceMid,
+                "priceMin":priceMin
 
+            },
+            //请求成功后的回调函数 data为json格式
+            success: function (data) {
+                if (data.retcode == 0)
+                    sweetAlert("添加成功！");
+                window.location.reload();
+            },
+            //请求出错的处理
+            error: function () {
+                alert("请求出错");
+            }
+        });
+    }
 
 </script>
 
