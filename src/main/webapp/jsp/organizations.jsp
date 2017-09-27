@@ -186,7 +186,7 @@
 
                                 </div>
                                 <div class="modal-body">
-                                    <form id="modifyOrgForm" role="form" method="post" action="modifyOrg" target="iframe0" onsubmit="submitModify()">
+                                    <form id="modifyOrgForm" role="form" method="post" action="modifyOrg" target="iframe0">
                                         <div class="form-group">
                                             <label for="idModify">机构编号</label>
                                             <input type="text" readonly unselectable="on" class="form-control" id="idModify" name="organizationId">
@@ -313,7 +313,23 @@
 
     function submitAdd() {
         $('#addOrgForm').ajaxSubmit(function(message) {
-            window.location.reload();
+            if (message==null || message.length==0 || message.indexOf("<html>") >= 0) {
+                window.location.reload();
+            } else if (eval("(" + message + ")").errorPage!=null){
+                swal({title: "添加失败！",
+                    text: "用户权限不足",
+                    type: "info",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "重新登陆",
+                    cancelButtonText: "返回",
+                    closeOnConfirm: false},function (isConfirm) {
+                    if (isConfirm){
+                        window.location.href=eval("(" + message + ")").errorPage;
+                    }
+                });
+
+            }
         });
     }
 
@@ -336,12 +352,34 @@
                 type:'post',
                 dataType:'json',
                 success:function(data) {
-                    swal("删除成功！", "您已经永久删除了这条信息。", "success");
-                    window.location.reload();
+                    if (data.errorPage!=null){
+                        swal({title: "删除失败！",
+                            text: "用户权限不足",
+                            type: "info",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "重新登陆",
+                            cancelButtonText: "返回",
+                            closeOnConfirm: false},function (isConfirm) {
+                            if (isConfirm){
+                                window.location.href=data.errorPage;
+                            }
+                        });
+
+                    }else {
+                        swal("删除成功！", "您已经永久删除了这条信息。", "success");
+                        window.location.reload();
+                    }
+
                 },
-                error : function() {
+                error : function(data) {
+                  //  alert(data.errorPage);
                   //  view("删除失败！");
-                    alert("删除失败！");
+                    if (${not empty sessionScope.isAjax}){
+                        noAuth();
+                    }else {
+                        alert("删除失败！");
+                    }
                 }
             })
 
@@ -350,7 +388,25 @@
 
     function submitModify(){
         $('#modifyOrgForm').ajaxSubmit(function(message) {
-            window.location.reload();
+            alert(message);
+            if (message==null || message.length==0 || message.indexOf("<html>") >= 0) {
+                window.location.reload();
+            } else if (eval("(" + message + ")").errorPage!=null){
+                swal({title: "修改失败！",
+                    text: "用户权限不足",
+                    type: "info",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "重新登陆",
+                    cancelButtonText: "返回",
+                    closeOnConfirm: false},function (isConfirm) {
+                    if (isConfirm){
+                        window.location.href=eval("(" + message + ")").errorPage;
+                    }
+                });
+            }else {
+                window.location.reload();
+            }
         });
 
     }
@@ -390,11 +446,22 @@
             },
             error : function() {
                 // view("异常！");
-                alert("获取数据异常");
+                if (${not empty sessionScope.isAjax}){
+                    noAuth();
+                }else {
+                    alert("获取数据异常");
+                }
+
             }
         })
     }
 
+    function noAuth() {
+        if (${not empty sessionScope.errorPage}){
+            alert("权限不足！");
+            window.location.href=errPage;
+        }
+    }
 </script>
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 <script type="text/javascript" src="js/jquery.form.js"></script>

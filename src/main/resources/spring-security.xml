@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security
+                        http://www.springframework.org/schema/security/spring-security.xsd">
+
+<!-- 静态资源，不用权限 -->
+    <http pattern="**/login**" security="none"></http>
+
+    <http pattern="/**/*.css" security="none"></http>
+    <http pattern="/**/*.jpg" security="none"></http>
+    <http pattern="/**/*.jpeg" security="none"></http>
+    <http pattern="/**/*.gif" security="none"></http>
+    <http pattern="/**/*.png" security="none"></http>
+    <http pattern="/js/*.js" security="none"></http>
+
+    <http pattern="**/access_err**" security="none"></http>
+    <http pattern="**/getCode" security="none" /><!-- 不过滤验证码 -->
+    <http pattern="**/test/**" security="none"></http><!-- 不过滤测试内容 -->
+
+    <http auto-config="true" use-expressions="false">
+        <intercept-url pattern="/jsp/login" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <intercept-url pattern="**/organizations*" access="ROLE_SUPER" />
+        <intercept-url pattern="/**" access="ROLE_NORMAL" />
+        <form-login login-page='/jsp/login' authentication-success-handler-ref="customSuccessHandler"
+                    authentication-failure-handler-ref="customFailureHandler" username-parameter="username"
+                    password-parameter="password"/>
+        <logout invalidate-session="true" logout-url="/logout" logout-success-url="/jsp/logout" delete-cookies="JSESSIONID"/>
+        <access-denied-handler ref="authFailHandler"></access-denied-handler>
+        <session-management invalid-session-url="/jsp/sessionInvalid" />
+        <csrf disabled="true"/>
+        <headers>
+            <frame-options policy="SAMEORIGIN"></frame-options>
+        </headers>
+    </http>
+
+    <global-method-security secured-annotations="enabled"></global-method-security>
+
+    <beans:bean id="customSuccessHandler" class="security.LoginSuccessHandler">
+    </beans:bean>
+    <beans:bean id="customFailureHandler" class="security.LoginFailureHandler">
+    </beans:bean>
+    <beans:bean id="authFailHandler" class="security.AuthFailHandler"/>
+
+    <authentication-manager>
+        <authentication-provider>
+            <user-service>
+                <user name="normal" password="11111" authorities="ROLE_NORMAL" />
+                <user name="super" password="22222" authorities="ROLE_NORMAL, ROLE_SUPER" />
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+
+</beans:beans>

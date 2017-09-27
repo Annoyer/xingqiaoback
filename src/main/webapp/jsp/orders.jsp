@@ -86,7 +86,7 @@
     });
 
     function deleteOrder(obj){
-        alert(obj);
+        //alert(obj);
         swal({
             title: "您确定要删除这条信息吗",
             text: "删除后将无法恢复，请谨慎操作！",
@@ -106,18 +106,42 @@
                 success:function(data) {
                     if (data.retCode == 0){
                         swal("删除成功！", "您已经永久删除了这条信息", "success");
-                    } else {
+                        window.location.reload();
+                    } else if (data.errorPage != null){
+                        swal({title: "删除失败！",
+                            text: "用户权限不足",
+                            type: "info",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "重新登陆",
+                            cancelButtonText: "返回",
+                            closeOnConfirm: false},function (isConfirm) {
+                            if (isConfirm){
+                                window.location.href=data.errorPage;
+                            }
+                        });
+                    }else {
                         swal("删除失败！", data.retMsg, "error");
                     }
-                    window.location.reload();
                 },
                 error : function() {
                     //  view("删除失败！");
-                    swal("连接错误", "请稍后重试", "error");
+                    if (${not empty sessionScope.isAjax}){
+                        noAuth();
+                    }else {
+                        swal("连接错误", "请稍后重试", "error");
+                    }
                 }
             })
 
         });
+    }
+
+    function noAuth() {
+        if (${not empty sessionScope.errorPage}){
+            alert("权限不足！");
+            window.location.href=errPage;
+        }
     }
 </script>
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>

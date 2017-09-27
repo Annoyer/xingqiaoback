@@ -8,6 +8,7 @@ import model.OrganizationWithBLOBs;
 import model.OrganizationviewWithBLOBs;
 import model.OrgintroWithBLOBs;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -44,6 +45,7 @@ public class OrganizationServiceImpl implements IOrganizationService{
     }
 
     @Override
+    @Secured("ROLE_SUPER")
     public void addOrganization(OrganizationWithBLOBs organization, OrgintroWithBLOBs orgintro) {
         organizationMapper.insertSelectiveRet(organization);
         System.out.println(organization.getId());
@@ -52,12 +54,14 @@ public class OrganizationServiceImpl implements IOrganizationService{
     }
 
     @Override
+    @Secured("ROLE_SUPER")
     public void deleteOrganization(Integer orgId) {
         orgintroMapper.deleteByOrgId(orgId);
         organizationMapper.deleteByPrimaryKey(orgId);
     }
 
     @Override
+    @Secured("ROLE_SUPER")
     public void modifyOrganization(OrganizationWithBLOBs organization, OrgintroWithBLOBs orgintro) {
         organizationMapper.updateByPrimaryKeyWithBLOBs(organization);
         orgintro.setId(orgintroMapper.selectByOrgId(orgintro.getOrgId()).getId());

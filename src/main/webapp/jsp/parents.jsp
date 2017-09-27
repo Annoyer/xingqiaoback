@@ -31,11 +31,13 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <div class="col-sm-11">
-                        <h5>家长管理</h5>
-                    </div>
-                    <div class="col-sm-1">
-                        <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addParentModal">添加家长</a>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <h5>家长管理</h5>
+                        </div>
+                        <div class="col-sm-1">
+                            <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addParentModal">添加家长</a>
+                        </div>
                     </div>
                 </div>
                 <div class="ibox-content">

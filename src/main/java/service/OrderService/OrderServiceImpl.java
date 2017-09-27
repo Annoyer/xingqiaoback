@@ -3,6 +3,7 @@ package service.OrderService;
 import mapper.*;
 import model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -71,6 +72,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
+    @Secured("ROLE_SUPER")
     public boolean deleteOrder(String orderId) {
         if (ordersMapper.selectByPrimaryKey(orderId) != null){
             ordersMapper.deleteByPrimaryKey(orderId);

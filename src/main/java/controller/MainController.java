@@ -17,9 +17,6 @@ import java.util.Map;
  */
 @Controller
 public class MainController {
-    @RequestMapping(value = "/jsp/main")
-    public String toRegister() {
-        return "main";
-    }
+
 
 }
