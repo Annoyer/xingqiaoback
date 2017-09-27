@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
 <html>
 
 <head>
@@ -42,8 +41,17 @@
                         <span><img alt="image" class="img-circle" src="img/profile_small.jpg" /></span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"></span>
-                            <span class="block m-t-xs"><strong class="font-bold">管理员小A</strong></span>
+                            <c:if test="${user != null}">
+                            <span class="block m-t-xs"><strong class="font-bold">${user}</strong></span>
+                            </c:if>
                         </a>
+                        <a onclick="$('#logoutForm').submit();">注销</a>
+                        <!-- csrt for log out-->
+                        <form action="/logout" method="post" id="logoutForm">
+                            <%--<input type="hidden"--%>
+                                   <%--name="${_csrf.parameterName}"--%>
+                                   <%--value="${_csrf.token}" />--%>
+                        </form>
                     </div>
                 </li>
 
@@ -136,8 +144,8 @@
     <!--右侧部分结束-->
 
 </div>
-<script src="js/jquery.min.js?v=2.1.4"></script>
-<script src="js/bootstrap.min.js?v=3.3.5"></script>
+<script src="js/jquery.min.js?v=2.1.4"  charset="UTF-8"></script>
+<script src="js/bootstrap.min.js?v=3.3.5"  charset="UTF-8"></script>
 <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="js/plugins/layer/layer.min.js"></script>
