@@ -329,6 +329,7 @@
                     success: function (data) {
                         if (data.retcode == 0)
                             swal("删除成功！", "您已经永久删除了这条信息。", "success");
+                        window.location.href="parents";
                     },
                     //请求出错的处理
                     error: function () {
