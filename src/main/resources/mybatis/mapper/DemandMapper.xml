@@ -378,4 +378,9 @@
       user_id = #{userId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT * FROM demand WHERE user_id=#{userId,jdbcType=INTEGER}
+  </select>
+
 </mapper>

@@ -325,6 +325,9 @@
     <select id="selectByTeacherId" resultMap="ResultMapWithBLOBs">
       SELECT * FROM teacherview WHERE id=#{teacherId,jdbcType=INTEGER}
     </select>
+  <select id="selectAll" resultMap="ResultMapWithBLOBs">
+    SELECT * FROM teacherview
+  </select>
     <update id="updateByExampleSelective" parameterType="map" >
     update teacherview
     <set >
