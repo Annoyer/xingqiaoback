@@ -42,15 +42,15 @@
     <beans:bean id="customSuccessHandler" class="security.LoginSuccessHandler">
     </beans:bean>
     <beans:bean id="customFailureHandler" class="security.LoginFailureHandler">
+
     </beans:bean>
-    <beans:bean id="authFailHandler" class="security.AuthFailHandler"/>
+    <beans:bean id="authFailHandler" class="security.AuthFailHandler">
+    </beans:bean>
+    <beans:bean id="myUserDetailService" class="security.MyUserDetailsService">
+    </beans:bean>
 
     <authentication-manager>
-        <authentication-provider>
-            <user-service>
-                <user name="normal" password="11111" authorities="ROLE_NORMAL" />
-                <user name="super" password="22222" authorities="ROLE_NORMAL, ROLE_SUPER" />
-            </user-service>
+        <authentication-provider user-service-ref="myUserDetailService">
         </authentication-provider>
     </authentication-manager>
 

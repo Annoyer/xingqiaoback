@@ -79,17 +79,20 @@ public class OrderController {
         if (orders.getTrace() != null && !orders.getTrace().isEmpty()){
             String[] traces = orders.getTrace().split("#");
             List<Map<String,String>> trace= new ArrayList<>();
-            for (String str : traces){
-                String[] singleTrace = str.split("@");
-                Map<String,String> recordMap = new HashMap<>();
-                if (singleTrace.length == 2){
-                    recordMap.put("time",singleTrace[0]);
-                    recordMap.put("content",singleTrace[1]);
-                    recordMap.put("isError","false");
-                } else {
-                    recordMap.put("isError","true");
+            if (traces != null && traces.length > 0){
+                for (String str : traces){
+                    String[] singleTrace = str.split("@");
+                    Map<String,String> recordMap = new HashMap<>();
+                    if (singleTrace.length == 2){
+                        recordMap.put("time",singleTrace[0]);
+                        recordMap.put("content",singleTrace[1]);
+ //                       recordMap.put("isError","false");
+                        trace.add(recordMap);
+                    }
+// else {
+//                        recordMap.put("isError","true");
+//                    }
                 }
-                trace.add(recordMap);
             }
             mv.addObject("trace", trace);
         }

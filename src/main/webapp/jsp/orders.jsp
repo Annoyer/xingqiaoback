@@ -44,7 +44,8 @@
                                 <th>治疗师姓名</th>
                                 <th>家长姓名</th>
                                 <th>患者姓名</th>
-                                <th>治疗方向</th>
+                                <th>订单金额（实付/总额）</th>
+                                <th>支付方式</th>
                                 <th>下单时间</th>
                                 <th></th>
                             </tr>
@@ -56,7 +57,8 @@
                                     <td>${o.teacherName}</td>
                                     <td>${o.parentName}</td>
                                     <td>${o.demandName}</td>
-                                    <td>${o.recoverOb}</td>
+                                    <td> <c:if test="${empty o.realpay}"> 0.0 </c:if>${o.realpay} / <c:if test="${empty o.totalpay}"> 0.0 </c:if>${o.totalpay}</td>
+                                    <td>${o.payWay}</td>
                                     <td>${o.sTime}</td>
                                     <td>
                                         <a target="_self" href="order_detail?orderId=${o.id}&teacherId=${o.teacherId}&parentId=${o.parentId}&demandId=${o.demandId}">订单详情</a>

@@ -388,7 +388,7 @@
 
     function submitModify(){
         $('#modifyOrgForm').ajaxSubmit(function(message) {
-            alert(message);
+//            alert(message);
             if (message==null || message.length==0 || message.indexOf("<html>") >= 0) {
                 window.location.reload();
             } else if (eval("(" + message + ")").errorPage!=null){

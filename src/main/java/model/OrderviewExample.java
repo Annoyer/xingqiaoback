@@ -823,6 +823,196 @@ public class OrderviewExample {
             addCriterion("recover_ob not between", value1, value2, "recoverOb");
             return (Criteria) this;
         }
+
+        public Criteria andRealpayIsNull() {
+            addCriterion("realpay is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealpayIsNotNull() {
+            addCriterion("realpay is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealpayEqualTo(Double value) {
+            addCriterion("realpay =", value, "realpay");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealpayNotEqualTo(Double value) {
+            addCriterion("realpay <>", value, "realpay");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealpayGreaterThan(Double value) {
+            addCriterion("realpay >", value, "realpay");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealpayGreaterThanOrEqualTo(Double value) {
+            addCriterion("realpay >=", value, "realpay");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealpayLessThan(Double value) {
+            addCriterion("realpay <", value, "realpay");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealpayLessThanOrEqualTo(Double value) {
+            addCriterion("realpay <=", value, "realpay");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealpayIn(List<Double> values) {
+            addCriterion("realpay in", values, "realpay");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealpayNotIn(List<Double> values) {
+            addCriterion("realpay not in", values, "realpay");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealpayBetween(Double value1, Double value2) {
+            addCriterion("realpay between", value1, value2, "realpay");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealpayNotBetween(Double value1, Double value2) {
+            addCriterion("realpay not between", value1, value2, "realpay");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalpayIsNull() {
+            addCriterion("totalpay is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalpayIsNotNull() {
+            addCriterion("totalpay is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalpayEqualTo(Double value) {
+            addCriterion("totalpay =", value, "totalpay");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalpayNotEqualTo(Double value) {
+            addCriterion("totalpay <>", value, "totalpay");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalpayGreaterThan(Double value) {
+            addCriterion("totalpay >", value, "totalpay");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalpayGreaterThanOrEqualTo(Double value) {
+            addCriterion("totalpay >=", value, "totalpay");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalpayLessThan(Double value) {
+            addCriterion("totalpay <", value, "totalpay");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalpayLessThanOrEqualTo(Double value) {
+            addCriterion("totalpay <=", value, "totalpay");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalpayIn(List<Double> values) {
+            addCriterion("totalpay in", values, "totalpay");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalpayNotIn(List<Double> values) {
+            addCriterion("totalpay not in", values, "totalpay");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalpayBetween(Double value1, Double value2) {
+            addCriterion("totalpay between", value1, value2, "totalpay");
+            return (Criteria) this;
+        }
+
+        public Criteria andTotalpayNotBetween(Double value1, Double value2) {
+            addCriterion("totalpay not between", value1, value2, "totalpay");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayWayIsNull() {
+            addCriterion("pay_way is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayWayIsNotNull() {
+            addCriterion("pay_way is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayWayEqualTo(String value) {
+            addCriterion("pay_way =", value, "payWay");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayWayNotEqualTo(String value) {
+            addCriterion("pay_way <>", value, "payWay");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayWayGreaterThan(String value) {
+            addCriterion("pay_way >", value, "payWay");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayWayGreaterThanOrEqualTo(String value) {
+            addCriterion("pay_way >=", value, "payWay");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayWayLessThan(String value) {
+            addCriterion("pay_way <", value, "payWay");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayWayLessThanOrEqualTo(String value) {
+            addCriterion("pay_way <=", value, "payWay");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayWayLike(String value) {
+            addCriterion("pay_way like", value, "payWay");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayWayNotLike(String value) {
+            addCriterion("pay_way not like", value, "payWay");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayWayIn(List<String> values) {
+            addCriterion("pay_way in", values, "payWay");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayWayNotIn(List<String> values) {
+            addCriterion("pay_way not in", values, "payWay");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayWayBetween(String value1, String value2) {
+            addCriterion("pay_way between", value1, value2, "payWay");
+            return (Criteria) this;
+        }
+
+        public Criteria andPayWayNotBetween(String value1, String value2) {
+            addCriterion("pay_way not between", value1, value2, "payWay");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

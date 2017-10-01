@@ -24,7 +24,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     //@Override
     protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException {
-        System.out.println("CustomSuccessHandler handle...");
+        System.out.println("LoginSuccessHandler handle...");
         String targetUrl = determineTargetUrl(authentication);
 
         if (response.isCommitted()) {

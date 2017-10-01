@@ -1,6 +1,5 @@
 package security;
 
-import model.Message;
 import net.sf.json.JSONObject;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.WebAttributes;

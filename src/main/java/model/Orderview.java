@@ -23,6 +23,12 @@ public class Orderview {
 
     private String recoverOb;
 
+    private Double realpay;
+
+    private Double totalpay;
+
+    private String payWay;
+
     public String getId() {
         return id;
     }
@@ -109,5 +115,29 @@ public class Orderview {
 
     public void setRecoverOb(String recoverOb) {
         this.recoverOb = recoverOb == null ? null : recoverOb.trim();
+    }
+
+    public Double getRealpay() {
+        return realpay;
+    }
+
+    public void setRealpay(Double realpay) {
+        this.realpay = realpay;
+    }
+
+    public Double getTotalpay() {
+        return totalpay;
+    }
+
+    public void setTotalpay(Double totalpay) {
+        this.totalpay = totalpay;
+    }
+
+    public String getPayWay() {
+        return payWay;
+    }
+
+    public void setPayWay(String payWay) {
+        this.payWay = payWay == null ? null : payWay.trim();
     }
 }
