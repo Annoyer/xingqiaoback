@@ -65,6 +65,14 @@ public class UserController {
         return mv;
     }
 
+    @RequestMapping(value = "/jsp/teacher_sysuser")
+    public ModelAndView toTeacherSysuser(@RequestParam("id") Integer id){
+        ModelAndView mv=new ModelAndView();
+        mv.setViewName("teacher_sysuser");
+        mv.addObject("user",userService.getTeacherById(id));
+        return mv;
+    }
+
     @RequestMapping(value = "/jsp/parent_detail")
     public ModelAndView toParentDetail(@RequestParam("parentId") Integer parentId){
         ModelAndView mv=new ModelAndView();
@@ -100,26 +108,38 @@ public class UserController {
     @ResponseBody
     public Map saveTeacherInfo(@RequestParam("teacherId") Integer teacherId,
                                @RequestParam("name") String name,
+                               @RequestParam("pid") String pid,
+                               @RequestParam("address") String address,
+                               @RequestParam("detailaddress") String detailaddress,
                                @RequestParam("abstractT") String abstractT,
                                @RequestParam("experienceAge") Integer experienceAge,
                                @RequestParam("school") String school,
                                @RequestParam("unit") String unit,
                                @RequestParam("domain") String domain,
+                               @RequestParam("question") String question,
                                @RequestParam("object") String object,
-                               @RequestParam("way") String way){
+                               @RequestParam("way") String way,
+                               @RequestParam("priceT") Integer priceT,
+                               @RequestParam("priceS") Integer priceS,
+                               @RequestParam("priceO") Integer priceO,
+                               @RequestParam("tGround") String tGround,
+                               @RequestParam("sGround") String sGround,
+                               @RequestParam("recoveryHis") String recoveryHis,
+                               @RequestParam("successCase") String successCase
+                               ){
         Map result=new HashMap();
-        userService.modifyTeacherWithBLOB(teacherId,name,abstractT,experienceAge,school,unit,domain,object,way);
+        userService.modifyTeacherWithBLOB(teacherId,name,pid,address,detailaddress,abstractT,experienceAge,school,unit,
+                domain,question,object,way,priceS,priceT,priceO,tGround,sGround,recoveryHis,successCase);
         result.put("retcode",0);
         return result;
     }
 
     @RequestMapping(value="/jsp/deleteTeacher")
     @ResponseBody
-    public Map deleteTeacher(@RequestParam("teacherId") Integer teacherId,
-                          @RequestParam("userId") Integer userId){
-        System.out.println("delete teacherid="+teacherId);
+    public Map deleteTeacher(@RequestParam("id") Integer id,
+                             @RequestParam("userId") Integer userId){
         Map result=new HashMap();
-        userService.deleteTeacher(teacherId,userId);
+        userService.deleteTeacher(id,userId);
         result.put("retcode",0);
         return result;
     }
@@ -176,12 +196,11 @@ public class UserController {
                           @RequestParam("object") String object,
                           @RequestParam("way") String way,
                           @RequestParam("priceS") Integer priceS,
-                          @RequestParam("priceMax") Integer priceMax,
-                          @RequestParam("priceMid") Integer priceMid,
-                          @RequestParam("priceMin") Integer priceMin){
+                          @RequestParam("priceT") Integer priceT,
+                          @RequestParam("priceO") Integer priceO){
         Map result=new HashMap();
         userService.addTeacher(username,password,name,pid, gender,address, phone, email, school,
-                unit, tGround, sGround, domain, question, object,way, priceS,priceMax,priceMid,priceMin);
+                unit, tGround, sGround, domain, question, object,way, priceS,priceT,priceO);
         result.put("retcode",0);
         return result;
     }

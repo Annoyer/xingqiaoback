@@ -51,7 +51,7 @@
                                 <td>${d.birthday}</td>
                                 <td>${d.disease}</td>
                                 <td>
-                                    <a id="modifyBtn" onclick="modify(this)" data-toggle="modal" data-target="#myModal">账户管理</a>
+                                    <a id="modifyBtn" onclick="modify(this)" data-toggle="modal" data-target="#myModal">简历管理</a>
                                 </td>
                             </tr>
                         </c:forEach>

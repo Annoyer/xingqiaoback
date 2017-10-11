@@ -103,12 +103,9 @@
                         <thead>
                         <tr>
                             <th>家长ID</th>
-                            <th>用户ID</th>
                             <th>姓名</th>
-                            <th>住址</th>
-                            <th>范围</th>
                             <th>手机</th>
-                            <th>Email</th>
+                            <th>所在地</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -116,13 +113,9 @@
                         <c:forEach items="${parents}" var="p">
                         <tr class="gradeX" id="trId">
                             <td>${p.id}</td>
-                            <td>${p.userid}</td>
                             <td>${p.realname}</td>
-                            <td>${p.address}</td>
-                            <td>${p.ground}</td>
                             <td>${p.phone}</td>
-                            <td>${p.email}</td>
-
+                            <td>${p.ground}</td>
                             <td>
                                 <a target="_self" href="parent_detail?parentId=${p.id}">账户管理</a>
                                 <a target="_self" href="parent_demands?userId=${p.userid}">需求简历</a>

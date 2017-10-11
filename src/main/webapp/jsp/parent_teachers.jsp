@@ -28,7 +28,14 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>我的治疗师</h5>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <h5>我的治疗师</h5>
+                        </div>
+                        <div class="col-sm-1">
+                            <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addParentModal">添加治疗师</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="ibox-content">
                     <table class="table table-striped table-bordered table-hover " id="editable">
@@ -53,7 +60,7 @@
                                 <td>${t.experienceAge}</td>
                                 <td>${t.domain}</td>
                                 <td>
-                                    <a target="_self" href="teacher_detail?id=${t.id}">账户管理</a>
+                                    <a target="_self" href="teacher_detail?id=${t.id}">删除治疗师</a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -79,36 +86,38 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        $("#modifyBtn").click(function(){
-            tr=$(this).parent().parent();
-            var arr=tr.children();
-            $('#userId').val(arr[0].innerText);
-            $('#name').val(arr[1].innerText);
-            $('#pid').val(arr[2].innerText);
-            $('#address').val(arr[3].innerText);
-            $('#phone').val(arr[4].innerText);
-            $('#email').val(arr[5].innerText);
-        });
-        $("#insertBtn").click(function(){
-            $('#userId').val("");
-            $('#name').val("");
-            $('#pid').val("");
-            $('#address').val("");
-            $('#phone').val("");
-            $('#email').val("");
-        });
-        $("#deleteBtn").click(function(){
-            swal({
-                title: "您确定要删除这条信息吗",
-                text: "删除后将无法恢复，请谨慎操作！",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "删除",
-                closeOnConfirm: false
-            }, function () {
-                //后台数据库操作……
-                swal("删除成功！", "您已经永久删除了这条信息。", "success");
+        $(document).ready(function(){
+            $("#deleteBtn").click(function(){
+                swal({
+                    title: "您确定要删除该治疗师吗",
+                    text: "删除后将无法恢复，请谨慎操作！",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "删除",
+                    closeOnConfirm: false
+                }, function () {
+                    $.ajax({
+                        type: "post",//请求方式
+                        url: "deleteParent",
+                        timeout: 80000,//超时时间：8秒
+                        dataType: "json",//设置返回数据的格式
+                        data: {
+                            "parentId":${parent.id},
+                            "userId":${parent.userid}
+                        },
+                        //请求成功后的回调函数 data为json格式
+                        success: function (data) {
+                            if (data.retcode == 0)
+                                swal("删除成功！", "您已经永久删除了这条信息。", "success");
+                            window.location.href="parents";
+                        },
+                        //请求出错的处理
+                        error: function () {
+                            alert("请求出错");
+                        }
+                    });
+                });
             });
         });
     });

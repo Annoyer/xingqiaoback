@@ -117,20 +117,16 @@
                                             <input type="text" class="form-control" id="wayAdd" name="way">
                                         </div>
                                         <div class="form-group">
-                                            <label for="priceSAdd">price_s</label>
+                                            <label for="priceSAdd">学生上门价格</label>
                                             <input type="text" class="form-control" id="priceSAdd" name="priceS">
                                         </div>
                                         <div class="form-group">
-                                            <label for="priceMaxAdd">price_max</label>
-                                            <input type="text" class="form-control" id="priceMaxAdd" name="priceMax">
+                                            <label for="priceTAdd">治疗师上门价格</label>
+                                            <input type="text" class="form-control" id="priceTAdd" name="priceT">
                                         </div>
                                         <div class="form-group">
-                                            <label for="priceMidAdd">price_mid</label>
-                                            <input type="text" class="form-control" id="priceMidAdd" name="priceMid">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="priceMinAdd">price_max</label>
-                                            <input type="text" class="form-control" id="priceMinAdd" name="priceMin">
+                                            <label for="priceOAdd">在线授课价格</label>
+                                            <input type="text" class="form-control" id="priceOAdd" name="priceO">
                                         </div>
 
                                     </form>
@@ -147,15 +143,12 @@
                         <thead>
                         <tr>
                             <th>治疗师ID</th>
-                            <th>用户ID</th>
                             <th>姓名</th>
                             <th>等级</th>
-                            <th>住址</th>
                             <th>所属机构</th>
-                            <th>从业年限</th>
-                            <th>简介</th>
-                            <th>领域</th>
+                            <th>康复领域</th>
                             <th>治疗对象</th>
+                            <th>从业年限</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -163,17 +156,16 @@
                         <c:forEach items="${teachers}" var="t">
                             <tr class="gradeX" id="trId">
                                 <td>${t.id}</td>
-                                <td>${t.userId}</td>
                                 <td>${t.name}</td>
                                 <td>${t.level}</td>
-                                <td>${t.detailaddress}</td>
                                 <td>${t.unit}</td>
-                                <td>${t.experienceAge}</td>
-                                <td>${t.abstractteacher}</td>
                                 <td>${t.domain}</td>
                                 <td>${t.object}</td>
+                                <td>${t.experienceAge}</td>
                                 <td>
-                                    <a target="_self" href="teacher_detail?id=${t.id}">账户管理</a>
+                                    <a target="_self" href="teacher_detail?id=${t.id}">治疗师详情</a>
+                                    <a target="_self" href="teacher_sysuser?id=${t.id}">账户管理</a>
+                                    <a target="_self" href="teacher_detail?id=${t.id}">我的患者</a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -216,9 +208,8 @@
         var object=$("#objectAdd").val();
         var way=$("#wayAdd").val();
         var priceS=$("#priceSAdd").val();
-        var priceMax=$("#priceMaxAdd").val();
-        var priceMid=$("#priceMidAdd").val();
-        var priceMin=$("#priceMinAdd").val();
+        var priceT=$("#priceTAdd").val();
+        var priceO=$("#priceOAdd").val();
 
         $.ajax({
             type: "post",
@@ -243,9 +234,8 @@
                 "object":object,
                 "way":way,
                 "priceS":priceS,
-                "priceMax":priceMax,
-                "priceMid":priceMid,
-                "priceMin":priceMin
+                "priceT":priceT,
+                "priceO":priceO
 
             },
             //请求成功后的回调函数 data为json格式

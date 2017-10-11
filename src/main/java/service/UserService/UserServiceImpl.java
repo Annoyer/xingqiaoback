@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -69,8 +71,8 @@ public class UserServiceImpl implements IUserService{
     }
 
     @Override
-    public TeacherviewWithBLOBs getTeacherById(int id){
-        TeacherviewWithBLOBs result=teacherviewMapper.selectByTeacherId(id);
+    public TeacherWithBLOBs getTeacherById(int id){
+        TeacherWithBLOBs result=teacherMapper.selectByPrimaryKey(id);
         return result;
     }
 
@@ -90,17 +92,45 @@ public class UserServiceImpl implements IUserService{
 
 
     @Override
-    public void modifyTeacherWithBLOB(int teacherId,String name,String abstractT,int experienceAge,
-                                      String school,String unit,String domain,String object,String way){
+    public void modifyTeacherWithBLOB(int teacherId,String name,String pid,String address,String detailaddress,String abstractT,int experienceAge,String school,String unit,
+                                      String domain,String question,String object,String way,int priceS,int priceT,int priceO,String tGround,String sGround,
+                                      String recoveryHis,String successCase){
         TeacherWithBLOBs teacher=teacherMapper.selectByPrimaryKey(teacherId);
         if(!teacher.getName().equals(name)) teacher.setName(name);
+        if(!teacher.getPid().equals(pid)) teacher.setPid(pid);
+        if(!teacher.getAddress().equals(address)) teacher.setAddress(address);
+        if(!teacher.getDetailaddress().equals(detailaddress)) teacher.setDetailaddress(detailaddress);
         if(!teacher.getAbstractteacher().equals(abstractT)) teacher.setAbstractteacher(abstractT);
         if(teacher.getExperienceAge()!=experienceAge) teacher.setExperienceAge(experienceAge);
         if(!teacher.getSchool().equals(school)) teacher.setSchool(school);
         if(!teacher.getUnit().equals(unit)) teacher.setUnit(unit);
         if(!teacher.getDomain().equals(domain)) teacher.setDomain(domain);
+        if(!teacher.getQuestion().equals(question)) teacher.setQuestion(question);
         if(!teacher.getObject().equals(object)) teacher.setObject(object);
         if(!teacher.getWay().equals(way)) teacher.setWay(way);
+        if(teacher.getPriceO()!=priceO||teacher.getPriceS()!=priceS||teacher.getPriceT()!=priceT){
+            if((!teacher.getPriceO().equals(priceO))) teacher.setPriceO(priceO);
+            if((!teacher.getPriceS().equals(priceS))) teacher.setPriceS(priceS);
+            if((!teacher.getPriceT().equals(priceT))) teacher.setPriceT(priceT);
+            List<Integer> prices=new ArrayList<>();
+            prices.add(priceO);
+            prices.add(priceS);
+            prices.add(priceT);
+            Collections.sort(prices, new Comparator<Integer>() {
+                @Override
+                public int compare(Integer o1, Integer o2) {
+                    return o1.compareTo(o2);
+                }
+            });
+            teacher.setPriceMax(prices.get(2));
+            teacher.setPriceMid(prices.get(1));
+            teacher.setPriceMin(prices.get(0));
+        }
+        if(!teacher.gettGround().equals(tGround)) teacher.settGround(tGround);
+        if(!teacher.getsGround().equals(sGround)) teacher.setsGround(sGround);
+        if(!teacher.getRecoveryHis().equals(recoveryHis)) teacher.setRecoveryHis(recoveryHis);
+        if(!teacher.getSuccessCase().equals(successCase)) teacher.setSuccessCase(successCase);
+
         teacherMapper.updateByPrimaryKeyWithBLOBs(teacher);
      }
 
@@ -142,7 +172,7 @@ public class UserServiceImpl implements IUserService{
     public void addTeacher(String username,String password, String name,String pid,String gender, String address,
                            String phone, String email, String school, String unit, String tGround, String sGround,
                            String  domain, String question, String object, String way, Integer priceS,
-                           Integer priceMax, Integer priceMid, Integer priceMin){
+                           Integer priceT, Integer priceO){
         Sysuser sysuser=new Sysuser();
         sysuser.setStatus(1);
         sysuser.setUsername(username);
@@ -166,9 +196,21 @@ public class UserServiceImpl implements IUserService{
         teacher.setObject(object);
         teacher.setWay(way);
         teacher.setPriceS(priceS);
-        teacher.setPriceMax(priceMax);
-        teacher.setPriceMid(priceMid);
-        teacher.setPriceMin(priceMin);
+        teacher.setPriceT(priceT);
+        teacher.setPriceO(priceO);
+        List<Integer> prices=new ArrayList<>();
+        prices.add(priceO);
+        prices.add(priceS);
+        prices.add(priceT);
+        Collections.sort(prices, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1.compareTo(o2);
+            }
+        });
+        teacher.setPriceMax(prices.get(2));
+        teacher.setPriceMid(prices.get(1));
+        teacher.setPriceMin(prices.get(0));
 
         teacherMapper.insertSelective(teacher);
     }
