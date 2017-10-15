@@ -15,16 +15,15 @@
     <result column="price_min" property="priceMin" jdbcType="INTEGER" />
     <result column="price_max" property="priceMax" jdbcType="INTEGER" />
     <result column="price_mid" property="priceMid" jdbcType="INTEGER" />
-    <result column="is_pass" property="isPass" jdbcType="INTEGER" />
     <result column="pid_url_front" property="pidUrlFront" jdbcType="VARCHAR" />
     <result column="pid_url_back" property="pidUrlBack" jdbcType="VARCHAR" />
     <result column="detailAddress" property="detailaddress" jdbcType="VARCHAR" />
     <result column="people_pid_url" property="peoplePidUrl" jdbcType="VARCHAR" />
+
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="model.TeacherWithBLOBs" extends="BaseResultMap" >
     <result column="address" property="address" jdbcType="LONGVARCHAR" />
     <result column="unit" property="unit" jdbcType="LONGVARCHAR" />
-    <result column="available_time" property="availableTime" jdbcType="LONGVARCHAR" />
     <result column="s_ground" property="sGround" jdbcType="LONGVARCHAR" />
     <result column="t_ground" property="tGround" jdbcType="LONGVARCHAR" />
     <result column="domain" property="domain" jdbcType="LONGVARCHAR" />
@@ -37,6 +36,7 @@
     <result column="certificate" property="certificate" jdbcType="LONGVARCHAR" />
     <result column="recovery_his" property="recoveryHis" jdbcType="LONGVARCHAR" />
     <result column="success_case" property="successCase" jdbcType="LONGVARCHAR" />
+    <result column="schedule" property="schedule" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -98,12 +98,12 @@
   </sql>
   <sql id="Base_Column_List" >
     id, user_id, name, pid, abstractTeacher, price_t, price_s, price_o, level, experience_age, 
-    price_min, price_max, price_mid, is_pass, pid_url_front, pid_url_back, detailAddress, 
+    price_min, price_max, price_mid,  pid_url_front, pid_url_back, detailAddress,
     people_pid_url
   </sql>
   <sql id="Blob_Column_List" >
-    address, unit, available_time, s_ground, t_ground, domain, question, object, project, 
-    way, school, award, certificate, recovery_his, success_case
+    address, unit,  s_ground, t_ground, domain, question, object, project,
+    way, school, award, certificate, recovery_his, success_case,schedule
   </sql>
   <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="model.TeacherExample" >
     select
@@ -136,7 +136,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -158,25 +158,26 @@
       pid, abstractTeacher, price_t, 
       price_s, price_o, level, 
       experience_age, price_min, price_max, 
-      price_mid, is_pass, pid_url_front, 
+      price_mid,  pid_url_front,
       pid_url_back, detailAddress, people_pid_url, 
-      address, unit, available_time, 
+      address, unit,
       s_ground, t_ground, domain, 
       question, object, project, 
       way, school, award, 
-      certificate, recovery_his, success_case
+      certificate, recovery_his, success_case,schedule
       )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{pid,jdbcType=VARCHAR}, #{abstractteacher,jdbcType=VARCHAR}, #{priceT,jdbcType=INTEGER}, 
       #{priceS,jdbcType=INTEGER}, #{priceO,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, 
       #{experienceAge,jdbcType=INTEGER}, #{priceMin,jdbcType=INTEGER}, #{priceMax,jdbcType=INTEGER}, 
-      #{priceMid,jdbcType=INTEGER}, #{isPass,jdbcType=INTEGER}, #{pidUrlFront,jdbcType=VARCHAR}, 
+      #{priceMid,jdbcType=INTEGER}, #{pidUrlFront,jdbcType=VARCHAR},
       #{pidUrlBack,jdbcType=VARCHAR}, #{detailaddress,jdbcType=VARCHAR}, #{peoplePidUrl,jdbcType=VARCHAR}, 
-      #{address,jdbcType=LONGVARCHAR}, #{unit,jdbcType=LONGVARCHAR}, #{availableTime,jdbcType=LONGVARCHAR}, 
+      #{address,jdbcType=LONGVARCHAR}, #{unit,jdbcType=LONGVARCHAR},
       #{sGround,jdbcType=LONGVARCHAR}, #{tGround,jdbcType=LONGVARCHAR}, #{domain,jdbcType=LONGVARCHAR}, 
       #{question,jdbcType=LONGVARCHAR}, #{object,jdbcType=LONGVARCHAR}, #{project,jdbcType=LONGVARCHAR}, 
       #{way,jdbcType=LONGVARCHAR}, #{school,jdbcType=LONGVARCHAR}, #{award,jdbcType=LONGVARCHAR}, 
-      #{certificate,jdbcType=LONGVARCHAR}, #{recoveryHis,jdbcType=LONGVARCHAR}, #{successCase,jdbcType=LONGVARCHAR}
+      #{certificate,jdbcType=LONGVARCHAR}, #{recoveryHis,jdbcType=LONGVARCHAR},
+       #{successCase,jdbcType=LONGVARCHAR},#{schedule,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="model.TeacherWithBLOBs" >
@@ -221,9 +222,7 @@
       <if test="priceMid != null" >
         price_mid,
       </if>
-      <if test="isPass != null" >
-        is_pass,
-      </if>
+
       <if test="pidUrlFront != null" >
         pid_url_front,
       </if>
@@ -242,9 +241,7 @@
       <if test="unit != null" >
         unit,
       </if>
-      <if test="availableTime != null" >
-        available_time,
-      </if>
+
       <if test="sGround != null" >
         s_ground,
       </if>
@@ -280,6 +277,9 @@
       </if>
       <if test="successCase != null" >
         success_case,
+      </if>
+      <if test="schedule != null" >
+        schedule,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -322,9 +322,7 @@
       <if test="priceMid != null" >
         #{priceMid,jdbcType=INTEGER},
       </if>
-      <if test="isPass != null" >
-        #{isPass,jdbcType=INTEGER},
-      </if>
+
       <if test="pidUrlFront != null" >
         #{pidUrlFront,jdbcType=VARCHAR},
       </if>
@@ -343,9 +341,7 @@
       <if test="unit != null" >
         #{unit,jdbcType=LONGVARCHAR},
       </if>
-      <if test="availableTime != null" >
-        #{availableTime,jdbcType=LONGVARCHAR},
-      </if>
+
       <if test="sGround != null" >
         #{sGround,jdbcType=LONGVARCHAR},
       </if>
@@ -381,6 +377,9 @@
       </if>
       <if test="successCase != null" >
         #{successCase,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="schedule != null" >
+        #{schedule,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -432,9 +431,7 @@
       <if test="record.priceMid != null" >
         price_mid = #{record.priceMid,jdbcType=INTEGER},
       </if>
-      <if test="record.isPass != null" >
-        is_pass = #{record.isPass,jdbcType=INTEGER},
-      </if>
+
       <if test="record.pidUrlFront != null" >
         pid_url_front = #{record.pidUrlFront,jdbcType=VARCHAR},
       </if>
@@ -453,9 +450,7 @@
       <if test="record.unit != null" >
         unit = #{record.unit,jdbcType=LONGVARCHAR},
       </if>
-      <if test="record.availableTime != null" >
-        available_time = #{record.availableTime,jdbcType=LONGVARCHAR},
-      </if>
+
       <if test="record.sGround != null" >
         s_ground = #{record.sGround,jdbcType=LONGVARCHAR},
       </if>
@@ -492,6 +487,9 @@
       <if test="record.successCase != null" >
         success_case = #{record.successCase,jdbcType=LONGVARCHAR},
       </if>
+      <if test="record.schedule != null" >
+        schedule = #{record.schedule,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -512,14 +510,14 @@
       price_min = #{record.priceMin,jdbcType=INTEGER},
       price_max = #{record.priceMax,jdbcType=INTEGER},
       price_mid = #{record.priceMid,jdbcType=INTEGER},
-      is_pass = #{record.isPass,jdbcType=INTEGER},
+
       pid_url_front = #{record.pidUrlFront,jdbcType=VARCHAR},
       pid_url_back = #{record.pidUrlBack,jdbcType=VARCHAR},
       detailAddress = #{record.detailaddress,jdbcType=VARCHAR},
       people_pid_url = #{record.peoplePidUrl,jdbcType=VARCHAR},
       address = #{record.address,jdbcType=LONGVARCHAR},
       unit = #{record.unit,jdbcType=LONGVARCHAR},
-      available_time = #{record.availableTime,jdbcType=LONGVARCHAR},
+
       s_ground = #{record.sGround,jdbcType=LONGVARCHAR},
       t_ground = #{record.tGround,jdbcType=LONGVARCHAR},
       domain = #{record.domain,jdbcType=LONGVARCHAR},
@@ -531,7 +529,8 @@
       award = #{record.award,jdbcType=LONGVARCHAR},
       certificate = #{record.certificate,jdbcType=LONGVARCHAR},
       recovery_his = #{record.recoveryHis,jdbcType=LONGVARCHAR},
-      success_case = #{record.successCase,jdbcType=LONGVARCHAR}
+      success_case = #{record.successCase,jdbcType=LONGVARCHAR},
+      schedule = #{record.schedule,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -551,7 +550,7 @@
       price_min = #{record.priceMin,jdbcType=INTEGER},
       price_max = #{record.priceMax,jdbcType=INTEGER},
       price_mid = #{record.priceMid,jdbcType=INTEGER},
-      is_pass = #{record.isPass,jdbcType=INTEGER},
+
       pid_url_front = #{record.pidUrlFront,jdbcType=VARCHAR},
       pid_url_back = #{record.pidUrlBack,jdbcType=VARCHAR},
       detailAddress = #{record.detailaddress,jdbcType=VARCHAR},
@@ -599,9 +598,7 @@
       <if test="priceMid != null" >
         price_mid = #{priceMid,jdbcType=INTEGER},
       </if>
-      <if test="isPass != null" >
-        is_pass = #{isPass,jdbcType=INTEGER},
-      </if>
+
       <if test="pidUrlFront != null" >
         pid_url_front = #{pidUrlFront,jdbcType=VARCHAR},
       </if>
@@ -620,9 +617,7 @@
       <if test="unit != null" >
         unit = #{unit,jdbcType=LONGVARCHAR},
       </if>
-      <if test="availableTime != null" >
-        available_time = #{availableTime,jdbcType=LONGVARCHAR},
-      </if>
+
       <if test="sGround != null" >
         s_ground = #{sGround,jdbcType=LONGVARCHAR},
       </if>
@@ -659,6 +654,9 @@
       <if test="successCase != null" >
         success_case = #{successCase,jdbcType=LONGVARCHAR},
       </if>
+      <if test="schedule != null" >
+        schedule = #{schedule,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -676,14 +674,14 @@
       price_min = #{priceMin,jdbcType=INTEGER},
       price_max = #{priceMax,jdbcType=INTEGER},
       price_mid = #{priceMid,jdbcType=INTEGER},
-      is_pass = #{isPass,jdbcType=INTEGER},
+
       pid_url_front = #{pidUrlFront,jdbcType=VARCHAR},
       pid_url_back = #{pidUrlBack,jdbcType=VARCHAR},
       detailAddress = #{detailaddress,jdbcType=VARCHAR},
       people_pid_url = #{peoplePidUrl,jdbcType=VARCHAR},
       address = #{address,jdbcType=LONGVARCHAR},
       unit = #{unit,jdbcType=LONGVARCHAR},
-      available_time = #{availableTime,jdbcType=LONGVARCHAR},
+
       s_ground = #{sGround,jdbcType=LONGVARCHAR},
       t_ground = #{tGround,jdbcType=LONGVARCHAR},
       domain = #{domain,jdbcType=LONGVARCHAR},
@@ -695,7 +693,8 @@
       award = #{award,jdbcType=LONGVARCHAR},
       certificate = #{certificate,jdbcType=LONGVARCHAR},
       recovery_his = #{recoveryHis,jdbcType=LONGVARCHAR},
-      success_case = #{successCase,jdbcType=LONGVARCHAR}
+      success_case = #{successCase,jdbcType=LONGVARCHAR},
+      schedule = #{schedule,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="model.Teacher" >
@@ -712,11 +711,20 @@
       price_min = #{priceMin,jdbcType=INTEGER},
       price_max = #{priceMax,jdbcType=INTEGER},
       price_mid = #{priceMid,jdbcType=INTEGER},
-      is_pass = #{isPass,jdbcType=INTEGER},
+
       pid_url_front = #{pidUrlFront,jdbcType=VARCHAR},
       pid_url_back = #{pidUrlBack,jdbcType=VARCHAR},
       detailAddress = #{detailaddress,jdbcType=VARCHAR},
       people_pid_url = #{peoplePidUrl,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <delete id="deleteByUserId" parameterType="java.lang.Integer" >
+    delete from teacher
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+
+  <select id="selectAll" resultMap="ResultMapWithBLOBs">
+    SELECT * FROM teacher
+  </select>
 </mapper>

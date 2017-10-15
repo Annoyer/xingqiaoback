@@ -20,6 +20,12 @@
     <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet">
     <link href="css/style.min.css?v=4.0.0" rel="stylesheet"><base target="_blank">
+
+    <!-- Calendar -->
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+
+    <link href="css/plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
+    <link href="css/plugins/fullcalendar/fullcalendar.print.css" rel="stylesheet" media="print">
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -28,8 +34,16 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5>账户管理</h5>
+                                <h5>治疗师资料</h5>
                             </div>
+                <div class="ibox-content">
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <a class="btn btn-primary" id="saveScheduleBtn" style="display: inline">保存当前日程表</a>
+                        </div>
+                    </div>
+                    <div id="calendar"></div>
+                </div>
                             <div class="ibox-content">
                                 <form method="get" class="form-horizontal" id="myForm">
 
@@ -132,26 +146,20 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">学生上门区域</label>
-                                        <div class="col-sm-10" id="sGroundODiv">
+                                        <div class="col-sm-10" id="sGroundDiv">
                                             <p class="form-control-static">${teacher.sGround}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">履历</label>
-                                        <div class="col-sm-10" id="recoveryHisDiv">
-                                            <p class="form-control-static">${teacher.recoveryHis}</p>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">成功案例</label>
-                                        <div class="col-sm-10" id="successCaseDiv">
-                                            <p class="form-control-static">${teacher.successCase}</p>
+                                        <label class="col-sm-2 control-label">日程</label>
+                                        <div class="col-sm-10">
+                                            <p class="form-control-static">${teacher.schedule}</p>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <div class="col-sm-4 col-sm-offset-2">
-                                            <a class="btn btn-primary" id="modifyBtn" onclick="modifyTest()" style="display: inline">修改治疗师信息</a>
+                                            <a class="btn btn-primary" id="modifyBtn" onclick="modifyFunc()" style="display: inline">修改治疗师信息</a>
                                             <a class="btn btn-primary" id="saveBtn" onclick="saveFunc1()" style="display: none">保存内容</a>
                                             <a class="btn btn-default" id="cancelBtn" onclick="inputOff()" style="display: none">取消</a>
                                         </div>
@@ -161,7 +169,8 @@
 
                     </form>
                 </div>
-            </div>
+
+                </div>
         </div>
 </div>
 </div>
@@ -172,11 +181,104 @@
 <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
 <script src="js/content.min.js?v=1.0.0"></script>
 <script src="js/plugins/sweetalert/sweetalert.min.js"></script>
+
+
 <script>
     $(document).ready(function(){$(".dataTables-example").dataTable();var oTable=$("#editable").dataTable();});function fnClickAddRow(){$("#editable").dataTable().fnAddData(["Custom row","New row","New row","New row","New row"])};
 </script>
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 
+<script src="js/jquery-ui.custom.min.js"></script>
+<script src="js/plugins/iCheck/icheck.min.js"></script>
+<script src="js/plugins/fullcalendar/fullcalendar.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $(".i-checks").iCheck({
+            checkboxClass:"icheckbox_square-green",
+            radioClass:"iradio_square-green",
+        });
+        $("#external-events div.external-event").each(function(){
+            var d={title:$.trim($(this).text())};
+            $(this).data("eventObject",d);
+            $(this).draggable({zIndex:999,revert:true,revertDuration:0})
+        });
+        var b=new Date();
+        var c=b.getDate();
+        var a=b.getMonth();
+        var e=b.getFullYear();
+        var day=b.getDay();  //星期天：0
+        if(day=='0') day=7;
+        var str="${teacher.schedule}";
+        var arr=str.split('#');
+
+        $("#calendar").fullCalendar({
+            header:{left:"",center:"",right:""},
+
+            defaultView:"agendaWeek",
+            firstDay:1,
+            minTime:6,
+            maxTime:22,
+            navLinks: true,
+            selectable: true,
+            selectHelper: true,
+            select: function(start, end) {
+                var title = "可用时间";
+                var eventData;
+                if (title) {
+                    eventData = {
+                        title: title,
+                        start: start,
+                        end: end,
+                        allDay:false
+                    };
+                    $('#calendar').fullCalendar('renderEvent', eventData, true);
+                }
+                $('#calendar').fullCalendar('unselect');
+            },
+            editable:true,
+            eventLimit: true,
+            droppable:true,
+            eventClick: function() {
+                alert('clicked!');
+            } ,
+
+        });
+
+        for(var i=0;i<arr.length;i++){
+            if(arr[i]!='0'){
+                var start=arr[i].split('-')[0].split(':')[0];
+                var end=arr[i].split('-')[1].split(':')[0];
+
+                var schdata={title:"可用时间",start:new Date(e,a,c-day+1+i,start,0),end:new Date(e,a,c-day+1+i,end,0),allDay:false};
+                $('#calendar').fullCalendar('renderEvent', schdata, true);
+            }
+        }
+
+        //保存日程修改
+        $("#saveScheduleBtn").click(function(){
+            var events = $('#calendar').fullCalendar('clientEvents');
+            var dayCount=1;
+            var strArr=['0','0','0','0','0','0','0'];
+            function fix(num, length) { //时间格式化
+                return ('' + num).length < length ? ((new Array(length + 1)).join('0') + num).slice(-length) : '' + num;
+            }
+            for(var i=0;i<events.length;i++){
+                var eventStart=new Date(events[i].start);
+                var eventEnd=new Date(events[i].end);
+                var day=eventStart.getDay();
+                if(day==0) day=7;
+                strArr[day-1]=fix(eventStart.getHours(),2)+':'+fix(eventStart.getMinutes(),2)+'-'+
+                    fix(eventEnd.getHours(),2)+':'+fix(eventEnd.getMinutes(),2);
+                alert(day-1+":"+strArr[day-1]);
+            }
+            var scheduleStr=strArr.join('#');
+            alert(scheduleStr);
+            //数据库更新schedule...
+        });
+
+
+    });
+</script>
 <script type="text/javascript">
     function saveFunc1(){
         var teacherId = ${teacher.id};
@@ -190,15 +292,14 @@
         var unit=$("#unit").val();
         var domain=$("#domain").val();
         var question=$("#question").val();
-        var object=$("#object").val();
+        var object="";
+
         var way=$("#way").val();
         var priceT=$("#priceT").val();
         var priceS=$("#priceS").val();
         var priceO=$("#priceO").val();
         var tGround=$("#tGround").val();
         var sGround=$("#sGround").val();
-        var recoveryHis=$("#recoveryHis").val();
-        var successCase=$("#successCase").val();
 
         if(name=="") sweetAlert("姓名不能为空哦~");
         else{
@@ -226,8 +327,7 @@
                     "priceO":priceO,
                     "tGround":tGround,
                     "sGround":sGround,
-                    "recoveryHis":recoveryHis,
-                    "successCase":successCase
+
                 },
                 //请求成功后的回调函数 data为json格式
                 success: function (data) {
@@ -261,16 +361,14 @@
         document.getElementById("priceODiv").innerHTML="<p class=\"form-control-static\">${teacher.priceO}</p>";
         document.getElementById("tGroundDiv").innerHTML="<p class=\"form-control-static\">${teacher.tGround}</p>";
         document.getElementById("sGroundDiv").innerHTML="<p class=\"form-control-static\">${teacher.sGround}</p>";
-        document.getElementById("recoveryHisDiv").innerHTML="<p class=\"form-control-static\">${teacher.recoveryHis}</p>";
-        document.getElementById("successCaseDiv").innerHTML="<p class=\"form-control-static\">${teacher.successCase}</p>";
-
 
         document.getElementById("modifyBtn").setAttribute("style","display:inline");
         document.getElementById("saveBtn").setAttribute("style","display:none");
         document.getElementById("cancelBtn").setAttribute("style","display:none");
     }
 
-    function modifyTest() {
+
+    function modifyFunc() {
         alert("modifyTest");
         document.getElementById("nameDiv").innerHTML="<input type=\"text\" class=\"form-control\" id=\"name\" value=\"${teacher.name}\">";
         document.getElementById("pidDiv").innerHTML="<input type=\"text\" class=\"form-control\" id=\"pid\" value=\"${teacher.pid}\">";
@@ -282,15 +380,22 @@
         document.getElementById("unitDiv").innerHTML="<input type=\"text\" class=\"form-control\" id=\"unit\" value=\"${teacher.unit}\">";
         document.getElementById("domainDiv").innerHTML="<input type=\"text\" class=\"form-control\" id=\"domain\" value=\"${teacher.domain}\">";
         document.getElementById("questionDiv").innerHTML="<input type=\"text\" class=\"form-control\" id=\"question\" value=\"${teacher.question}\">";
-        document.getElementById("objectDiv").innerHTML="<input type=\"text\" class=\"form-control\" id=\"object\" value=\"${teacher.object}\">";
+        document.getElementById("objectDiv").innerHTML=
+            "<label class=\"checkbox-inline\"><input type=\"checkbox\" class=\"object_checkbox\" name=\"object[]\" value=\"0-3岁\">0-3岁 </label>"+
+            "<label class=\"checkbox-inline\"><input type=\"checkbox\" class=\"object_checkbox\" name=\"object[]\" value=\"3-6岁\">3-6岁 </label>"+
+            "<label class=\"checkbox-inline\"> <input type=\"checkbox\" class=\"object_checkbox\" name=\"object[]\" value=\"6-18岁\">6-18岁 </label>"+
+            "<label class=\"checkbox-inline\"> <input type=\"checkbox\" class=\"object_checkbox\" name=\"object[]\" value=\"成人\">成人 </label>";
+        $(".object_checkbox").each(function () {
+            if("${teacher.object}".indexOf($(this).val())!=-1){
+                $(this).prop("checked",true);
+            }
+        });
         document.getElementById("wayDiv").innerHTML="<input type=\"text\" class=\"form-control\" id=\"way\" value=\"${teacher.way}\">";
         document.getElementById("priceTDiv").innerHTML="<input type=\"text\" class=\"form-control\" id=\"priceT\" value=\"${teacher.priceT}\">";
         document.getElementById("priceSDiv").innerHTML="<input type=\"text\" class=\"form-control\" id=\"priceS\" value=\"${teacher.priceS}\">";
         document.getElementById("priceODiv").innerHTML="<input type=\"text\" class=\"form-control\" id=\"priceO\" value=\"${teacher.priceO}\">";
         document.getElementById("tGroundDiv").innerHTML="<input type=\"text\" class=\"form-control\" id=\"tGround\" value=\"${teacher.tGround}\">";
         document.getElementById("sGroundDiv").innerHTML="<input type=\"text\" class=\"form-control\" id=\"sGround\" value=\"${teacher.sGround}\">";
-        //document.getElementById("recoveryHisDiv").innerHTML="<input type=\"text\" class=\"form-control\" id=\"recoveryHis\" value=\"${teacher.recoveryHis}\">";
-        //document.getElementById("successCaseDiv").innerHTML="<input type=\"text\" class=\"form-control\" id=\"successCase\" value=\"${teacher.successCase}\">";
 
 //        var newInput=document.createElement("input");
 //        newInput.setAttribute("class","form-control");
@@ -308,7 +413,11 @@
 
 
 
+
 </script>
+
+
+
 
 </body>
 </html>

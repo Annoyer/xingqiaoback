@@ -34,4 +34,8 @@ public interface TeacherMapper {
     int updateByPrimaryKeyWithBLOBs(TeacherWithBLOBs record);
 
     int updateByPrimaryKey(Teacher record);
+
+    int deleteByUserId(int userId);
+
+    List<TeacherWithBLOBs> selectAll();
 }

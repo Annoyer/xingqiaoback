@@ -51,6 +51,16 @@ public class UserServiceImpl implements IUserService{
     }
 
     @Override
+    public List<TeacherWithBLOBs> getAllTeachers(){
+        List<TeacherWithBLOBs> result = new ArrayList<>();
+        List<TeacherWithBLOBs> tmp = teacherMapper.selectAll();
+        if (tmp != null){
+            result.addAll(tmp);
+        }
+        return result;
+    }
+
+    @Override
     public List<Teacherview> getAllTeachersByParentId(int parentId){
         List<Teacherview> result=new ArrayList<>();
         List<Integer> idList=orderviewMapper.selectTeacherIdByParentId(parentId);
@@ -93,8 +103,7 @@ public class UserServiceImpl implements IUserService{
 
     @Override
     public void modifyTeacherWithBLOB(int teacherId,String name,String pid,String address,String detailaddress,String abstractT,int experienceAge,String school,String unit,
-                                      String domain,String question,String object,String way,int priceS,int priceT,int priceO,String tGround,String sGround,
-                                      String recoveryHis,String successCase){
+                                      String domain,String question,String object,String way,int priceS,int priceT,int priceO,String tGround,String sGround){
         TeacherWithBLOBs teacher=teacherMapper.selectByPrimaryKey(teacherId);
         if(!teacher.getName().equals(name)) teacher.setName(name);
         if(!teacher.getPid().equals(pid)) teacher.setPid(pid);
@@ -128,15 +137,13 @@ public class UserServiceImpl implements IUserService{
         }
         if(!teacher.gettGround().equals(tGround)) teacher.settGround(tGround);
         if(!teacher.getsGround().equals(sGround)) teacher.setsGround(sGround);
-        if(!teacher.getRecoveryHis().equals(recoveryHis)) teacher.setRecoveryHis(recoveryHis);
-        if(!teacher.getSuccessCase().equals(successCase)) teacher.setSuccessCase(successCase);
 
         teacherMapper.updateByPrimaryKeyWithBLOBs(teacher);
      }
 
      @Override
-     public void deleteTeacher(int id,int userId){
-        teacherMapper.deleteByPrimaryKey(id);
+     public void deleteTeacher(int userId){
+        teacherMapper.deleteByUserId(userId);
         sysuserMapper.deleteByPrimaryKey(userId);
      }
 

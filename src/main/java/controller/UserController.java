@@ -53,7 +53,7 @@ public class UserController {
     public ModelAndView toTeachers(){
         ModelAndView mv=new ModelAndView();
         mv.setViewName("teachers");
-        mv.addObject("teachers",userService.getAllTeachersFromView());
+        mv.addObject("teachers",userService.getAllTeachers());
         return mv;
     }
 
@@ -66,10 +66,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/jsp/teacher_sysuser")
-    public ModelAndView toTeacherSysuser(@RequestParam("id") Integer id){
+    public ModelAndView toTeacherSysuser(@RequestParam("userId") Integer userId){
         ModelAndView mv=new ModelAndView();
         mv.setViewName("teacher_sysuser");
-        mv.addObject("user",userService.getTeacherById(id));
+        mv.addObject("user",userService.getSysuserById(userId));
         return mv;
     }
 
@@ -123,23 +123,20 @@ public class UserController {
                                @RequestParam("priceS") Integer priceS,
                                @RequestParam("priceO") Integer priceO,
                                @RequestParam("tGround") String tGround,
-                               @RequestParam("sGround") String sGround,
-                               @RequestParam("recoveryHis") String recoveryHis,
-                               @RequestParam("successCase") String successCase
+                               @RequestParam("sGround") String sGround
                                ){
         Map result=new HashMap();
         userService.modifyTeacherWithBLOB(teacherId,name,pid,address,detailaddress,abstractT,experienceAge,school,unit,
-                domain,question,object,way,priceS,priceT,priceO,tGround,sGround,recoveryHis,successCase);
+                domain,question,object,way,priceS,priceT,priceO,tGround,sGround);
         result.put("retcode",0);
         return result;
     }
 
     @RequestMapping(value="/jsp/deleteTeacher")
     @ResponseBody
-    public Map deleteTeacher(@RequestParam("id") Integer id,
-                             @RequestParam("userId") Integer userId){
+    public Map deleteTeacher(@RequestParam("id") Integer userId){
         Map result=new HashMap();
-        userService.deleteTeacher(id,userId);
+        userService.deleteTeacher(userId);
         result.put("retcode",0);
         return result;
     }

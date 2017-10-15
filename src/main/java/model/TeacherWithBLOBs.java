@@ -31,6 +31,8 @@ public class TeacherWithBLOBs extends Teacher {
 
     private String successCase;
 
+    private String schedule;
+
     public String getAddress() {
         return address;
     }
@@ -149,5 +151,13 @@ public class TeacherWithBLOBs extends Teacher {
 
     public void setSuccessCase(String successCase) {
         this.successCase = successCase == null ? null : successCase.trim();
+    }
+
+    public String getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(String schedule) {
+        this.schedule = schedule;
     }
 }

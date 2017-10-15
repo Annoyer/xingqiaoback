@@ -164,7 +164,7 @@
                                 <td>${t.experienceAge}</td>
                                 <td>
                                     <a target="_self" href="teacher_detail?id=${t.id}">治疗师详情</a>
-                                    <a target="_self" href="teacher_sysuser?id=${t.id}">账户管理</a>
+                                    <a target="_self" href="teacher_sysuser?userId=${t.userId}">账户管理</a>
                                     <a target="_self" href="teacher_detail?id=${t.id}">我的患者</a>
                                 </td>
                             </tr>
