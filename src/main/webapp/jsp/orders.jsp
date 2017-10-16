@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -81,7 +82,6 @@
 <script src="js/content.min.js?v=1.0.0"></script>
 <script src="js/plugins/sweetalert/sweetalert.min.js"></script>
 <script>
-    var orders;
     $(document).ready(function(){
         $(".dataTables-example").dataTable();
         var oTable=$("#editable").dataTable();

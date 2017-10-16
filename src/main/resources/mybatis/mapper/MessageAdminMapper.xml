@@ -141,6 +141,12 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+    <select id="countUnread" resultType="java.lang.Integer">
+      select count(*) from message_admin WHERE is_read = 0
+    </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT * FROM message_admin
+  </select>
   <update id="updateByExampleSelective" parameterType="map" >
     update message_admin
     <set >
@@ -192,5 +198,10 @@
       time = #{time,jdbcType=VARCHAR},
       is_read = #{isRead,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="setAllRead">
+    update message_admin
+    set is_read = 1
+    where is_read = 0
   </update>
 </mapper>

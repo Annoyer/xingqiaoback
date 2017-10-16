@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Param;
 public interface MessageAdminMapper {
     int countByExample(MessageAdminExample example);
 
+    int countUnread();
+
     int deleteByExample(MessageAdminExample example);
 
     int deleteByPrimaryKey(Integer id);
@@ -18,6 +20,8 @@ public interface MessageAdminMapper {
 
     List<MessageAdmin> selectByExample(MessageAdminExample example);
 
+    List<MessageAdmin> selectAll();
+
     MessageAdmin selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") MessageAdmin record, @Param("example") MessageAdminExample example);
@@ -27,4 +31,6 @@ public interface MessageAdminMapper {
     int updateByPrimaryKeySelective(MessageAdmin record);
 
     int updateByPrimaryKey(MessageAdmin record);
+
+    int setAllRead();
 }

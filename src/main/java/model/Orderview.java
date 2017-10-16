@@ -29,6 +29,16 @@ public class Orderview {
 
     private String payWay;
 
+    private String reason;
+
+    private Integer amount;
+
+    private Integer statusP;
+
+    private Integer statusT;
+
+    private String remark;
+
     public String getId() {
         return id;
     }
@@ -139,5 +149,45 @@ public class Orderview {
 
     public void setPayWay(String payWay) {
         this.payWay = payWay == null ? null : payWay.trim();
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason == null ? null : reason.trim();
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public Integer getStatusP() {
+        return statusP;
+    }
+
+    public void setStatusP(Integer statusP) {
+        this.statusP = statusP;
+    }
+
+    public Integer getStatusT() {
+        return statusT;
+    }
+
+    public void setStatusT(Integer statusT) {
+        this.statusT = statusT;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 }

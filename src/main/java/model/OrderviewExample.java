@@ -1013,6 +1013,256 @@ public class OrderviewExample {
             addCriterion("pay_way not between", value1, value2, "payWay");
             return (Criteria) this;
         }
+
+        public Criteria andReasonIsNull() {
+            addCriterion("reason is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReasonIsNotNull() {
+            addCriterion("reason is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReasonEqualTo(String value) {
+            addCriterion("reason =", value, "reason");
+            return (Criteria) this;
+        }
+
+        public Criteria andReasonNotEqualTo(String value) {
+            addCriterion("reason <>", value, "reason");
+            return (Criteria) this;
+        }
+
+        public Criteria andReasonGreaterThan(String value) {
+            addCriterion("reason >", value, "reason");
+            return (Criteria) this;
+        }
+
+        public Criteria andReasonGreaterThanOrEqualTo(String value) {
+            addCriterion("reason >=", value, "reason");
+            return (Criteria) this;
+        }
+
+        public Criteria andReasonLessThan(String value) {
+            addCriterion("reason <", value, "reason");
+            return (Criteria) this;
+        }
+
+        public Criteria andReasonLessThanOrEqualTo(String value) {
+            addCriterion("reason <=", value, "reason");
+            return (Criteria) this;
+        }
+
+        public Criteria andReasonLike(String value) {
+            addCriterion("reason like", value, "reason");
+            return (Criteria) this;
+        }
+
+        public Criteria andReasonNotLike(String value) {
+            addCriterion("reason not like", value, "reason");
+            return (Criteria) this;
+        }
+
+        public Criteria andReasonIn(List<String> values) {
+            addCriterion("reason in", values, "reason");
+            return (Criteria) this;
+        }
+
+        public Criteria andReasonNotIn(List<String> values) {
+            addCriterion("reason not in", values, "reason");
+            return (Criteria) this;
+        }
+
+        public Criteria andReasonBetween(String value1, String value2) {
+            addCriterion("reason between", value1, value2, "reason");
+            return (Criteria) this;
+        }
+
+        public Criteria andReasonNotBetween(String value1, String value2) {
+            addCriterion("reason not between", value1, value2, "reason");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountIsNull() {
+            addCriterion("amount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountIsNotNull() {
+            addCriterion("amount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountEqualTo(Integer value) {
+            addCriterion("amount =", value, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountNotEqualTo(Integer value) {
+            addCriterion("amount <>", value, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountGreaterThan(Integer value) {
+            addCriterion("amount >", value, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("amount >=", value, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountLessThan(Integer value) {
+            addCriterion("amount <", value, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountLessThanOrEqualTo(Integer value) {
+            addCriterion("amount <=", value, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountIn(List<Integer> values) {
+            addCriterion("amount in", values, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountNotIn(List<Integer> values) {
+            addCriterion("amount not in", values, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountBetween(Integer value1, Integer value2) {
+            addCriterion("amount between", value1, value2, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andAmountNotBetween(Integer value1, Integer value2) {
+            addCriterion("amount not between", value1, value2, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusPIsNull() {
+            addCriterion("status_p is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusPIsNotNull() {
+            addCriterion("status_p is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusPEqualTo(Integer value) {
+            addCriterion("status_p =", value, "statusP");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusPNotEqualTo(Integer value) {
+            addCriterion("status_p <>", value, "statusP");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusPGreaterThan(Integer value) {
+            addCriterion("status_p >", value, "statusP");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusPGreaterThanOrEqualTo(Integer value) {
+            addCriterion("status_p >=", value, "statusP");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusPLessThan(Integer value) {
+            addCriterion("status_p <", value, "statusP");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusPLessThanOrEqualTo(Integer value) {
+            addCriterion("status_p <=", value, "statusP");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusPIn(List<Integer> values) {
+            addCriterion("status_p in", values, "statusP");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusPNotIn(List<Integer> values) {
+            addCriterion("status_p not in", values, "statusP");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusPBetween(Integer value1, Integer value2) {
+            addCriterion("status_p between", value1, value2, "statusP");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusPNotBetween(Integer value1, Integer value2) {
+            addCriterion("status_p not between", value1, value2, "statusP");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusTIsNull() {
+            addCriterion("status_t is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusTIsNotNull() {
+            addCriterion("status_t is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusTEqualTo(Integer value) {
+            addCriterion("status_t =", value, "statusT");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusTNotEqualTo(Integer value) {
+            addCriterion("status_t <>", value, "statusT");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusTGreaterThan(Integer value) {
+            addCriterion("status_t >", value, "statusT");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusTGreaterThanOrEqualTo(Integer value) {
+            addCriterion("status_t >=", value, "statusT");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusTLessThan(Integer value) {
+            addCriterion("status_t <", value, "statusT");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusTLessThanOrEqualTo(Integer value) {
+            addCriterion("status_t <=", value, "statusT");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusTIn(List<Integer> values) {
+            addCriterion("status_t in", values, "statusT");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusTNotIn(List<Integer> values) {
+            addCriterion("status_t not in", values, "statusT");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusTBetween(Integer value1, Integer value2) {
+            addCriterion("status_t between", value1, value2, "statusT");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusTNotBetween(Integer value1, Integer value2) {
+            addCriterion("status_t not between", value1, value2, "statusT");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

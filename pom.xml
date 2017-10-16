@@ -187,12 +187,12 @@
       <version>1.0.6</version>
     </dependency>
 
-      <!--&lt;!&ndash;支付宝 支付 &ndash;&gt;-->
-    <!--<dependency>-->
-      <!--<groupId>com.api.pay</groupId>-->
-      <!--<artifactId>alipay-sdk-java20170324180803</artifactId>-->
-      <!--<version>1.0.0</version>-->
-    <!--</dependency>-->
+      <!--支付宝 支付 -->
+    <dependency>
+      <groupId>com.api.pay</groupId>
+      <artifactId>alipay-sdk-java20170829142630</artifactId>
+      <version>1.0.0</version>
+    </dependency>
   </dependencies>
 
   <!--snapshot版本的maven需要引入Spring快照仓库-->

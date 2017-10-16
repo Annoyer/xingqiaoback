@@ -16,6 +16,13 @@
     <result column="realpay" property="realpay" jdbcType="DOUBLE" />
     <result column="totalpay" property="totalpay" jdbcType="DOUBLE" />
     <result column="pay_way" property="payWay" jdbcType="VARCHAR" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+    <result column="status_p" property="statusP" jdbcType="INTEGER" />
+    <result column="status_t" property="statusT" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="model.Orderview" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -77,8 +84,28 @@
   </sql>
   <sql id="Base_Column_List" >
     id, teacher_id, teacher_name, demand_id, demand_name, parent_id, parent_name, complete, 
-    isdeleted, s_time, recover_ob, realpay, totalpay, pay_way
+    isdeleted, s_time, recover_ob, realpay, totalpay, pay_way, reason, amount, status_p, 
+    status_t
   </sql>
+  <sql id="Blob_Column_List" >
+    remark
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="model.OrderviewExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from orderview
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="model.OrderviewExample" >
     select
     <if test="distinct" >
@@ -104,12 +131,16 @@
       demand_id, demand_name, parent_id, 
       parent_name, complete, isdeleted, 
       s_time, recover_ob, realpay, 
-      totalpay, pay_way)
+      totalpay, pay_way, reason, 
+      amount, status_p, status_t, 
+      remark)
     values (#{id,jdbcType=VARCHAR}, #{teacherId,jdbcType=INTEGER}, #{teacherName,jdbcType=VARCHAR}, 
       #{demandId,jdbcType=INTEGER}, #{demandName,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
       #{parentName,jdbcType=VARCHAR}, #{complete,jdbcType=INTEGER}, #{isdeleted,jdbcType=BIT}, 
       #{sTime,jdbcType=VARCHAR}, #{recoverOb,jdbcType=VARCHAR}, #{realpay,jdbcType=DOUBLE}, 
-      #{totalpay,jdbcType=DOUBLE}, #{payWay,jdbcType=VARCHAR})
+      #{totalpay,jdbcType=DOUBLE}, #{payWay,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=INTEGER}, #{statusP,jdbcType=INTEGER}, #{statusT,jdbcType=INTEGER}, 
+      #{remark,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="model.Orderview" >
     insert into orderview
@@ -156,6 +187,21 @@
       <if test="payWay != null" >
         pay_way,
       </if>
+      <if test="reason != null" >
+        reason,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="statusP != null" >
+        status_p,
+      </if>
+      <if test="statusT != null" >
+        status_t,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -200,6 +246,21 @@
       <if test="payWay != null" >
         #{payWay,jdbcType=VARCHAR},
       </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="statusP != null" >
+        #{statusP,jdbcType=INTEGER},
+      </if>
+      <if test="statusT != null" >
+        #{statusT,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="model.OrderviewExample" resultType="java.lang.Integer" >
@@ -208,9 +269,6 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-    <select id="selectAll" resultMap="BaseResultMap">
-      SELECT * FROM orderview
-    </select>
   <update id="updateByExampleSelective" parameterType="map" >
     update orderview
     <set >
@@ -256,7 +314,47 @@
       <if test="record.payWay != null" >
         pay_way = #{record.payWay,jdbcType=VARCHAR},
       </if>
+      <if test="record.reason != null" >
+        reason = #{record.reason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=INTEGER},
+      </if>
+      <if test="record.statusP != null" >
+        status_p = #{record.statusP,jdbcType=INTEGER},
+      </if>
+      <if test="record.statusT != null" >
+        status_t = #{record.statusT,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update orderview
+    set id = #{record.id,jdbcType=VARCHAR},
+      teacher_id = #{record.teacherId,jdbcType=INTEGER},
+      teacher_name = #{record.teacherName,jdbcType=VARCHAR},
+      demand_id = #{record.demandId,jdbcType=INTEGER},
+      demand_name = #{record.demandName,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      parent_name = #{record.parentName,jdbcType=VARCHAR},
+      complete = #{record.complete,jdbcType=INTEGER},
+      isdeleted = #{record.isdeleted,jdbcType=BIT},
+      s_time = #{record.sTime,jdbcType=VARCHAR},
+      recover_ob = #{record.recoverOb,jdbcType=VARCHAR},
+      realpay = #{record.realpay,jdbcType=DOUBLE},
+      totalpay = #{record.totalpay,jdbcType=DOUBLE},
+      pay_way = #{record.payWay,jdbcType=VARCHAR},
+      reason = #{record.reason,jdbcType=VARCHAR},
+      amount = #{record.amount,jdbcType=INTEGER},
+      status_p = #{record.statusP,jdbcType=INTEGER},
+      status_t = #{record.statusT,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -276,13 +374,28 @@
       recover_ob = #{record.recoverOb,jdbcType=VARCHAR},
       realpay = #{record.realpay,jdbcType=DOUBLE},
       totalpay = #{record.totalpay,jdbcType=DOUBLE},
-      pay_way = #{record.payWay,jdbcType=VARCHAR}
+      pay_way = #{record.payWay,jdbcType=VARCHAR},
+      reason = #{record.reason,jdbcType=VARCHAR},
+      amount = #{record.amount,jdbcType=INTEGER},
+      status_p = #{record.statusP,jdbcType=INTEGER},
+      status_t = #{record.statusT,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT * FROM orderview
+  </select>
   <select id="selectTeacherIdByParentId" resultType="java.lang.Integer">
     SELECT DISTINCT teacher_id FROM orderview WHERE parent_id=#{parentId,jdbcType=INTEGER}
+  </select>
+  <select id="selectParentRefundRequest" resultMap="BaseResultMap">
+    SELECT * FROM orderview where status_p=4
+  </select>
+  <select id="selectTeacherRefundRequest" resultMap="BaseResultMap">
+    SELECT * FROM orderview where status_p=5
+  </select>
+  <select id="selectAllRefundToDeal" resultMap="BaseResultMap">
+    SELECT * FROM orderview where status_p=6 OR status_t=9
   </select>
 </mapper>

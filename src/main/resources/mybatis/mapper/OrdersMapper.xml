@@ -343,7 +343,16 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+    <select id="selectParentRefundRequest" resultMap="BaseResultMap">
+      SELECT * FROM orders where status_p = 4
+    </select>
+    <select id="selectTeacherRefundRequest" resultMap="BaseResultMap">
+      SELECT * FROM orders where status_p = 5
+    </select>
+    <select id="selectAllRefundToDeal" resultMap="BaseResultMap">
+      SELECT * FROM orders where status_p = 6
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
     update orders
     <set >
       <if test="record.id != null" >
@@ -634,4 +643,38 @@
       trace = #{trace,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <update id="acceptRefundRequestFromParent" parameterType="java.lang.String">
+    update orders
+    set status_p = 6,
+      status_t = 6
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="acceptRefundRequestFromTeacher" parameterType="java.lang.String">
+    update orders
+    set status_p = 9,
+    status_t = 9
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="rejectRefund" parameterType="java.lang.String">
+    update orders
+    set status_p = 3,
+    status_t = 3
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+    <update id="refundSuccessFromParent" parameterType="java.lang.String">
+      update orders
+      set status_p = 14,
+      status_t = 14
+      where id = #{id,jdbcType=VARCHAR}
+    </update>
+  <update id="refundSuccessFromTeacher" parameterType="java.lang.String">
+    update orders
+    set status_p = 13,
+    status_t = 13
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getOrderPayByOid" resultMap="BaseResultMap">
+    SELECT * FROM orders WHERE id=#{orderId} AND o.teacher_id=t.id AND o.parent_id=p.id
+  </select>
 </mapper>

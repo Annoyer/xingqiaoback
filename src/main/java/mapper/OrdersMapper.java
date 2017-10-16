@@ -34,4 +34,16 @@ public interface OrdersMapper {
     int updateByPrimaryKeyWithBLOBs(OrdersWithBLOBs record);
 
     int updateByPrimaryKey(Orders record);
+
+    int acceptRefundRequestFromParent(String id);
+
+    int acceptRefundRequestFromTeacher(String id);
+
+    int rejectRefund(String id);
+
+    int refundSuccessFromParent(String id);
+
+    int refundSuccessFromTeacher(String id);
+
+    Orders getOrderPayByOid(String id);
 }

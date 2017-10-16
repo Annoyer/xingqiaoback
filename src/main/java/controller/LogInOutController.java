@@ -51,37 +51,5 @@ public class LogInOutController{
         return mv;
     }
 
-    @RequestMapping(value = "/jsp/access_err",method = RequestMethod.GET)
-    public ModelAndView accessErr(@RequestParam(value = "errType", required = false) String errType){
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("access_err");
-        mv.addObject("user",getPrincipal());
-        if (errType != null && errType.equals("loginErr")){
-            mv.addObject("errMsg","账号密码错误");
-        } else if (errType != null && errType.equals("noAuth")){
-            mv.addObject("errMsg","您的账号不具备访问权限");
-        } else {
-            mv.addObject("errMsg","未知错误");
-        }
-        return mv;
-    }
-
-    @RequestMapping(value = "/jsp/main")
-    public String toMain(ModelMap modelMap) {
-        modelMap.addAttribute("user", getPrincipal());
-        return "main";
-    }
-
-    private String getPrincipal(){
-        String userName = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (principal instanceof UserDetails) {
-            userName = ((UserDetails)principal).getUsername();
-        } else {
-            userName = principal.toString();
-        }
-        return userName;
-    }
 
 }

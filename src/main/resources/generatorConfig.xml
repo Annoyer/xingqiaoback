@@ -47,7 +47,7 @@
          <property name="enableSubPackages" value="false" />
       </javaClientGenerator>
       <!-- 指定数据库表 -->
-      <table schema="xingqiao" tableName="message">
+      <table schema="xingqiao" tableName="orderview">
       </table>
    </context>
 </generatorConfiguration>

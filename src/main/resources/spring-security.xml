@@ -23,7 +23,7 @@
 
     <http auto-config="true" use-expressions="false">
         <intercept-url pattern="/jsp/login" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-        <intercept-url pattern="**/organizations*" access="ROLE_SUPER" />
+        <intercept-url pattern="/jsp/org_modify*" access="ROLE_SUPER" />
         <intercept-url pattern="/**" access="ROLE_NORMAL" />
         <form-login login-page='/jsp/login' authentication-success-handler-ref="customSuccessHandler"
                     authentication-failure-handler-ref="customFailureHandler" username-parameter="username"

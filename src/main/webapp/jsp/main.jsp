@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <%--
   Created by IntelliJ IDEA.
   User: joy12
@@ -24,6 +26,14 @@
     <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet">
     <link href="css/style.min.css?v=4.0.0" rel="stylesheet">
+    <style type="text/css">
+        .flex-container{
+            display: -webkit-flex;
+            display: flex;
+            align-items: center;
+        }
+
+    </style>
 </head>
 
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
@@ -55,6 +65,15 @@
                     </div>
                 </li>
 
+                <li class="flex-container">
+                    <a class="J_menuItem" href="msg_admin" onclick="javascript:document.getElementById('unreadMsgNum').style.display='none';"><i class="fa fa-bell"></i>
+                        <span class="nav-label">我的消息</span>
+                        <c:if test="${unreadMsgNum > 0}">
+                            <i class="label label-primary" id="unreadMsgNum">${unreadMsgNum}</i>
+                        </c:if>
+                    </a>
+                </li>
+
                 <!--用户管理-->
                 <li>
                     <a href="#">
@@ -84,7 +103,10 @@
                             <a class="J_menuItem" href="orders" data-index="0">全部订单</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="#">退款管理</a>
+                            <a class="J_menuItem" href="refund_check">退款审核</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="refund_deal">退款处理</a>
                         </li>
                     </ul>
 

@@ -47,9 +47,11 @@ public class OrganizationServiceImpl implements IOrganizationService{
     @Override
     @Secured("ROLE_SUPER")
     public void addOrganization(OrganizationWithBLOBs organization, OrgintroWithBLOBs orgintro) {
+        System.out.println("==========  organization Add!!!");
         organizationMapper.insertSelectiveRet(organization);
         System.out.println(organization.getId());
         orgintro.setOrgId(organization.getId());
+        System.out.println("==========  orgintro Add!!!");
         orgintroMapper.insertSelective(orgintro);
     }
 

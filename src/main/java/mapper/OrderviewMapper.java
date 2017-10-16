@@ -14,13 +14,19 @@ public interface OrderviewMapper {
 
     int insertSelective(Orderview record);
 
-    List<Orderview> selectByExample(OrderviewExample example);
+    List<Orderview> selectByExampleWithBLOBs(OrderviewExample example);
 
-    List<Orderview> selectAll();
+    List<Orderview> selectByExample(OrderviewExample example);
 
     int updateByExampleSelective(@Param("record") Orderview record, @Param("example") OrderviewExample example);
 
+    int updateByExampleWithBLOBs(@Param("record") Orderview record, @Param("example") OrderviewExample example);
+
     int updateByExample(@Param("record") Orderview record, @Param("example") OrderviewExample example);
 
+    List<Orderview> selectAll();
     List<Integer> selectTeacherIdByParentId(int parentId);
+    List<Orderview> selectParentRefundRequest();
+    List<Orderview> selectTeacherRefundRequest();
+    List<Orderview> selectAllRefundToDeal();
 }
