@@ -9,15 +9,19 @@ import java.util.List;
  */
 public interface IUserService {
     List<Parentview> getAllParentFromView();
-    List<Teacherview> getAllTeachersByParentId(int parentId);
+    List<TeacherWithBLOBs> getAllTeachersByParentId(int parentId);
     List<Demand> getAllDemandsByUserId(int userId);
     List<TeacherviewWithBLOBs> getAllTeachersFromView();
     List<TeacherWithBLOBs> getAllTeachers();
     TeacherWithBLOBs getTeacherById(int id);
     Parentview getParentById(int parentId);
+    List<Demand> getDemandsByTeacherId(int teacherId);
+    Demand getDemandById(int demandId);
     void modifyParentInfo(int parentId,String name,String ground,String address);
+    void modifyDemandInfo(int demandId,String name,int gender,String birthday,String disease);
     void modifyTeacherWithBLOB(int teacherId,String name,String pid,String address,String detailaddress,String abstractT,int experienceAge,String school,String unit,
                                String domain,String question,String object,String way,int priceS,int priceT,int priceO,String tGround,String sGround);
+    void modifyTeacherSchedule(int teacherId,String schedule);
     void deleteTeacher(int userId);
     void deleteParent(int id,int userId);
     Sysuser getSysuserById(int userId);

@@ -398,4 +398,7 @@
   <select id="selectAllRefundToDeal" resultMap="BaseResultMap">
     SELECT * FROM orderview where status_p=6 OR status_t=9
   </select>
+  <select id="selectDemandIdsByTeacherId" resultType="java.lang.Integer">
+    SELECT DISTINCT demand_id FROM orderview WHERE teacher_id=#{teacherId,jdbcType=INTEGER}
+  </select>
 </mapper>

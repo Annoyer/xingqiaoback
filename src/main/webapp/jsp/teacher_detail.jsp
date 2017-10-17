@@ -36,14 +36,7 @@
                             <div class="ibox-title">
                                 <h5>治疗师资料</h5>
                             </div>
-                <div class="ibox-content">
-                    <div class="form-group">
-                        <div class="col-sm-4 col-sm-offset-2">
-                            <a class="btn btn-primary" id="saveScheduleBtn" style="display: inline">保存当前日程表</a>
-                        </div>
-                    </div>
-                    <div id="calendar"></div>
-                </div>
+
                             <div class="ibox-content">
                                 <form method="get" class="form-horizontal" id="myForm">
 
@@ -169,7 +162,12 @@
 
                     </form>
                 </div>
-
+                <div class="ibox-content">
+                    <div id="calendar"></div>
+                    <div class="form-group">
+                            <a class="btn btn-primary" id="saveScheduleBtn" style="display: inline">保存当前日程表</a>
+                    </div>
+                </div>
                 </div>
         </div>
 </div>
@@ -209,7 +207,10 @@
         var day=b.getDay();  //星期天：0
         if(day=='0') day=7;
         var str="${teacher.schedule}";
-        var arr=str.split('#');
+        var arr=0;
+        if(str!=""){
+            arr=str.split('#');
+        }
 
         $("#calendar").fullCalendar({
             header:{left:"",center:"",right:""},
@@ -243,20 +244,28 @@
             } ,
 
         });
+        if(arr!=null) {
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] != '0') {
+                    var start = arr[i].split('-')[0].split(':')[0];
+                    var end = arr[i].split('-')[1].split(':')[0];
 
-        for(var i=0;i<arr.length;i++){
-            if(arr[i]!='0'){
-                var start=arr[i].split('-')[0].split(':')[0];
-                var end=arr[i].split('-')[1].split(':')[0];
-
-                var schdata={title:"可用时间",start:new Date(e,a,c-day+1+i,start,0),end:new Date(e,a,c-day+1+i,end,0),allDay:false};
-                $('#calendar').fullCalendar('renderEvent', schdata, true);
+                    var schdata = {
+                        title: "可用时间",
+                        start: new Date(e, a, c - day + 1 + i, start, 0),
+                        end: new Date(e, a, c - day + 1 + i, end, 0),
+                        allDay: false
+                    };
+                    $('#calendar').fullCalendar('renderEvent', schdata, true);
+                }
             }
         }
 
         //保存日程修改
         $("#saveScheduleBtn").click(function(){
+           // alert("saveSchedule");
             var events = $('#calendar').fullCalendar('clientEvents');
+           // alert(events.length);
             var dayCount=1;
             var strArr=['0','0','0','0','0','0','0'];
             function fix(num, length) { //时间格式化
@@ -269,11 +278,31 @@
                 if(day==0) day=7;
                 strArr[day-1]=fix(eventStart.getHours(),2)+':'+fix(eventStart.getMinutes(),2)+'-'+
                     fix(eventEnd.getHours(),2)+':'+fix(eventEnd.getMinutes(),2);
-                alert(day-1+":"+strArr[day-1]);
+               // alert(day-1+":"+strArr[day-1]);
             }
             var scheduleStr=strArr.join('#');
-            alert(scheduleStr);
+            //alert(scheduleStr);
             //数据库更新schedule...
+            $.ajax({
+                type: "post",
+                url: "saveTeacherSchedule",
+                timeout: 80000,
+                dataType: "json",
+                data: {
+                    "schedule":scheduleStr,
+                    "teacherId":${teacher.id}
+
+                },
+                //请求成功后的回调函数 data为json格式
+                success: function (data) {
+                    if (data.retcode == 0)
+                        sweetAlert("保存成功！");
+                },
+                //请求出错的处理
+                error: function () {
+                    alert("请求出错");
+                }
+            });
         });
 
 
@@ -333,13 +362,13 @@
                 success: function (data) {
                     if (data.retcode == 0)
                         sweetAlert("保存成功！");
+                    window.location.reload();
                 },
                 //请求出错的处理
                 error: function () {
                     alert("请求出错");
                 }
             });
-            inputOff();
         }
     }
     function inputOff(){
@@ -369,7 +398,7 @@
 
 
     function modifyFunc() {
-        alert("modifyTest");
+
         document.getElementById("nameDiv").innerHTML="<input type=\"text\" class=\"form-control\" id=\"name\" value=\"${teacher.name}\">";
         document.getElementById("pidDiv").innerHTML="<input type=\"text\" class=\"form-control\" id=\"pid\" value=\"${teacher.pid}\">";
         document.getElementById("addressDiv").innerHTML="<input type=\"text\" class=\"form-control\" id=\"address\" value=\"${teacher.address}\">";

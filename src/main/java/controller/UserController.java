@@ -49,6 +49,29 @@ public class UserController {
         return mv;
     }
 
+    @RequestMapping(value = "/jsp/demand_detail")
+    public ModelAndView toDemandDetail(@RequestParam("demandId") Integer demandId){
+        ModelAndView mv=new ModelAndView();
+        mv.setViewName("demand_detail");
+        mv.addObject("demand",userService.getDemandById(demandId));
+        return mv;
+    }
+
+    @RequestMapping(value = "/jsp/saveDemandInfo",method = RequestMethod.POST)
+    @ResponseBody
+    public Map saveDemandInfo(@RequestParam("demandId") Integer demandId,
+                              @RequestParam("name") String name,
+                              @RequestParam("gender") Integer gender,
+                              @RequestParam("birthday") String birthday,
+                              @RequestParam("disease") String disease
+                              ){
+        Map result=new HashMap();
+        userService.modifyDemandInfo(demandId,name,gender,birthday,disease);
+        result.put("retcode",0);
+        return result;
+    }
+
+
     @RequestMapping(value="/jsp/teachers")
     public ModelAndView toTeachers(){
         ModelAndView mv=new ModelAndView();
@@ -70,6 +93,14 @@ public class UserController {
         ModelAndView mv=new ModelAndView();
         mv.setViewName("teacher_sysuser");
         mv.addObject("user",userService.getSysuserById(userId));
+        return mv;
+    }
+
+    @RequestMapping(value = "/jsp/teacher_demands")
+    public ModelAndView toTeacherDemands(@RequestParam("id") Integer teacherId){
+        ModelAndView mv=new ModelAndView();
+        mv.setViewName("teacher_demands");
+        mv.addObject("demands",userService.getDemandsByTeacherId(teacherId));
         return mv;
     }
 
@@ -128,6 +159,16 @@ public class UserController {
         Map result=new HashMap();
         userService.modifyTeacherWithBLOB(teacherId,name,pid,address,detailaddress,abstractT,experienceAge,school,unit,
                 domain,question,object,way,priceS,priceT,priceO,tGround,sGround);
+        result.put("retcode",0);
+        return result;
+    }
+
+    @RequestMapping(value = "/jsp/saveTeacherSchedule",method = RequestMethod.POST)
+    @ResponseBody
+    public Map saveTeacherSchedule(@RequestParam("teacherId") Integer teacherId,
+                                    @RequestParam("schedule") String schedule){
+        Map result=new HashMap();
+        userService.modifyTeacherSchedule(teacherId,schedule);
         result.put("retcode",0);
         return result;
     }

@@ -47,7 +47,7 @@ public class RefundController {
     @RequestMapping(value = "/jsp/dealRefund")
     @ResponseBody
     public Map dealRefund(@RequestParam("orderId") String orderId,@RequestParam("refundAmount") Double refundAmount){
-        refundService.dealRefundRequest(orderId,refundAmount);
+        //refundService.dealRefundRequest(orderId,refundAmount);
 
         return null;
     }

@@ -29,12 +29,8 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <div class="row">
-                        <div class="col-sm-11">
                             <h5>我的治疗师</h5>
-                        </div>
-                        <div class="col-sm-1">
-                            <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addParentModal">添加治疗师</a>
-                        </div>
+
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -47,7 +43,7 @@
                             <th>学校</th>
                             <th>从业年限</th>
                             <th>擅长领域</th>
-                            <th></th>
+
                         </tr>
                         </thead>
                         <tbody>
@@ -59,9 +55,7 @@
                                 <td>${t.unit}</td>
                                 <td>${t.experienceAge}</td>
                                 <td>${t.domain}</td>
-                                <td>
-                                    <a target="_self" href="teacher_detail?id=${t.id}">删除治疗师</a>
-                                </td>
+
                             </tr>
                         </c:forEach>
                         </tbody>

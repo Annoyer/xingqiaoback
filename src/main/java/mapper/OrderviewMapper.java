@@ -29,4 +29,5 @@ public interface OrderviewMapper {
     List<Orderview> selectParentRefundRequest();
     List<Orderview> selectTeacherRefundRequest();
     List<Orderview> selectAllRefundToDeal();
+    List<Integer> selectDemandIdsByTeacherId(int teacherId);
 }

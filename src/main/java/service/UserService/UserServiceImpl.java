@@ -61,11 +61,11 @@ public class UserServiceImpl implements IUserService{
     }
 
     @Override
-    public List<Teacherview> getAllTeachersByParentId(int parentId){
-        List<Teacherview> result=new ArrayList<>();
+    public List<TeacherWithBLOBs> getAllTeachersByParentId(int parentId){
+        List<TeacherWithBLOBs> result=new ArrayList<>();
         List<Integer> idList=orderviewMapper.selectTeacherIdByParentId(parentId);
         for(Integer id:idList) {
-            result.add(teacherviewMapper.selectByTeacherId(id));
+            result.add(teacherMapper.selectByPrimaryKey(id));
         }
         return result;
     }
@@ -81,6 +81,11 @@ public class UserServiceImpl implements IUserService{
     }
 
     @Override
+    public Demand getDemandById(int demandId){
+        return demandMapper.selectByPrimaryKey(demandId);
+    }
+
+    @Override
     public TeacherWithBLOBs getTeacherById(int id){
         TeacherWithBLOBs result=teacherMapper.selectByPrimaryKey(id);
         return result;
@@ -92,6 +97,16 @@ public class UserServiceImpl implements IUserService{
     }
 
     @Override
+    public List<Demand> getDemandsByTeacherId(int teacherId){
+        List<Integer> ids=orderviewMapper.selectDemandIdsByTeacherId(teacherId);
+        List<Demand> demands=new ArrayList<>();
+        for(int id:ids){
+            demands.add(demandMapper.selectByPrimaryKey(id));
+        }
+        return demands;
+    }
+
+    @Override
     public void modifyParentInfo(int parentId,String name,String ground,String address){
         Parent parent=parentMapper.selectByPrimaryKey(parentId);
         if(!parent.getAddress().equals(address)) parent.setAddress(address);
@@ -100,6 +115,15 @@ public class UserServiceImpl implements IUserService{
         parentMapper.updateByPrimaryKeySelective(parent);
     }
 
+    @Override
+    public void modifyDemandInfo(int demandId,String name,int gender,String birthday,String disease){
+        DemandWithBLOBs demand=demandMapper.selectByPrimaryKey(demandId);
+        if(!demand.getName().equals(name)) demand.setName(name);
+        if(demand.getGender()!=gender) demand.setGender(gender);
+        if(!demand.getBirthday().equals(birthday)) demand.setBirthday(birthday);
+        if(!demand.getDisease().equals(disease)) demand.setDisease(disease);
+        demandMapper.updateByPrimaryKeySelective(demand);
+    }
 
     @Override
     public void modifyTeacherWithBLOB(int teacherId,String name,String pid,String address,String detailaddress,String abstractT,int experienceAge,String school,String unit,
@@ -138,6 +162,13 @@ public class UserServiceImpl implements IUserService{
         if(!teacher.gettGround().equals(tGround)) teacher.settGround(tGround);
         if(!teacher.getsGround().equals(sGround)) teacher.setsGround(sGround);
 
+        teacherMapper.updateByPrimaryKeyWithBLOBs(teacher);
+     }
+
+     @Override
+     public void modifyTeacherSchedule(int teacherId,String schedule){
+        TeacherWithBLOBs teacher=teacherMapper.selectByPrimaryKey(teacherId);
+        teacher.setSchedule(schedule);
         teacherMapper.updateByPrimaryKeyWithBLOBs(teacher);
      }
 
