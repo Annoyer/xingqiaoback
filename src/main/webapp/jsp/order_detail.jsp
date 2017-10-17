@@ -158,7 +158,7 @@
                                 <p>【康复项目】    ：    ${teacher.domain}</p>
                                 <p>【康复对象】    ：    ${teacher.object}</p>
                                 <p>【康复方式】    ：    ${teacher.way}</p>
-                                <p>【可用时间】    ：    ${teacher.availableTime}</p>
+                                <p>【可用时间】    ：    ${teacher.schedule}</p>
                                 <p>【诊费(元/小时)】    ：    学生上门-<c:choose>
                                     <c:when test="${teacher.priceS > 0}">${teacher.priceS}</c:when>
                                     <c:otherwise>不提供该服务</c:otherwise></c:choose>
