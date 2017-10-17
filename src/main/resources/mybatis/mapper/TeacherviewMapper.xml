@@ -8,6 +8,7 @@
     <result column="level" property="level" jdbcType="INTEGER" />
     <result column="abstractTeacher" property="abstractteacher" jdbcType="VARCHAR" />
     <result column="experience_age" property="experienceAge" jdbcType="INTEGER" />
+    <result column="schedule" property="schedule" jdbcType="VARCHAR" />
     <result column="price_s" property="priceS" jdbcType="INTEGER" />
     <result column="price_t" property="priceT" jdbcType="INTEGER" />
     <result column="price_o" property="priceO" jdbcType="INTEGER" />
@@ -27,7 +28,6 @@
     <result column="domain" property="domain" jdbcType="LONGVARCHAR" />
     <result column="object" property="object" jdbcType="LONGVARCHAR" />
     <result column="way" property="way" jdbcType="LONGVARCHAR" />
-    <result column="available_time" property="availableTime" jdbcType="LONGVARCHAR" />
     <result column="s_ground" property="sGround" jdbcType="LONGVARCHAR" />
     <result column="t_ground" property="tGround" jdbcType="LONGVARCHAR" />
   </resultMap>
@@ -90,12 +90,12 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, user_id, name, level, abstractTeacher, experience_age, price_s, price_t, price_o, 
-    detailAddress, gender, phone, email, username
+    id, user_id, name, level, abstractTeacher, experience_age, schedule, price_s, price_t, 
+    price_o, detailAddress, gender, phone, email, username
   </sql>
   <sql id="Blob_Column_List" >
     school, unit, certificate, award, recovery_his, success_case, domain, object, way, 
-    available_time, s_ground, t_ground
+    s_ground, t_ground
   </sql>
   <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="model.TeacherviewExample" >
     select
@@ -136,21 +136,21 @@
   <insert id="insert" parameterType="model.TeacherviewWithBLOBs" >
     insert into teacherview (id, user_id, name, 
       level, abstractTeacher, experience_age, 
-      price_s, price_t, price_o, 
-      detailAddress, gender, phone, 
-      email, username, school, 
-      unit, certificate, award, 
-      recovery_his, success_case, domain, 
-      object, way, available_time, 
+      schedule, price_s, price_t, 
+      price_o, detailAddress, gender, 
+      phone, email, username, 
+      school, unit, certificate, 
+      award, recovery_his, success_case, 
+      domain, object, way, 
       s_ground, t_ground)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{level,jdbcType=INTEGER}, #{abstractteacher,jdbcType=VARCHAR}, #{experienceAge,jdbcType=INTEGER}, 
-      #{priceS,jdbcType=INTEGER}, #{priceT,jdbcType=INTEGER}, #{priceO,jdbcType=INTEGER}, 
-      #{detailaddress,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{school,jdbcType=LONGVARCHAR}, 
-      #{unit,jdbcType=LONGVARCHAR}, #{certificate,jdbcType=LONGVARCHAR}, #{award,jdbcType=LONGVARCHAR}, 
-      #{recoveryHis,jdbcType=LONGVARCHAR}, #{successCase,jdbcType=LONGVARCHAR}, #{domain,jdbcType=LONGVARCHAR}, 
-      #{object,jdbcType=LONGVARCHAR}, #{way,jdbcType=LONGVARCHAR}, #{availableTime,jdbcType=LONGVARCHAR}, 
+      #{schedule,jdbcType=VARCHAR}, #{priceS,jdbcType=INTEGER}, #{priceT,jdbcType=INTEGER}, 
+      #{priceO,jdbcType=INTEGER}, #{detailaddress,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{school,jdbcType=LONGVARCHAR}, #{unit,jdbcType=LONGVARCHAR}, #{certificate,jdbcType=LONGVARCHAR}, 
+      #{award,jdbcType=LONGVARCHAR}, #{recoveryHis,jdbcType=LONGVARCHAR}, #{successCase,jdbcType=LONGVARCHAR}, 
+      #{domain,jdbcType=LONGVARCHAR}, #{object,jdbcType=LONGVARCHAR}, #{way,jdbcType=LONGVARCHAR}, 
       #{sGround,jdbcType=LONGVARCHAR}, #{tGround,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="model.TeacherviewWithBLOBs" >
@@ -173,6 +173,9 @@
       </if>
       <if test="experienceAge != null" >
         experience_age,
+      </if>
+      <if test="schedule != null" >
+        schedule,
       </if>
       <if test="priceS != null" >
         price_s,
@@ -225,9 +228,6 @@
       <if test="way != null" >
         way,
       </if>
-      <if test="availableTime != null" >
-        available_time,
-      </if>
       <if test="sGround != null" >
         s_ground,
       </if>
@@ -253,6 +253,9 @@
       </if>
       <if test="experienceAge != null" >
         #{experienceAge,jdbcType=INTEGER},
+      </if>
+      <if test="schedule != null" >
+        #{schedule,jdbcType=VARCHAR},
       </if>
       <if test="priceS != null" >
         #{priceS,jdbcType=INTEGER},
@@ -305,9 +308,6 @@
       <if test="way != null" >
         #{way,jdbcType=LONGVARCHAR},
       </if>
-      <if test="availableTime != null" >
-        #{availableTime,jdbcType=LONGVARCHAR},
-      </if>
       <if test="sGround != null" >
         #{sGround,jdbcType=LONGVARCHAR},
       </if>
@@ -322,12 +322,9 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-    <select id="selectByTeacherId" resultMap="ResultMapWithBLOBs">
-      SELECT * FROM teacherview WHERE id=#{teacherId,jdbcType=INTEGER}
+    <select id="selectAll" resultMap="BaseResultMap">
+      SELECT * FROM teacherview
     </select>
-  <select id="selectAll" resultMap="ResultMapWithBLOBs">
-    SELECT * FROM teacherview
-  </select>
     <update id="updateByExampleSelective" parameterType="map" >
     update teacherview
     <set >
@@ -348,6 +345,9 @@
       </if>
       <if test="record.experienceAge != null" >
         experience_age = #{record.experienceAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.schedule != null" >
+        schedule = #{record.schedule,jdbcType=VARCHAR},
       </if>
       <if test="record.priceS != null" >
         price_s = #{record.priceS,jdbcType=INTEGER},
@@ -400,9 +400,6 @@
       <if test="record.way != null" >
         way = #{record.way,jdbcType=LONGVARCHAR},
       </if>
-      <if test="record.availableTime != null" >
-        available_time = #{record.availableTime,jdbcType=LONGVARCHAR},
-      </if>
       <if test="record.sGround != null" >
         s_ground = #{record.sGround,jdbcType=LONGVARCHAR},
       </if>
@@ -422,6 +419,7 @@
       level = #{record.level,jdbcType=INTEGER},
       abstractTeacher = #{record.abstractteacher,jdbcType=VARCHAR},
       experience_age = #{record.experienceAge,jdbcType=INTEGER},
+      schedule = #{record.schedule,jdbcType=VARCHAR},
       price_s = #{record.priceS,jdbcType=INTEGER},
       price_t = #{record.priceT,jdbcType=INTEGER},
       price_o = #{record.priceO,jdbcType=INTEGER},
@@ -439,7 +437,6 @@
       domain = #{record.domain,jdbcType=LONGVARCHAR},
       object = #{record.object,jdbcType=LONGVARCHAR},
       way = #{record.way,jdbcType=LONGVARCHAR},
-      available_time = #{record.availableTime,jdbcType=LONGVARCHAR},
       s_ground = #{record.sGround,jdbcType=LONGVARCHAR},
       t_ground = #{record.tGround,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
@@ -454,6 +451,7 @@
       level = #{record.level,jdbcType=INTEGER},
       abstractTeacher = #{record.abstractteacher,jdbcType=VARCHAR},
       experience_age = #{record.experienceAge,jdbcType=INTEGER},
+      schedule = #{record.schedule,jdbcType=VARCHAR},
       price_s = #{record.priceS,jdbcType=INTEGER},
       price_t = #{record.priceT,jdbcType=INTEGER},
       price_o = #{record.priceO,jdbcType=INTEGER},

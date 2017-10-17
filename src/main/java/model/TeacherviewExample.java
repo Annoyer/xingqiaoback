@@ -484,6 +484,76 @@ public class TeacherviewExample {
             return (Criteria) this;
         }
 
+        public Criteria andScheduleIsNull() {
+            addCriterion("schedule is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andScheduleIsNotNull() {
+            addCriterion("schedule is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andScheduleEqualTo(String value) {
+            addCriterion("schedule =", value, "schedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andScheduleNotEqualTo(String value) {
+            addCriterion("schedule <>", value, "schedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andScheduleGreaterThan(String value) {
+            addCriterion("schedule >", value, "schedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andScheduleGreaterThanOrEqualTo(String value) {
+            addCriterion("schedule >=", value, "schedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andScheduleLessThan(String value) {
+            addCriterion("schedule <", value, "schedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andScheduleLessThanOrEqualTo(String value) {
+            addCriterion("schedule <=", value, "schedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andScheduleLike(String value) {
+            addCriterion("schedule like", value, "schedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andScheduleNotLike(String value) {
+            addCriterion("schedule not like", value, "schedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andScheduleIn(List<String> values) {
+            addCriterion("schedule in", values, "schedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andScheduleNotIn(List<String> values) {
+            addCriterion("schedule not in", values, "schedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andScheduleBetween(String value1, String value2) {
+            addCriterion("schedule between", value1, value2, "schedule");
+            return (Criteria) this;
+        }
+
+        public Criteria andScheduleNotBetween(String value1, String value2) {
+            addCriterion("schedule not between", value1, value2, "schedule");
+            return (Criteria) this;
+        }
+
         public Criteria andPriceSIsNull() {
             addCriterion("price_s is null");
             return (Criteria) this;

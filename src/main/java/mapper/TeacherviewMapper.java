@@ -15,17 +15,15 @@ public interface TeacherviewMapper {
 
     int insertSelective(TeacherviewWithBLOBs record);
 
-    TeacherviewWithBLOBs selectByTeacherId(Integer teacherId);
-
     List<TeacherviewWithBLOBs> selectByExampleWithBLOBs(TeacherviewExample example);
 
     List<Teacherview> selectByExample(TeacherviewExample example);
+
+    List<TeacherviewWithBLOBs> selectAll();
 
     int updateByExampleSelective(@Param("record") TeacherviewWithBLOBs record, @Param("example") TeacherviewExample example);
 
     int updateByExampleWithBLOBs(@Param("record") TeacherviewWithBLOBs record, @Param("example") TeacherviewExample example);
 
     int updateByExample(@Param("record") Teacherview record, @Param("example") TeacherviewExample example);
-
-    List<TeacherviewWithBLOBs> selectAll();
 }

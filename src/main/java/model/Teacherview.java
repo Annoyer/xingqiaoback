@@ -13,6 +13,8 @@ public class Teacherview {
 
     private Integer experienceAge;
 
+    private String schedule;
+
     private Integer priceS;
 
     private Integer priceT;
@@ -75,6 +77,14 @@ public class Teacherview {
 
     public void setExperienceAge(Integer experienceAge) {
         this.experienceAge = experienceAge;
+    }
+
+    public String getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(String schedule) {
+        this.schedule = schedule == null ? null : schedule.trim();
     }
 
     public Integer getPriceS() {

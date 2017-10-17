@@ -19,8 +19,6 @@ public class TeacherviewWithBLOBs extends Teacherview {
 
     private String way;
 
-    private String availableTime;
-
     private String sGround;
 
     private String tGround;
@@ -95,14 +93,6 @@ public class TeacherviewWithBLOBs extends Teacherview {
 
     public void setWay(String way) {
         this.way = way == null ? null : way.trim();
-    }
-
-    public String getAvailableTime() {
-        return availableTime;
-    }
-
-    public void setAvailableTime(String availableTime) {
-        this.availableTime = availableTime == null ? null : availableTime.trim();
     }
 
     public String getsGround() {
