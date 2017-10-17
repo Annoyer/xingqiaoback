@@ -322,10 +322,13 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-    <select id="selectAll" resultMap="BaseResultMap">
+    <select id="selectAll" resultMap="ResultMapWithBLOBs">
       SELECT * FROM teacherview
     </select>
-    <update id="updateByExampleSelective" parameterType="map" >
+  <select id="selectByTeacherId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+    SELECT * FROM  teacherview WHERE id = #{teacherId}
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
     update teacherview
     <set >
       <if test="record.id != null" >

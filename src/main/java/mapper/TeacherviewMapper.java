@@ -21,6 +21,8 @@ public interface TeacherviewMapper {
 
     List<TeacherviewWithBLOBs> selectAll();
 
+    TeacherviewWithBLOBs selectByTeacherId(Integer teacherId);
+
     int updateByExampleSelective(@Param("record") TeacherviewWithBLOBs record, @Param("example") TeacherviewExample example);
 
     int updateByExampleWithBLOBs(@Param("record") TeacherviewWithBLOBs record, @Param("example") TeacherviewExample example);
