@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <title>退款审核</title>
+    <title>订单终止审核</title>
     <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
     <link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet">
@@ -67,7 +67,7 @@
                                             <td>${p.reason}</td>
                                             <td>
                                                 <a onclick="checkRefund(${p.id},'p',true)">通过</a>
-                                                <a onclick="checkRefund(${p.id},'p',false)">拒绝</a>
+                                                <%--<a onclick="checkRefund(${p.id},'p',false)">拒绝</a>--%>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -106,7 +106,7 @@
                                             <td>${t.remark}</td>
                                             <td>
                                                 <a onclick="checkRefund(${t.id},'t',true)">通过</a>
-                                                <a onclick="checkRefund(${t.id}),'t',false">拒绝</a>
+                                                <%--<a onclick="checkRefund(${t.id}),'t',false">拒绝</a>--%>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -139,7 +139,7 @@
             },
             type:'post',
             success:function(data) {
-                swal("操作成功！", "您已经拒绝了该退款申请，订单状态转为进行中", "success");
+                swal("操作成功！", "success");
                 window.location.reload();
             },
             error : function() {

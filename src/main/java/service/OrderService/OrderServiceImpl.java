@@ -82,4 +82,48 @@ public class OrderServiceImpl implements IOrderService {
         }
 
     }
+
+    @Override
+    public String getParentStatus(int status){
+        switch (status){
+            case 1: return "待治疗师确认";
+            case 2: return "待付款（治疗师已确认）";
+            case 3: return "进行中";
+            case 4: return "家长终止审核中";
+            case 5: return "治疗师终止审核中";
+            case 6: return "家长终止退款处理中";
+            case 7: return "治疗师终止待同意";
+            case 8: return "家长终止待治疗师同意";
+            case 9: return "治疗师终止退款处理中";
+            case 11: return "家长已取消订单";
+            case 12: return "治疗师逾期未处理";
+            case 13: return "治疗师拒绝的历史订单";
+            case 14: return "家长中途终止的历史订单";
+            case 15: return "订单已完成";
+            case 16: return "治疗师拒绝的订单";
+            default: return "订单状态异常";
+        }
+    }
+
+    @Override
+    public String getTeacherStatus(int status){
+        switch (status){
+            case 1: return "待处理";
+            case 2: return "治疗师已确认";
+            case 3: return "进行中";
+            case 4: return "家长终止审核中";
+            case 5: return "治疗师终止审核中";
+            case 6: return "家长终止退款处理中";
+            case 7: return "治疗师终止待家长同意";
+            case 8: return "家长终止待治疗师同意";
+            case 9: return "治疗师终止退款处理中";
+            case 11: return "家长已取消订单";
+            case 12: return "治疗师逾期未处理";
+            case 13: return "治疗师拒绝的历史订单";
+            case 14: return "家长中途终止的历史订单";
+            case 15: return "订单已完成";
+            case 16: return "治疗师拒绝的订单";
+            default: return "订单状态异常";
+        }
+    }
 }

@@ -9,11 +9,13 @@ import java.util.Map;
  * Created by joy12 on 2017/9/11.
  */
 public interface IOrderService {
-    public OrdersWithBLOBs getOrderById(String orderId);
-    public TeacherviewWithBLOBs getTeacherById(Integer teacherId);
-    public Parentview getParentById(Integer parentId);
-    public DemandWithBLOBs getDemandById(Integer demandId);
-    public List<RecoveryLog> getRecoveryLogById(String orderId);
-    public List<Orderview> getAllOrderFromView();
-    public boolean deleteOrder(String orderId);
+    OrdersWithBLOBs getOrderById(String orderId);
+    TeacherviewWithBLOBs getTeacherById(Integer teacherId);
+    Parentview getParentById(Integer parentId);
+    DemandWithBLOBs getDemandById(Integer demandId);
+    List<RecoveryLog> getRecoveryLogById(String orderId);
+    List<Orderview> getAllOrderFromView();
+    boolean deleteOrder(String orderId);
+    String getParentStatus(int status);
+    String getTeacherStatus(int status);
 }

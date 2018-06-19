@@ -36,7 +36,7 @@ public class RefundController {
         return mv;
     }
 
-    //审核退款请求
+    //审核终止请求
     @RequestMapping(value = "/jsp/checkRefund")
     @ResponseBody
     public Map checkRefund(@RequestParam("orderId") String orderId, @RequestParam("requestSubject") String requestSubject, @RequestParam("isAccept") Boolean isAccept){
@@ -47,8 +47,8 @@ public class RefundController {
     //处理退款
     @RequestMapping(value = "/jsp/dealRefund")
     @ResponseBody
-    public Map dealRefund(@RequestParam("orderId") String orderId,@RequestParam("refundAmount") Double refundAmount){
-        //refundService.dealRefundRequest(orderId,refundAmount);
+    public Map dealRefund(@RequestParam("orderId") String orderId, @RequestParam("requestSubject") String requestSubject,@RequestParam("refundAmount") Double refundAmount){
+        refundService.dealRefundRequest(orderId,requestSubject,refundAmount);
 
         return null;
     }

@@ -103,7 +103,7 @@
                             <a class="J_menuItem" href="orders" data-index="0">全部订单</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="refund_check">退款审核</a>
+                            <a class="J_menuItem" href="refund_check">终止审核</a>
                         </li>
                         <li>
                             <a class="J_menuItem" href="refund_deal">退款处理</a>

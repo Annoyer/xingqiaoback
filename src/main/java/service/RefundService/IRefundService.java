@@ -13,5 +13,5 @@ public interface IRefundService {
     public List<Orderview> getParentCancelRequest();
     public List<Orderview> getAllRefundRequest();
     public void checkRefundRequest(String orderId, String requestSubject, Boolean isAccept);
-  //  public void dealRefundRequest(String orderId, Double refundAmount);
+    public void dealRefundRequest(String orderId, String requestSubject,Double refundAmount);
 }

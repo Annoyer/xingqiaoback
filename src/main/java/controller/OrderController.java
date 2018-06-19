@@ -49,32 +49,8 @@ public class OrderController {
         mv.addObject("parent",orderService.getParentById(parentId));
         DemandWithBLOBs demand = orderService.getDemandById(demandId);
         mv.addObject("demand", demand);
-
-        switch (orders.getStatusP()){
-            case 1: mv.addObject("statusP","待治疗师确认"); break;
-            case 2: mv.addObject("statusP","待付款（治疗师已确认）"); break;
-            case 3: mv.addObject("statusP","进行中"); break;
-            case 11: mv.addObject("statusP","家长已取消订单"); break;
-            case 12: mv.addObject("statusP","治疗师逾期未处理"); break;
-            case 13: mv.addObject("statusP","治疗师拒绝的历史订单"); break;
-            case 14: mv.addObject("statusP","家长中途终止的历史订单"); break;
-            case 15: mv.addObject("statusP","订单已完成"); break;
-            case 16: mv.addObject("statusP","治疗师拒绝的订单"); break;
-            default: mv.addObject("statusP","订单状态异常");
-        }
-
-        switch (orders.getStatusT()){
-            case 1: mv.addObject("statusT","待处理"); break;
-            case 2: mv.addObject("statusT","治疗师已确认"); break;
-            case 3: mv.addObject("statusT","进行中"); break;
-            case 11: mv.addObject("statusT","家长已取消订单"); break;
-            case 12: mv.addObject("statusT","治疗师逾期未处理"); break;
-            case 13: mv.addObject("statusT","治疗师拒绝的历史订单"); break;
-            case 14: mv.addObject("statusT","家长中途终止的历史订单"); break;
-            case 15: mv.addObject("statusT","订单已完成"); break;
-            case 16: mv.addObject("statusT","治疗师拒绝的订单"); break;
-            default: mv.addObject("statusT","订单状态异常");
-        }
+        mv.addObject("statusP", orderService.getParentStatus(orders.getStatusP()));
+        mv.addObject("statusT", orderService.getTeacherStatus(orders.getStatusT()));
 
         if (orders.getTrace() != null && !orders.getTrace().isEmpty()){
             String[] traces = orders.getTrace().split("#");
@@ -134,6 +110,5 @@ public class OrderController {
         }
         return result;
     }
-
 
 }

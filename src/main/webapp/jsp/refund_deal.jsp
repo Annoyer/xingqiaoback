@@ -63,7 +63,7 @@
                                 <td>${p.sTime}</td>
                                 <td>${p.remark}</td>
                                 <td>
-                                    <a onclick="dealRefund(${p.id})">处理</a>
+                                    <a onclick="dealRefund(${p.id}, ${p.statusP})">处理</a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -80,13 +80,20 @@
 <script src="js/content.min.js?v=1.0.0"></script>
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 <script>
-    function dealRefund(orderId) {
+    function dealRefund(orderId,status) {
         var amount = prompt('请输入退款金额：', '0');
         if (checknum(amount)){
+            var requestSubject = "";
+            if (status == 6){
+                requestSubject = "p";
+            } else if (status == 9){
+                requestSubject = "t";
+            }
             $.ajax({
                 url:'dealRefund',// 跳转到 action
                 data:{
                     orderId : orderId,
+                    requestSubject: requestSubject,
                     refundAmount : parseFloat(amount)
                 },
                 type:'post',

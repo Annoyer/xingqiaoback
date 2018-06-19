@@ -17,6 +17,7 @@ import model.Message;
 import model.Orders;
 import model.Orderview;
 import net.sf.json.JSONObject;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,6 +64,16 @@ public class RefundServiceImpl implements IRefundService{
 
         } else {
             ordersMapper.rejectRefund(orderId);
+        }
+    }
+
+    public void dealRefundRequest(String orderId, String requestSubject, Double refundAmount) {
+        if (StringUtils.isEmpty(orderId)) return;
+
+        if (requestSubject.equals("p")){
+            ordersMapper.refundSuccessFromParent(orderId);
+        } else if (requestSubject.equals("t")){
+            ordersMapper.refundSuccessFromTeacher(orderId);
         }
     }
 
